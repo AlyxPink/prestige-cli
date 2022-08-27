@@ -12,18 +12,38 @@ import (
 
 var (
 	subtle    = lipgloss.AdaptiveColor{Light: "#D9DCCF", Dark: "#383838"}
+	text      = lipgloss.AdaptiveColor{Light: "#383838", Dark: "#D9DCCF"}
 	highlight = lipgloss.AdaptiveColor{Light: "#874BFD", Dark: "#7D56F4"}
 	special   = lipgloss.AdaptiveColor{Light: "#43BF6D", Dark: "#73F59F"}
 	warning   = lipgloss.AdaptiveColor{Light: "#F25D94", Dark: "#F57DA9"}
 
 	boxStyle = lipgloss.NewStyle().
-			Border(lipgloss.RoundedBorder(), true).
+			Border(lipgloss.ThickBorder(), true).
 			BorderForeground(highlight).
+			Foreground(text).
 			Padding(1).
 			Align(lipgloss.Center)
 
+	boxStyleAvailable = boxStyle.Copy().
+				BorderForeground(highlight)
+
+	boxStyleUnAvailable = boxStyle.Copy().
+				BorderForeground(warning)
+
 	boxStyleEnabled = boxStyle.Copy().
-			BorderForeground(special)
+			BorderForeground(special).
+			Background(special).
+			Foreground(lipgloss.Color(subtle.Dark)).
+			BorderStyle(lipgloss.Border{
+			Top:         "▄",
+			Bottom:      "▀",
+			Left:        "▐",
+			Right:       "▌",
+			TopLeft:     "▗",
+			TopRight:    "▖",
+			BottomRight: "▘",
+			BottomLeft:  "▝",
+		})
 )
 
 type Model struct {
@@ -101,7 +121,6 @@ func (m Model) tiersList() string {
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render("Booster")))
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render("Generator")))
 	return lipgloss.NewStyle().
-		Width((m.Width / 12) * 2).
 		Render(s.String())
 }
 
@@ -111,7 +130,6 @@ func (m Model) gameGoal() string {
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render("You have 25,348 points!")))
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render("(19.25/sec)")))
 	return lipgloss.NewStyle().
-		Width((m.Width / 12) * 10).
 		Align(lipgloss.Center).
 		Render(s.String())
 }
@@ -138,7 +156,7 @@ func (m Model) prestige() string {
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Underline(true).Render("Prestige")))
 
 	button := strings.Builder{}
-	button.WriteString(fmt.Sprintln(boxStyle.Copy().Width((m.Width / 12) * 4).Render(
+	button.WriteString(fmt.Sprintln(boxStyleAvailable.Copy().Render(
 		fmt.Sprint(
 			fmt.Sprintln("Reset for +1 generators"),
 			fmt.Sprint("Require: 25,348 / 40,000 points"),
@@ -146,7 +164,6 @@ func (m Model) prestige() string {
 	)))
 
 	return lipgloss.NewStyle().
-		Width((m.Width / 12) * 10).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
@@ -167,7 +184,7 @@ func (m Model) milestones() string {
 			fmt.Sprint(lipgloss.NewStyle().Render("Keep prestige points on reset")),
 		),
 	)))
-	milestones.WriteString(fmt.Sprintln(boxStyle.Copy().Width((m.Width / 12) * 3).Align(lipgloss.Left).Render(
+	milestones.WriteString(fmt.Sprintln(boxStyleUnAvailable.Copy().Width((m.Width / 12) * 3).Align(lipgloss.Left).Render(
 		fmt.Sprint(
 			fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("10 generators")),
 			fmt.Sprint(lipgloss.NewStyle().Render("You gain 100% prestige points every second")),
@@ -175,7 +192,6 @@ func (m Model) milestones() string {
 	)))
 
 	return lipgloss.NewStyle().
-		Width((m.Width / 12) * 5).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
@@ -191,46 +207,53 @@ func (m Model) upgrades() string {
 
 	upgrades := lipgloss.JoinHorizontal(
 		lipgloss.Top,
-		fmt.Sprint(boxStyleEnabled.Copy().Width(20).Height(8).Copy().Align(lipgloss.Left).Render(
-			fmt.Sprint(
-				fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("GP Combo")),
-				fmt.Sprintln(lipgloss.NewStyle().Render("Best Generators boost Prestige Point gain.")),
-				fmt.Sprintln(lipgloss.NewStyle().Render("Currently: 3.00x")),
-				fmt.Sprintln(),
-				fmt.Sprint(lipgloss.NewStyle().Render("Cost: 3 generators")),
+		fmt.Sprint(boxStyleEnabled.Copy().Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			lipgloss.Place(20, 8, lipgloss.Left, lipgloss.Top,
+				fmt.Sprint(
+					fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("GP Combo")),
+					fmt.Sprintln(lipgloss.NewStyle().Render("Best Generators boost Prestige Point gain.")),
+					fmt.Sprintln(lipgloss.NewStyle().Render("Currently: 3.00x")),
+					fmt.Sprintln(),
+					fmt.Sprint(lipgloss.NewStyle().Render("Cost: 3 generators")),
+				),
 			),
 		)),
-		fmt.Sprint(boxStyleEnabled.Copy().Width(20).Height(8).Copy().Align(lipgloss.Left).Render(
-			fmt.Sprint(
-				fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("GP Combo")),
-				fmt.Sprintln(lipgloss.NewStyle().Render("Best Generators boost Prestige Point gain.")),
-				fmt.Sprintln(lipgloss.NewStyle().Render("Currently: 3.00x")),
-				fmt.Sprintln(),
-				fmt.Sprint(lipgloss.NewStyle().Render("Cost: 3 generators")),
+		fmt.Sprint(boxStyleEnabled.Copy().Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			lipgloss.Place(20, 8, lipgloss.Left, lipgloss.Top,
+				fmt.Sprint(
+					fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("GP Combo")),
+					fmt.Sprintln(lipgloss.NewStyle().Render("Best Generators boost Prestige Point gain.")),
+					fmt.Sprintln(lipgloss.NewStyle().Render("Currently: 3.00x")),
+					fmt.Sprintln(),
+					fmt.Sprint(lipgloss.NewStyle().Render("Cost: 3 generators")),
+				),
 			),
 		)),
-		fmt.Sprint(boxStyle.Copy().Width(20).Height(8).Copy().Align(lipgloss.Left).Render(
-			fmt.Sprint(
-				fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("GP Combo")),
-				fmt.Sprintln(lipgloss.NewStyle().Render("Best Generators boost Prestige Point gain.")),
-				fmt.Sprintln(lipgloss.NewStyle().Render("Currently: 3.00x")),
-				fmt.Sprintln(),
-				fmt.Sprint(lipgloss.NewStyle().Render("Cost: 3 generators")),
+		fmt.Sprint(boxStyleAvailable.Copy().Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			lipgloss.Place(20, 8, lipgloss.Left, lipgloss.Top,
+				fmt.Sprint(
+					fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("GP Combo")),
+					fmt.Sprintln(lipgloss.NewStyle().Render("Best Generators boost Prestige Point gain.")),
+					fmt.Sprintln(lipgloss.NewStyle().Render("Currently: 3.00x")),
+					fmt.Sprintln(),
+					fmt.Sprint(lipgloss.NewStyle().Render("Cost: 3 generators")),
+				),
 			),
 		)),
-		fmt.Sprint(boxStyle.Copy().Width(20).Height(8).Copy().Align(lipgloss.Left).Render(
-			fmt.Sprint(
-				fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("GP Combo")),
-				fmt.Sprintln(lipgloss.NewStyle().Render("Best Generators boost Prestige Point gain.")),
-				fmt.Sprintln(lipgloss.NewStyle().Render("Currently: 3.00x")),
-				fmt.Sprintln(),
-				fmt.Sprint(lipgloss.NewStyle().Render("Cost: 3 generators")),
+		fmt.Sprint(boxStyleUnAvailable.Copy().Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			lipgloss.Place(20, 8, lipgloss.Left, lipgloss.Top,
+				fmt.Sprint(
+					fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("GP Combo")),
+					fmt.Sprintln(lipgloss.NewStyle().Render("Best Generators boost Prestige Point gain.")),
+					fmt.Sprintln(lipgloss.NewStyle().Render("Currently: 3.00x")),
+					fmt.Sprintln(),
+					fmt.Sprint(lipgloss.NewStyle().Render("Cost: 3 generators")),
+				),
 			),
 		)),
 	)
 
 	return lipgloss.NewStyle().
-		Width((m.Width / 12) * 5).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
