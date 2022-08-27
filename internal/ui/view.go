@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/prestige_points"
+	prestige_points "github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1-prestige_points"
 )
 
 func (m Model) View() string {
@@ -45,5 +45,4 @@ func (m *Model) setLayers(newLayers []layers.Layer) {
 func (m *Model) setCurrentLayer(layer layers.Layer) {
 	m.currLayer = m.getCurrLayer()
 	m.currLayerId = layer.Id()
-	m.onViewedRowChanged()
 }

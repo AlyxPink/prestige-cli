@@ -68,7 +68,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case layers.LayerMsg:
 		cmd = m.updateCurrentLayer(msg)
-		m.onViewedRowChanged()
 
 	case tea.WindowSizeMsg:
 		m.onWindowSizeChanged(msg)
@@ -91,8 +90,6 @@ func tickCmd() tea.Cmd {
 func (m *Model) getLayers() []layers.Layer {
 	return m.layers
 }
-
-func (m *Model) onViewedRowChanged() {}
 
 func (m *Model) onWindowSizeChanged(msg tea.WindowSizeMsg) {
 	m.ctx.ScreenWidth = msg.Width
