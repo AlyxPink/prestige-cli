@@ -11,11 +11,12 @@ import (
 )
 
 var (
-	subtle    = lipgloss.AdaptiveColor{Light: "#D9DCCF", Dark: "#383838"}
-	text      = lipgloss.AdaptiveColor{Light: "#383838", Dark: "#D9DCCF"}
-	highlight = lipgloss.AdaptiveColor{Light: "#874BFD", Dark: "#7D56F4"}
-	special   = lipgloss.AdaptiveColor{Light: "#43BF6D", Dark: "#73F59F"}
-	warning   = lipgloss.AdaptiveColor{Light: "#F25D94", Dark: "#F57DA9"}
+	subtle       = lipgloss.AdaptiveColor{Light: "#D9DCCF", Dark: "#383838"}
+	text         = lipgloss.AdaptiveColor{Light: "#383838", Dark: "#D9DCCF"}
+	textDisabled = lipgloss.AdaptiveColor{Light: "#888888", Dark: "#82847c"}
+	highlight    = lipgloss.AdaptiveColor{Light: "#874BFD", Dark: "#7D56F4"}
+	special      = lipgloss.AdaptiveColor{Light: "#43BF6D", Dark: "#73F59F"}
+	warning      = lipgloss.AdaptiveColor{Light: "#F25D94", Dark: "#F57DA9"}
 
 	statusCircle        = lipgloss.NewStyle().PaddingRight(1)
 	prestigeAvailable   = statusCircle.Copy().Foreground(special)
@@ -120,26 +121,26 @@ func tick() tea.Cmd {
 
 func (m Model) tiersList() string {
 	s := strings.Builder{}
-	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Bold(true).Underline(true).Render("Tier I")))
+	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Foreground(text).Bold(true).Underline(true).Render("Tier I")))
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render(
 		lipgloss.JoinHorizontal(lipgloss.Left,
 			prestigeAvailable.Render("●"),
 			upgradeAvailable.Render("●"),
-			"Prestige Points",
+			lipgloss.NewStyle().Foreground(text).Render("Prestige Points"),
 		))))
 	s.WriteString(fmt.Sprintln())
-	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Bold(true).Underline(true).Render("Tier II")))
+	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Foreground(text).Bold(true).Underline(true).Render("Tier II")))
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render(
 		lipgloss.JoinHorizontal(lipgloss.Left,
 			prestigeAvailable.Render("●"),
 			upgradeUnavailable.Render("●"),
-			"Booster",
+			lipgloss.NewStyle().Foreground(text).Render("Booster"),
 		))))
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render(
 		lipgloss.JoinHorizontal(lipgloss.Left,
 			prestigeUnavailable.Render("●"),
 			upgradeUnavailable.Render("●"),
-			"Generator",
+			lipgloss.NewStyle().Foreground(textDisabled).Render("Generator"),
 		))))
 	return lipgloss.NewStyle().
 		Width((m.Width / 12) * 2).
