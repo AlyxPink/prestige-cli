@@ -1,4 +1,4 @@
-package prestige_points
+package boosters
 
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
@@ -15,7 +15,7 @@ func NewModel(id int, ctx *context.ProgramContext) Model {
 		layer: &layers.Model{
 			Id:   id,
 			Ctx:  ctx,
-			Name: "Prestige Points",
+			Name: "Boosters",
 		},
 	}
 
@@ -39,10 +39,10 @@ func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 }
 
 func (m *Model) View() string {
-	return ""
+	return "Boosters"
 }
 
-func Fetch(ctx context.ProgramContext) (layer layers.Layer) {
-	layerModel := NewModel(0, &ctx)
+func Fetch(id int, ctx context.ProgramContext) (layer layers.Layer) {
+	layerModel := NewModel(id, &ctx)
 	return &layerModel
 }

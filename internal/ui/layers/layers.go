@@ -8,6 +8,7 @@ import (
 
 type Model struct {
 	Id         int
+	Tier       int
 	Ctx        *context.ProgramContext
 	Name       string
 	Count      float64
@@ -22,7 +23,7 @@ type Layer interface {
 	View() string
 }
 
-func (m *Model) View(contentBlocks []string, sidebarBlocks []string) string {
+func (m *Model) View() string {
 	return ""
 }
 
