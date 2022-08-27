@@ -21,8 +21,8 @@ var (
 	statusCircle        = lipgloss.NewStyle().PaddingRight(1)
 	prestigeAvailable   = statusCircle.Copy().Foreground(special)
 	upgradeAvailable    = statusCircle.Copy().Foreground(highlight)
-	prestigeUnavailable = statusCircle.Copy().Foreground(text).Bold(true)
-	upgradeUnavailable  = statusCircle.Copy().Foreground(text)
+	prestigeUnavailable = statusCircle.Copy().Foreground(textDisabled).Bold(true)
+	upgradeUnavailable  = statusCircle.Copy().Foreground(textDisabled)
 
 	boxStyle = lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder(), true).
