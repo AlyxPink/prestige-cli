@@ -100,8 +100,11 @@ func (m Model) View() string {
 		lipgloss.JoinVertical(
 			lipgloss.Top,
 			m.gameGoal(),
-			m.stats(),
-			m.prestige(),
+			lipgloss.JoinHorizontal(
+				lipgloss.Top,
+				m.prestige(),
+				m.stats(),
+			),
 			lipgloss.JoinHorizontal(
 				lipgloss.Top,
 				m.milestones(),
@@ -169,8 +172,8 @@ func (m Model) stats() string {
 	s2.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render("Total of 64 generators")))
 	return lipgloss.JoinHorizontal(
 		lipgloss.Top,
-		lipgloss.NewStyle().Width((m.Width/12)*5).Align(lipgloss.Left).Render(s1.String()),
-		lipgloss.NewStyle().Width((m.Width/12)*5).Align(lipgloss.Left).Render(s2.String()),
+		lipgloss.NewStyle().Width((m.Width/12)*4).Align(lipgloss.Left).Render(s1.String()),
+		lipgloss.NewStyle().Width((m.Width/12)*4).Align(lipgloss.Left).Render(s2.String()),
 	)
 }
 
@@ -187,7 +190,7 @@ func (m Model) prestige() string {
 	)))
 
 	return lipgloss.NewStyle().
-		Width((m.Width / 12) * 10).
+		Width((m.Width / 12) * 4).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,

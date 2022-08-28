@@ -48,7 +48,7 @@ func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 }
 
 func (m *Model) View() string {
-	return "Prestige Points"
+	return m.layer.View()
 }
 
 func Fetch(id int, ctx context.ProgramContext) (layer layers.Layer) {
