@@ -50,10 +50,6 @@ func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	return &m, cmd
 }
 
-func (m *Model) View() string {
-	return "Generators"
-}
-
 func Fetch(id int, ctx context.ProgramContext) (layer layers.Layer) {
 	layerModel := NewModel(id, &ctx)
 	return &layerModel

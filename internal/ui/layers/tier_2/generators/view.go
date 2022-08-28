@@ -1,4 +1,4 @@
-package layers
+package generators
 
 import (
 	"fmt"
@@ -36,8 +36,8 @@ func (m *Model) stats() string {
 	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render("Total of 64 generators")))
 	return lipgloss.JoinHorizontal(
 		lipgloss.Top,
-		styles.MainText.Copy().Width((m.dimensions.Width/12)*4).Align(lipgloss.Left).Render(s1.String()),
-		styles.MainText.Copy().Width((m.dimensions.Width/12)*4).Align(lipgloss.Left).Render(s2.String()),
+		styles.MainText.Copy().Width((m.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s1.String()),
+		styles.MainText.Copy().Width((m.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s2.String()),
 	)
 }
 
@@ -54,7 +54,7 @@ func (m *Model) prestige() string {
 	)))
 
 	return lipgloss.NewStyle().
-		Width((m.dimensions.Width / 12) * 4).
+		Width((m.layer.GetDimensions().Width / 12) * 4).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
@@ -69,13 +69,13 @@ func (m *Model) milestones() string {
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Milestones")))
 
 	milestones := strings.Builder{}
-	milestones.WriteString(fmt.Sprintln(styles.BoxStyleEnabled.Copy().Width((m.dimensions.Width / 12) * 3).Align(lipgloss.Left).Render(
+	milestones.WriteString(fmt.Sprintln(styles.BoxStyleEnabled.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
 		fmt.Sprint(
 			fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render("8 generators")),
 			fmt.Sprint(styles.SubtleMainText.Copy().Render("Keep prestige points on reset")),
 		),
 	)))
-	milestones.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Width((m.dimensions.Width / 12) * 3).Align(lipgloss.Left).Render(
+	milestones.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
 		fmt.Sprint(
 			fmt.Sprintln(styles.MainText.Copy().Bold(true).Render("10 generators")),
 			fmt.Sprint(styles.MainText.Copy().Render("You gain 100% prestige points every second")),
@@ -83,7 +83,7 @@ func (m *Model) milestones() string {
 	)))
 
 	return lipgloss.NewStyle().
-		Width((m.dimensions.Width / 12) * 4).
+		Width((m.layer.GetDimensions().Width / 12) * 4).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
@@ -180,7 +180,7 @@ func (m *Model) upgrades() string {
 	)
 
 	return lipgloss.NewStyle().
-		Width((m.dimensions.Width / 12) * 6).
+		Width((m.layer.GetDimensions().Width / 12) * 6).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
