@@ -26,6 +26,11 @@ var (
 			Padding(0, 1).
 			Background(highlight)
 
+	TierTitle = MainTextStyle.Copy().
+			MarginTop(1).
+			Bold(true).
+			Underline(true)
+
 	boxStyle = lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder(), true).
 			BorderForeground(highlight).

@@ -14,7 +14,7 @@ import (
 type (
 	tickMsg time.Time
 	Model   struct {
-		points        float64
+		points        uint64
 		keys          utils.KeyMap
 		err           error
 		currLayerId   int

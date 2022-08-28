@@ -27,7 +27,7 @@ func (m Model) View() string {
 	if m.currLayer != nil {
 		mainContent = lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			m.tiersList(),
+			m.layersList(),
 			lipgloss.JoinVertical(
 				lipgloss.Top,
 				m.gameGoal(),
@@ -60,35 +60,46 @@ func (m *Model) setCurrentLayer(layer layers.Layer) {
 	m.currLayerId = layer.Id()
 }
 
-func (m Model) tiersList() string {
+func (m Model) layersList() string {
+	currTier := 0
 	s := strings.Builder{}
 	for _, layer := range m.fetchLayers() {
-		titleStyle := styles.TierDefault
-		if layer.Id() == m.currLayerId {
-			titleStyle = styles.TierEnabled
+		if currTier != layer.Tier() {
+			s.WriteString(fmt.Sprintln(m.tierTitle(layer)))
+			currTier = layer.Tier()
 		}
-		s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render(
-			lipgloss.JoinHorizontal(lipgloss.Left,
-				styles.PrestigeAvailable.Render(styles.DefaultGlyphs.PrestigeStatus),
-				styles.UpgradeAvailable.Render(styles.DefaultGlyphs.UpgradeStatus),
-				titleStyle.Copy().Render(
-					fmt.Sprintf(
-						"Tier: %d %s", layer.Tier(),
-						layer.Name(),
-					),
-				),
-			),
-		)))
+		s.WriteString(m.layerTitle(layer))
 	}
 	return lipgloss.NewStyle().
 		Width((m.ctx.ScreenWidth / 12) * 2).
 		Render(s.String())
 }
 
+func (m Model) layerTitle(layer layers.Layer) string {
+	titleStyle := styles.TierDefault
+	if layer.Id() == m.currLayerId {
+		titleStyle = styles.TierEnabled
+	}
+	prestigeStatus := styles.PrestigeAvailable.Render(styles.DefaultGlyphs.PrestigeStatus)
+	upgradeStatus := styles.UpgradeAvailable.Render(styles.DefaultGlyphs.UpgradeStatus)
+	title := titleStyle.Copy().Render(layer.Name())
+	return fmt.Sprintln(lipgloss.JoinHorizontal(lipgloss.Left, prestigeStatus, upgradeStatus, title))
+}
+
+func (m Model) tierTitle(layer layers.Layer) string {
+	tierTitleStyle := styles.TierTitle
+	tierTitleText := fmt.Sprintf("Tier %d", layer.Tier())
+	// Remove margin top for the first tier
+	if layer.Tier() == 1 {
+		return fmt.Sprintf(tierTitleStyle.Copy().UnsetMarginTop().Render(tierTitleText))
+	}
+	return fmt.Sprintf(tierTitleStyle.Render(tierTitleText))
+}
+
 func (m Model) gameGoal() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("Reach e3.140e16 points to beat the game!")))
-	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("You have 25,348 points! (19.25/sec)")))
+	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render(fmt.Sprintf("You have %d points! (19.25/sec)", m.points))))
 	return lipgloss.NewStyle().
 		Align(lipgloss.Center).
 		Width((m.ctx.ScreenWidth / 12) * 10).
