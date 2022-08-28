@@ -14,6 +14,7 @@ func NewModel(id int, ctx *context.ProgramContext) Model {
 	m := Model{
 		layer: &layers.Model{
 			Id:   id,
+			Tier: 2,
 			Ctx:  ctx,
 			Name: "Boosters",
 		},
@@ -28,6 +29,10 @@ func (m *Model) Id() int {
 
 func (m *Model) Name() string {
 	return m.layer.Name
+}
+
+func (m *Model) Tier() int {
+	return m.layer.Tier
 }
 
 func (m *Model) UpdateProgramContext(ctx *context.ProgramContext) {
