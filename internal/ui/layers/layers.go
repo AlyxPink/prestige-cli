@@ -20,6 +20,7 @@ type Layer interface {
 	Tier() int
 	Name() string
 	Tick()
+	Prestige()
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	UpdateProgramContext(ctx *context.ProgramContext)
 	View() string
