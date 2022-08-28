@@ -42,6 +42,9 @@ func (m *Model) UpdateProgramContext(ctx *context.ProgramContext) {
 func (m *Model) Tick() {
 }
 
+func (m *Model) Prestige() {
+}
+
 func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &m, cmd

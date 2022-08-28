@@ -50,6 +50,9 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			nextLayer := m.getLayerAt(m.getNextLayerId())
 			m.setCurrentLayer(nextLayer)
 
+		case key.Matches(msg, m.keys.Prestige):
+			m.currLayer.Prestige()
+
 		case key.Matches(msg, m.keys.Quit):
 			cmd = tea.Quit
 		}
