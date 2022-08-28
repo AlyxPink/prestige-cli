@@ -17,14 +17,11 @@ type Model struct {
 
 type Layer interface {
 	Id() int
+	Name() string
 	Tick()
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	UpdateProgramContext(ctx *context.ProgramContext)
 	View() string
-}
-
-func (m *Model) View() string {
-	return ""
 }
 
 type LayerMsg interface {

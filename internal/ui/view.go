@@ -62,27 +62,18 @@ func (m *Model) setCurrentLayer(layer layers.Layer) {
 
 func (m Model) tiersList() string {
 	s := strings.Builder{}
-	s.WriteString(fmt.Sprintln(styles.MainTextStyle.Copy().Bold(true).Underline(true).Render("Tier I")))
-	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render(
-		lipgloss.JoinHorizontal(lipgloss.Left,
-			styles.PrestigeAvailable.Render("●"),
-			styles.UpgradeAvailable.Render("●"),
-			styles.MainTextStyle.Copy().Render("Prestige Points"),
-		))))
-	s.WriteString(fmt.Sprintln())
-	s.WriteString(fmt.Sprintln(styles.MainTextStyle.Copy().Bold(true).Underline(true).Render("Tier II")))
-	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render(
-		lipgloss.JoinHorizontal(lipgloss.Left,
-			styles.PrestigeAvailable.Render("●"),
-			styles.UpgradeUnavailable.Render("●"),
-			styles.MainTextStyle.Copy().Render("Booster"),
-		))))
-	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render(
-		lipgloss.JoinHorizontal(lipgloss.Left,
-			styles.PrestigeUnavailable.Render("●"),
-			styles.UpgradeUnavailable.Render("●"),
-			styles.DisabledTextStyle.Render("Generator"),
-		))))
+	for _, layer := range m.fetchLayers() {
+		style := styles.MainTextStyle
+		if layer.Id() == m.currLayerId {
+			style = styles.TierEnabled
+		}
+		s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render(
+			lipgloss.JoinHorizontal(lipgloss.Left,
+				styles.PrestigeAvailable.Render(styles.DefaultGlyphs.PrestigeStatus),
+				styles.UpgradeAvailable.Render(styles.DefaultGlyphs.UpgradeStatus),
+				style.Copy().Render(layer.Name()),
+			))))
+	}
 	return lipgloss.NewStyle().
 		Width((m.ctx.ScreenWidth / 12) * 2).
 		Render(s.String())
