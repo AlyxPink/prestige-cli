@@ -16,17 +16,18 @@ var (
 	PrestigeUnavailable = statusCircle.Copy().Foreground(textDisabled).Bold(true)
 	UpgradeUnavailable  = statusCircle.Copy().Foreground(textDisabled)
 
-	MainTextStyle     = lipgloss.NewStyle().Foreground(text)
+	MainText          = lipgloss.NewStyle().Foreground(text)
+	SubtleMainText    = lipgloss.NewStyle().Foreground(subtle)
 	DisabledTextStyle = lipgloss.NewStyle().Foreground(textDisabled)
 
-	TierDefault = MainTextStyle.Copy().
+	TierDefault = MainText.Copy().
 			Padding(0, 1)
-	TierEnabled = MainTextStyle.Copy().
+	TierEnabled = MainText.Copy().
 			Bold(true).
 			Padding(0, 1).
 			Background(highlight)
 
-	TierTitle = MainTextStyle.Copy().
+	TierTitle = MainText.Copy().
 			MarginTop(1).
 			Bold(true).
 			Underline(true)
