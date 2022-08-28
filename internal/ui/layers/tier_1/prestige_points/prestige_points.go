@@ -26,6 +26,10 @@ func (m *Model) Id() int {
 	return m.layer.Id
 }
 
+func (m *Model) Name() string {
+	return m.layer.Name
+}
+
 func (m *Model) UpdateProgramContext(ctx *context.ProgramContext) {
 	m.layer.UpdateProgramContext(ctx)
 }

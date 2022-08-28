@@ -19,6 +19,10 @@ var (
 	MainTextStyle     = lipgloss.NewStyle().Foreground(text)
 	DisabledTextStyle = lipgloss.NewStyle().Foreground(textDisabled)
 
+	TierEnabled = MainTextStyle.Copy().
+			Bold(true).
+			Background(highlight)
+
 	boxStyle = lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder(), true).
 			BorderForeground(highlight).
