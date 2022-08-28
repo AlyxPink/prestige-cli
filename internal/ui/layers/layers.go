@@ -17,6 +17,7 @@ type Model struct {
 
 type Layer interface {
 	Id() int
+	Tier() int
 	Name() string
 	Tick()
 	Update(msg tea.Msg) (Layer, tea.Cmd)
@@ -26,7 +27,6 @@ type Layer interface {
 
 type LayerMsg interface {
 	GetLayerId() int
-	GetLayerName() string
 }
 
 type LayerTickMsg struct {
@@ -37,10 +37,6 @@ type LayerTickMsg struct {
 
 func (msg LayerTickMsg) GetLayerId() int {
 	return msg.LayerId
-}
-
-func (msg LayerTickMsg) GetLayerName() string {
-	return msg.Name
 }
 
 func (m *Model) GetDimensions() constants.Dimensions {

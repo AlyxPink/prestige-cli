@@ -63,16 +63,22 @@ func (m *Model) setCurrentLayer(layer layers.Layer) {
 func (m Model) tiersList() string {
 	s := strings.Builder{}
 	for _, layer := range m.fetchLayers() {
-		style := styles.MainTextStyle
+		titleStyle := styles.TierDefault
 		if layer.Id() == m.currLayerId {
-			style = styles.TierEnabled
+			titleStyle = styles.TierEnabled
 		}
 		s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Render(
 			lipgloss.JoinHorizontal(lipgloss.Left,
 				styles.PrestigeAvailable.Render(styles.DefaultGlyphs.PrestigeStatus),
 				styles.UpgradeAvailable.Render(styles.DefaultGlyphs.UpgradeStatus),
-				style.Copy().Render(layer.Name()),
-			))))
+				titleStyle.Copy().Render(
+					fmt.Sprintf(
+						"Tier: %d %s", layer.Tier(),
+						layer.Name(),
+					),
+				),
+			),
+		)))
 	}
 	return lipgloss.NewStyle().
 		Width((m.ctx.ScreenWidth / 12) * 2).
