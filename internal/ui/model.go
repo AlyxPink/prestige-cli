@@ -14,14 +14,13 @@ import (
 type (
 	tickMsg time.Time
 	Model   struct {
-		points        uint64
-		keys          utils.KeyMap
-		err           error
-		currLayerId   int
-		currLayer     layers.Layer
-		currUpgradeId int
-		layers        []layers.Layer
-		ctx           context.ProgramContext
+		points      uint64
+		keys        utils.KeyMap
+		err         error
+		currLayerId int
+		currLayer   layers.Layer
+		layers      []layers.Layer
+		ctx         context.ProgramContext
 	}
 )
 
