@@ -184,8 +184,8 @@ func (m Model) prestige() string {
 	button := strings.Builder{}
 	button.WriteString(fmt.Sprintln(boxStyleAvailable.Copy().Render(
 		fmt.Sprint(
-			fmt.Sprintln("Reset for +1 generators"),
-			fmt.Sprint("Require: 25,348 / 40,000 points"),
+			"Reset for +1 generators",
+			"Require: 25,348 / 40,000 points",
 		),
 	)))
 

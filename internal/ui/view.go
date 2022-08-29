@@ -91,9 +91,9 @@ func (m Model) tierTitle(layer layers.Layer) string {
 	tierTitleText := fmt.Sprintf("Tier %d", layer.Tier())
 	// Remove margin top for the first tier
 	if layer.Tier() == 1 {
-		return fmt.Sprintf(tierTitleStyle.Copy().UnsetMarginTop().Render(tierTitleText))
+		return fmt.Sprint(tierTitleStyle.Copy().UnsetMarginTop().Render(tierTitleText))
 	}
-	return fmt.Sprintf(tierTitleStyle.Render(tierTitleText))
+	return fmt.Sprint(tierTitleStyle.Render(tierTitleText))
 }
 
 func (m Model) gameGoal() string {
