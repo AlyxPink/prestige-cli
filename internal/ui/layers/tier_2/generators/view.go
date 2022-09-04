@@ -48,8 +48,8 @@ func (m *Model) prestige() string {
 	button := strings.Builder{}
 	button.WriteString(fmt.Sprintln(styles.BoxStyleAvailable.Copy().Render(
 		fmt.Sprint(
-			"Reset for +1 generators",
-			"Require: 25,348 / 40,000 points",
+			fmt.Sprintln("Reset for +1 generators"),
+			fmt.Sprintln("Require: 25,348 / 40,000 points"),
 		),
 	)))
 
@@ -101,7 +101,7 @@ func (m *Model) upgrades() string {
 		lipgloss.Top,
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			styles.BoxStyleEnabled.Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			styles.UpgradeBoxEnabled.Copy().Align(lipgloss.Left).Render(
 				fmt.Sprint(
 					fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render("GP Combo")),
 					fmt.Sprintln(styles.SubtleMainText.Copy().Render("Best Generators boost Prestige Point gain.")),
@@ -110,7 +110,7 @@ func (m *Model) upgrades() string {
 					fmt.Sprint(styles.SubtleMainText.Render("Cost: 3 generators")),
 				),
 			),
-			styles.BoxStyleEnabled.Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			styles.UpgradeBoxEnabled.Copy().Align(lipgloss.Left).Render(
 				fmt.Sprint(
 					fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render("GP Combo")),
 					fmt.Sprintln(styles.SubtleMainText.Copy().Render("Best Generators boost Prestige Point gain.")),
@@ -119,7 +119,7 @@ func (m *Model) upgrades() string {
 					fmt.Sprint(styles.SubtleMainText.Copy().Render("Cost: 3 generators")),
 				),
 			),
-			styles.BoxStyleEnabled.Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			styles.UpgradeBoxEnabled.Copy().Align(lipgloss.Left).Render(
 				fmt.Sprint(
 					fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render("GP Combo")),
 					fmt.Sprintln(styles.SubtleMainText.Copy().Render("Best Generators boost Prestige Point gain.")),
@@ -128,7 +128,7 @@ func (m *Model) upgrades() string {
 					fmt.Sprint(styles.SubtleMainText.Copy().Render("Cost: 3 generators")),
 				),
 			),
-			styles.BoxStyleEnabled.Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			styles.UpgradeBoxEnabled.Copy().Align(lipgloss.Left).Render(
 				fmt.Sprint(
 					fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render("GP Combo")),
 					fmt.Sprintln(styles.SubtleMainText.Copy().Render("Best Generators boost Prestige Point gain.")),
@@ -140,7 +140,7 @@ func (m *Model) upgrades() string {
 		),
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			styles.BoxStyleEnabled.Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			styles.UpgradeBoxEnabled.Copy().Align(lipgloss.Left).Render(
 				fmt.Sprint(
 					fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render("GP Combo")),
 					fmt.Sprintln(styles.SubtleMainText.Copy().Render("Best Generators boost Prestige Point gain.")),
@@ -149,7 +149,7 @@ func (m *Model) upgrades() string {
 					fmt.Sprint(styles.SubtleMainText.Copy().Render("Cost: 3 generators")),
 				),
 			),
-			styles.BoxStyleEnabled.Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			styles.UpgradeBoxEnabled.Copy().Align(lipgloss.Left).Render(
 				fmt.Sprint(
 					fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render("GP Combo")),
 					fmt.Sprintln(styles.SubtleMainText.Copy().Render("Best Generators boost Prestige Point gain.")),
@@ -158,7 +158,7 @@ func (m *Model) upgrades() string {
 					fmt.Sprint(styles.SubtleMainText.Copy().Render("Cost: 3 generators")),
 				),
 			),
-			styles.BoxStyleAvailable.Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			styles.UpgradeBoxAvailable.Copy().Align(lipgloss.Left).Render(
 				fmt.Sprint(
 					fmt.Sprintln(styles.MainText.Copy().Bold(true).Render("GP Combo")),
 					fmt.Sprintln(styles.MainText.Copy().Render("Best Generators boost Prestige Point gain.")),
@@ -167,7 +167,7 @@ func (m *Model) upgrades() string {
 					fmt.Sprint(styles.MainText.Copy().Render("Cost: 3 generators")),
 				),
 			),
-			styles.BoxStyleUnAvailable.Copy().Width(20).Height(8).Align(lipgloss.Left).Render(
+			styles.UpgradeBoxUnAvailable.Copy().Align(lipgloss.Left).Render(
 				fmt.Sprint(
 					fmt.Sprintln(styles.MainText.Copy().Bold(true).Render("GP Combo")),
 					fmt.Sprintln(styles.MainText.Copy().Render("Best Generators boost Prestige Point gain.")),

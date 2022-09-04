@@ -59,4 +59,8 @@ var (
 			BottomRight: "▘",
 			BottomLeft:  "▝",
 		})
+
+	UpgradeBoxAvailable   = BoxStyleAvailable.Copy().Width(25).Height(12)
+	UpgradeBoxUnAvailable = BoxStyleUnAvailable.Copy().Width(25).Height(12)
+	UpgradeBoxEnabled     = BoxStyleEnabled.Copy().Width(25).Height(12)
 )
