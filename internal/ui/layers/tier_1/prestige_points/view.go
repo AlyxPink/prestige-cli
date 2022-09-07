@@ -82,7 +82,7 @@ func (pp *PrestigePoints) listUpgrades() string {
 		lipgloss.Top,
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			upgrades.ListUpgrades(pp.upgrades),
+			upgrades.ListUpgrades(pp.upgrades)...,
 		),
 	)
 
