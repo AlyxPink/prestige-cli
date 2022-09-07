@@ -28,7 +28,7 @@ func (pp *PrestigePoints) View() string {
 func (pp *PrestigePoints) viewStats() string {
 	s1 := strings.Builder{}
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("You have:")))
-	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render(fmt.Sprintf("%f prestige points", pp.layer.Count))))
+	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render(fmt.Sprintf("%.2f prestige points", pp.layer.Count))))
 	s2 := strings.Builder{}
 	s2.WriteString(fmt.Sprintln())
 	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render("Your best prestige points is 767")))
