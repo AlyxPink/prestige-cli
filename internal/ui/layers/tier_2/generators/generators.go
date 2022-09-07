@@ -11,7 +11,7 @@ type Generators struct {
 }
 
 func NewModel(id int, ctx *context.ProgramContext) Generators {
-	m := Generators{
+	g := Generators{
 		layer: &layers.Model{
 			Id:   id,
 			Tier: 2,
@@ -20,38 +20,38 @@ func NewModel(id int, ctx *context.ProgramContext) Generators {
 		},
 	}
 
-	return m
+	return g
 }
 
-func (m *Generators) Id() int {
-	return m.layer.Id
+func (g *Generators) Id() int {
+	return g.layer.Id
 }
 
-func (m *Generators) Name() string {
-	return m.layer.Name
+func (g *Generators) Name() string {
+	return g.layer.Name
 }
 
-func (m *Generators) Tier() int {
-	return m.layer.Tier
+func (g *Generators) Tier() int {
+	return g.layer.Tier
 }
 
-func (m *Generators) UpdateProgramContext(ctx *context.ProgramContext) {
-	m.layer.UpdateProgramContext(ctx)
+func (g *Generators) UpdateProgramContext(ctx *context.ProgramContext) {
+	g.layer.UpdateProgramContext(ctx)
 }
 
-func (m *Generators) Tick() {
+func (g *Generators) Tick() {
 }
 
-func (m *Generators) Prestige() {
+func (g *Generators) Prestige() {
 }
 
-func (m *Generators) NextPrestigeAt() float64 {
+func (g *Generators) NextPrestigeAt() float64 {
 	return 10
 }
 
-func (m Generators) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
+func (g Generators) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
-	return &m, cmd
+	return &g, cmd
 }
 
 func Fetch(id int, ctx context.ProgramContext) (layer layers.Layer) {

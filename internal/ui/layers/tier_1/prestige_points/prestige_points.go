@@ -15,7 +15,7 @@ type PrestigePoints struct {
 }
 
 func NewModel(id int, points *points.Points, ctx *context.ProgramContext) PrestigePoints {
-	m := PrestigePoints{
+	pp := PrestigePoints{
 		Points: points,
 		layer: &layers.Model{
 			Id:   id,
@@ -57,7 +57,7 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Presti
 		},
 	}
 
-	return m
+	return pp
 }
 
 func (pp *PrestigePoints) Id() int {
