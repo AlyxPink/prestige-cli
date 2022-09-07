@@ -8,7 +8,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func (m *Model) View() string {
+func (m *Generators) View() string {
 	return lipgloss.JoinVertical(
 		lipgloss.Top,
 		lipgloss.JoinHorizontal(
@@ -24,7 +24,7 @@ func (m *Model) View() string {
 	)
 }
 
-func (m *Model) stats() string {
+func (m *Generators) stats() string {
 	s1 := strings.Builder{}
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("You have:")))
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render("2 generators, generating 3.00 Generator Power/sec")))
@@ -41,7 +41,7 @@ func (m *Model) stats() string {
 	)
 }
 
-func (m *Model) prestige() string {
+func (m *Generators) prestige() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Prestige")))
 
@@ -64,7 +64,7 @@ func (m *Model) prestige() string {
 		)
 }
 
-func (m *Model) milestones() string {
+func (m *Generators) milestones() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Milestones")))
 
@@ -93,7 +93,7 @@ func (m *Model) milestones() string {
 		)
 }
 
-func (m *Model) upgrades() string {
+func (m *Generators) upgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 

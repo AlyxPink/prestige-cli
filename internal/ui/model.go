@@ -6,6 +6,7 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/config"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
+	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/utils"
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
@@ -14,7 +15,7 @@ import (
 type (
 	tickMsg time.Time
 	Model   struct {
-		points      uint64
+		Points      *points.Points
 		keys        utils.KeyMap
 		err         error
 		currLayerId int
@@ -26,7 +27,7 @@ type (
 
 func NewModel() Model {
 	return Model{
-		points: 10,
+		Points: &points.Points{Amount: 10},
 		keys:   utils.Keys,
 		ctx:    context.ProgramContext{Config: &config.Config{}},
 	}

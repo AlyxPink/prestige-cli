@@ -20,10 +20,15 @@ type Layer interface {
 	Tier() int
 	Name() string
 	Tick()
-	Prestige()
+	prestigable
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	UpdateProgramContext(ctx *context.ProgramContext)
 	View() string
+}
+
+type prestigable interface {
+	Prestige()
+	NextPrestigeAt() float64
 }
 
 type LayerMsg interface {

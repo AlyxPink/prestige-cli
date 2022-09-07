@@ -6,12 +6,12 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-type Model struct {
+type Generators struct {
 	layer *layers.Model
 }
 
-func NewModel(id int, ctx *context.ProgramContext) Model {
-	m := Model{
+func NewModel(id int, ctx *context.ProgramContext) Generators {
+	m := Generators{
 		layer: &layers.Model{
 			Id:   id,
 			Tier: 2,
@@ -23,29 +23,33 @@ func NewModel(id int, ctx *context.ProgramContext) Model {
 	return m
 }
 
-func (m *Model) Id() int {
+func (m *Generators) Id() int {
 	return m.layer.Id
 }
 
-func (m *Model) Name() string {
+func (m *Generators) Name() string {
 	return m.layer.Name
 }
 
-func (m *Model) Tier() int {
+func (m *Generators) Tier() int {
 	return m.layer.Tier
 }
 
-func (m *Model) UpdateProgramContext(ctx *context.ProgramContext) {
+func (m *Generators) UpdateProgramContext(ctx *context.ProgramContext) {
 	m.layer.UpdateProgramContext(ctx)
 }
 
-func (m *Model) Tick() {
+func (m *Generators) Tick() {
 }
 
-func (m *Model) Prestige() {
+func (m *Generators) Prestige() {
 }
 
-func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
+func (m *Generators) NextPrestigeAt() float64 {
+	return 10
+}
+
+func (m Generators) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &m, cmd
 }

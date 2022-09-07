@@ -6,12 +6,12 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-type Model struct {
+type Boosters struct {
 	layer *layers.Model
 }
 
-func NewModel(id int, ctx *context.ProgramContext) Model {
-	m := Model{
+func NewModel(id int, ctx *context.ProgramContext) Boosters {
+	m := Boosters{
 		layer: &layers.Model{
 			Id:   id,
 			Tier: 2,
@@ -23,34 +23,38 @@ func NewModel(id int, ctx *context.ProgramContext) Model {
 	return m
 }
 
-func (m *Model) Id() int {
+func (m *Boosters) Id() int {
 	return m.layer.Id
 }
 
-func (m *Model) Name() string {
+func (m *Boosters) Name() string {
 	return m.layer.Name
 }
 
-func (m *Model) Tier() int {
+func (m *Boosters) Tier() int {
 	return m.layer.Tier
 }
 
-func (m *Model) UpdateProgramContext(ctx *context.ProgramContext) {
+func (m *Boosters) UpdateProgramContext(ctx *context.ProgramContext) {
 	m.layer.UpdateProgramContext(ctx)
 }
 
-func (m *Model) Tick() {
+func (m *Boosters) Tick() {
 }
 
-func (m *Model) Prestige() {
+func (m *Boosters) Prestige() {
 }
 
-func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
+func (m *Boosters) NextPrestigeAt() float64 {
+	return 10
+}
+
+func (m Boosters) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &m, cmd
 }
 
-func (m *Model) View() string {
+func (m *Boosters) View() string {
 	return "Boosters"
 }
 
