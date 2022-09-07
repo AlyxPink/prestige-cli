@@ -11,7 +11,7 @@ type Boosters struct {
 }
 
 func NewModel(id int, ctx *context.ProgramContext) Boosters {
-	m := Boosters{
+	b := Boosters{
 		layer: &layers.Model{
 			Id:   id,
 			Tier: 2,
@@ -20,32 +20,32 @@ func NewModel(id int, ctx *context.ProgramContext) Boosters {
 		},
 	}
 
-	return m
+	return b
 }
 
-func (m *Boosters) Id() int {
-	return m.layer.Id
+func (b *Boosters) Id() int {
+	return b.layer.Id
 }
 
-func (m *Boosters) Name() string {
-	return m.layer.Name
+func (b *Boosters) Name() string {
+	return b.layer.Name
 }
 
-func (m *Boosters) Tier() int {
-	return m.layer.Tier
+func (b *Boosters) Tier() int {
+	return b.layer.Tier
 }
 
-func (m *Boosters) UpdateProgramContext(ctx *context.ProgramContext) {
-	m.layer.UpdateProgramContext(ctx)
+func (b *Boosters) UpdateProgramContext(ctx *context.ProgramContext) {
+	b.layer.UpdateProgramContext(ctx)
 }
 
-func (m *Boosters) Tick() {
+func (b *Boosters) Tick() {
 }
 
-func (m *Boosters) Prestige() {
+func (b *Boosters) Prestige() {
 }
 
-func (m *Boosters) NextPrestigeAt() float64 {
+func (b *Boosters) NextPrestigeAt() float64 {
 	return 10
 }
 
@@ -54,7 +54,7 @@ func (m Boosters) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	return &m, cmd
 }
 
-func (m *Boosters) View() string {
+func (b *Boosters) View() string {
 	return "Boosters"
 }
 
