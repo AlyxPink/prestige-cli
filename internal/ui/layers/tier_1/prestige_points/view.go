@@ -8,7 +8,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func (m *Model) View() string {
+func (m *PrestigePoints) View() string {
 	return lipgloss.JoinVertical(
 		lipgloss.Top,
 		lipgloss.JoinHorizontal(
@@ -24,10 +24,10 @@ func (m *Model) View() string {
 	)
 }
 
-func (m *Model) stats() string {
+func (m *PrestigePoints) stats() string {
 	s1 := strings.Builder{}
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("You have:")))
-	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render("1,823 prestige points")))
+	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render(fmt.Sprintf("%f prestige points", m.layer.Count))))
 	s2 := strings.Builder{}
 	s2.WriteString(fmt.Sprintln())
 	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render("Your best prestige points is 767")))
@@ -39,7 +39,7 @@ func (m *Model) stats() string {
 	)
 }
 
-func (m *Model) prestige() string {
+func (m *PrestigePoints) prestige() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Prestige")))
 
@@ -61,7 +61,7 @@ func (m *Model) prestige() string {
 		)
 }
 
-func (m *Model) milestones() string {
+func (m *PrestigePoints) milestones() string {
 	return lipgloss.NewStyle().
 		Width((m.layer.GetDimensions().Width / 12) * 4).
 		Render(
@@ -73,7 +73,7 @@ func (m *Model) milestones() string {
 		)
 }
 
-func (m *Model) upgrades() string {
+func (m *PrestigePoints) upgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 

@@ -44,7 +44,7 @@ func (m Model) View() string {
 
 func (m *Model) fetchLayers() []layers.Layer {
 	layers := []layers.Layer{
-		prestige_points.Fetch(0, m.ctx),
+		prestige_points.Fetch(0, m.Points, m.ctx),
 		boosters.Fetch(1, m.ctx),
 		generators.Fetch(2, m.ctx),
 	}
@@ -99,7 +99,7 @@ func (m Model) tierTitle(layer layers.Layer) string {
 func (m Model) gameGoal() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render("Reach e3.140e16 points to beat the game!")))
-	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render(fmt.Sprintf("You have %d points! (19.25/sec)", m.points))))
+	s.WriteString(fmt.Sprintln(lipgloss.NewStyle().Bold(true).Render(fmt.Sprintf("You have %f points! (19.25/sec)", m.Points.Count()))))
 	return lipgloss.NewStyle().
 		Align(lipgloss.Center).
 		Width((m.ctx.ScreenWidth / 12) * 10).
