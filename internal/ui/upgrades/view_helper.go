@@ -10,6 +10,9 @@ import (
 func ListUpgrades(upgrades []Upgrade) []string {
 	s := make([]string, len(upgrades))
 	for _, upgrade := range upgrades {
+		if upgrade.Unlocked == false {
+			continue
+		}
 		block := styles.UpgradeBoxAvailable.Copy().Align(lipgloss.Left).Render(
 			fmt.Sprintln(
 				fmt.Sprintln(styles.MainText.Copy().Bold(true).Render(upgrade.Name)),

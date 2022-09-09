@@ -27,31 +27,37 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Presti
 			{
 				Name:        "Begin",
 				Description: "Generate 1 Point every second.",
+				Unlocked:    true,
 				Cost:        1,
 			},
 			{
 				Name:        "Prestige Boost",
 				Description: "Prestige Points boost Point generation.",
+				Unlocked:    true,
 				Cost:        1,
 			},
 			{
 				Name:        "Self-Synergy",
 				Description: "Points boost their own generation.",
+				Unlocked:    false,
 				Cost:        5,
 			},
 			{
 				Name:        "More Prestige",
 				Description: "Prestige Point gain is increased by 80%.",
+				Unlocked:    false,
 				Cost:        20,
 			},
 			{
 				Name:        "Upgrade Power",
 				Description: "Point generation is faster based on your Prestige Upgrades bought.",
+				Unlocked:    false,
 				Cost:        75,
 			},
 			{
 				Name:        "Reverse Prestige Boost",
 				Description: "Prestige Point gain is boosted by your Points.",
+				Unlocked:    false,
 				Cost:        5_000,
 			},
 		},
