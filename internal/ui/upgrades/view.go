@@ -7,6 +7,15 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+func (upgrade *Upgrade) ViewUpgrade() string {
+	return fmt.Sprintln(
+		fmt.Sprintln(styles.MainText.Copy().Bold(true).Render(upgrade.Name)),
+		fmt.Sprintln(styles.MainText.Copy().Render(upgrade.Description)),
+		fmt.Sprintln(),
+		fmt.Sprint(styles.MainText.Render(fmt.Sprintf("Cost: %.2f", upgrade.Cost))),
+	)
+}
+
 func ListUpgrades(upgrades []Upgrade) []string {
 	s := make([]string, len(upgrades))
 	for _, upgrade := range upgrades {
@@ -14,12 +23,7 @@ func ListUpgrades(upgrades []Upgrade) []string {
 			continue
 		}
 		block := styles.UpgradeBoxAvailable.Copy().Align(lipgloss.Left).Render(
-			fmt.Sprintln(
-				fmt.Sprintln(styles.MainText.Copy().Bold(true).Render(upgrade.Name)),
-				fmt.Sprintln(styles.MainText.Copy().Render(upgrade.Description)),
-				fmt.Sprintln(),
-				fmt.Sprint(styles.MainText.Render(fmt.Sprintf("Cost: %.2f", upgrade.Cost))),
-			),
+			upgrade.ViewUpgrade(),
 		)
 		s = append(s, block)
 	}
