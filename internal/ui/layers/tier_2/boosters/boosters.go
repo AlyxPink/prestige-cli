@@ -3,11 +3,13 @@ package boosters
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
+	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 type Boosters struct {
-	layer *layers.Model
+	layer    *layers.Model
+	upgrades []upgrades.Upgrade
 }
 
 func NewModel(id int, ctx *context.ProgramContext) Boosters {
@@ -47,6 +49,10 @@ func (b *Boosters) Prestige() {
 
 func (b *Boosters) NextPrestigeAt() float64 {
 	return 10
+}
+
+func (b *Boosters) Upgrades() []upgrades.Upgrade {
+	return b.upgrades
 }
 
 func (m Boosters) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {

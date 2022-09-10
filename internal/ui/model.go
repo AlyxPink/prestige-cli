@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"strconv"
 	"time"
 
 	"github.com/VictorBersy/prestige-cli/internal/config"
@@ -49,6 +50,23 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.NextLayer):
 			nextLayer := m.getLayerAt(m.getNextLayerId())
 			m.setCurrentLayer(nextLayer)
+
+		case key.Matches(msg, key.NewBinding(
+			key.WithKeys("1"),
+			key.WithKeys("2"),
+			key.WithKeys("3"),
+			key.WithKeys("4"),
+			key.WithKeys("5"),
+			key.WithKeys("6"),
+			key.WithKeys("7"),
+			key.WithKeys("8"),
+			key.WithKeys("9"),
+		)):
+			key, _ := strconv.Atoi(msg.String())
+			upgradeId := key - 1
+			if len(m.getCurrLayer().Upgrades()) > upgradeId {
+				m.getCurrLayer().Upgrades()[upgradeId].Buy()
+			}
 
 		case key.Matches(msg, m.keys.Prestige):
 			m.currLayer.Prestige()

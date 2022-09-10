@@ -3,6 +3,7 @@ package layers
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
+	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -21,6 +22,7 @@ type Layer interface {
 	Name() string
 	Tick()
 	prestigable
+	Upgrades() []upgrades.Upgrade
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	UpdateProgramContext(ctx *context.ProgramContext)
 	View() string

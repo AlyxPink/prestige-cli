@@ -19,7 +19,7 @@ func (g *Generators) View() string {
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
 			g.milestones(),
-			g.upgrades(),
+			g.listUpgrades(),
 		),
 	)
 }
@@ -93,7 +93,7 @@ func (g *Generators) milestones() string {
 		)
 }
 
-func (g *Generators) upgrades() string {
+func (g *Generators) listUpgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 
