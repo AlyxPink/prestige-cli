@@ -96,6 +96,10 @@ func (pp *PrestigePoints) NextPrestigeAt() float64 {
 	return 10
 }
 
+func (pp *PrestigePoints) Upgrades() []upgrades.Upgrade {
+	return pp.upgrades
+}
+
 func (pp PrestigePoints) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &pp, cmd

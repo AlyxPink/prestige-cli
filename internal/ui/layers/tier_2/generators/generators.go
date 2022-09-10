@@ -3,11 +3,13 @@ package generators
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
+	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 type Generators struct {
-	layer *layers.Model
+	layer    *layers.Model
+	upgrades []upgrades.Upgrade
 }
 
 func NewModel(id int, ctx *context.ProgramContext) Generators {
@@ -47,6 +49,10 @@ func (g *Generators) Prestige() {
 
 func (g *Generators) NextPrestigeAt() float64 {
 	return 10
+}
+
+func (g *Generators) Upgrades() []upgrades.Upgrade {
+	return g.upgrades
 }
 
 func (g Generators) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
