@@ -52,18 +52,10 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.setCurrentLayer(nextLayer)
 
 		case key.Matches(msg, key.NewBinding(
-			key.WithKeys("1"),
-			key.WithKeys("2"),
-			key.WithKeys("3"),
-			key.WithKeys("4"),
-			key.WithKeys("5"),
-			key.WithKeys("6"),
-			key.WithKeys("7"),
-			key.WithKeys("8"),
-			key.WithKeys("9"),
+			key.WithKeys("f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12"),
 		)):
-			key, _ := strconv.Atoi(msg.String())
-			upgradeId := key - 1
+			keyDigit, _ := strconv.Atoi(msg.String()[1:])
+			upgradeId := keyDigit - 1
 			if len(m.getCurrLayer().Upgrades()) > upgradeId {
 				m.getCurrLayer().Upgrades()[upgradeId].Buy()
 			}

@@ -1,7 +1,5 @@
 package upgrades
 
-import "fmt"
-
 type Upgrade struct {
 	Name        string
 	Description string
@@ -12,5 +10,5 @@ type Upgrade struct {
 }
 
 func (upgrade *Upgrade) Buy() {
-	fmt.Printf("You just bough %s", upgrade.Name)
+	upgrade.Enabled = true
 }
