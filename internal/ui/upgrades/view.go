@@ -33,7 +33,7 @@ func (upgrade *Model) ViewUpgrade() string {
 func ListUpgrades(upgrades []*Model) []string {
 	s := make([]string, len(upgrades))
 	for _, upgrade := range upgrades {
-		if upgrade.Unlocked == false {
+		if !upgrade.Unlocked {
 			continue
 		}
 		block := upgrade.ViewUpgrade()
