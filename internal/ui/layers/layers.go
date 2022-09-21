@@ -12,7 +12,7 @@ type Model struct {
 	Tier       int
 	Ctx        *context.ProgramContext
 	Name       string
-	Count      float64
+	Amount     float64
 	dimensions constants.Dimensions
 }
 
