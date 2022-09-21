@@ -40,6 +40,10 @@ func (b *Begin) Tick() {
 	b.Points.Amount = b.Points.Amount + 0.01
 }
 
+func (b *Begin) GetModel() *upgrades.Model {
+	return b.Upgrade
+}
+
 func Fetch(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
 	upgradeModel := NewModel(layer, points)
 	return &upgradeModel

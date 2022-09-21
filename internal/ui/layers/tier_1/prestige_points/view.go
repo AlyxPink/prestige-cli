@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/styles"
+	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 	"github.com/charmbracelet/lipgloss"
 )
 
@@ -77,11 +78,16 @@ func (pp *PrestigePoints) listUpgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 
+	u := make([]*upgrades.Model, len(pp.upgrades))
+	for i, upgrade := range pp.upgrades {
+		u[i] = upgrade.GetModel()
+	}
+
 	upgrades := lipgloss.JoinVertical(
 		lipgloss.Top,
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			//upgrades.ListUpgrades(pp.upgrades)...,
+			upgrades.ListUpgrades(u)...,
 		),
 	)
 
