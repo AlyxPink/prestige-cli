@@ -1,18 +1,21 @@
 package begin
 
 import (
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 )
 
 type Begin struct {
-	Points  *points.Points
-	Upgrade *upgrades.Model
+	Points         *points.Points
+	PrestigePoints *layers.Model
+	Upgrade        *upgrades.Model
 }
 
-func NewModel(points *points.Points) Begin {
+func NewModel(pp *layers.Model, points *points.Points) Begin {
 	b := Begin{
-		Points: points,
+		Points:         points,
+		PrestigePoints: pp,
 		Upgrade: &upgrades.Model{
 			Name:        "Begin",
 			Description: "Generate 1 Point every second.",
@@ -24,9 +27,9 @@ func NewModel(points *points.Points) Begin {
 }
 
 func (b *Begin) Buy() {
-	if b.Points.Amount >= b.Upgrade.Cost {
+	if b.PrestigePoints.Amount >= b.Upgrade.Cost {
 		b.Upgrade.Enabled = true
-		b.Points.Amount = b.Points.Amount - b.Upgrade.Cost
+		b.PrestigePoints.Amount = b.PrestigePoints.Amount - b.Upgrade.Cost
 	}
 }
 
@@ -37,7 +40,7 @@ func (b *Begin) Tick() {
 	b.Points.Amount = b.Points.Amount + 0.01
 }
 
-func Fetch(points *points.Points) (layer upgrades.Upgrade) {
-	upgradeModel := NewModel(points)
+func Fetch(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
+	upgradeModel := NewModel(layer, points)
 	return &upgradeModel
 }

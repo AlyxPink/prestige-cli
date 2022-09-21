@@ -27,7 +27,7 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Presti
 	}
 
 	pp.upgrades = []upgrades.Upgrade{
-		begin.Fetch(points),
+		begin.Fetch(pp.layer, points),
 	}
 	return pp
 }
@@ -57,7 +57,7 @@ func (pp *PrestigePoints) Tick() {
 func (pp *PrestigePoints) Prestige() {
 	if pp.Points.Amount >= 10 {
 		pp.Points.Amount = 0
-		pp.layer.Count++
+		pp.layer.Amount++
 	}
 }
 
