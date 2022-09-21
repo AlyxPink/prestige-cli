@@ -1,6 +1,6 @@
 package upgrades
 
-type Upgrade struct {
+type Model struct {
 	Name        string
 	Description string
 	Amount      uint
@@ -9,6 +9,7 @@ type Upgrade struct {
 	Unlocked    bool
 }
 
-func (upgrade *Upgrade) Buy() {
-	upgrade.Enabled = true
+type Upgrade interface {
+	Tick()
+	Buy()
 }
