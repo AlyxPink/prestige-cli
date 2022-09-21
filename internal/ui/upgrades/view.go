@@ -7,7 +7,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func (upgrade *Upgrade) ViewUpgrade() string {
+func (upgrade *Model) ViewUpgrade() string {
 	available := styles.UpgradeBoxAvailable.Copy().Align(lipgloss.Left).Render(
 		fmt.Sprintln(
 			fmt.Sprintln(styles.MainText.Copy().Bold(true).Render(upgrade.Name)),
@@ -30,7 +30,7 @@ func (upgrade *Upgrade) ViewUpgrade() string {
 	return available
 }
 
-func ListUpgrades(upgrades []Upgrade) []string {
+func ListUpgrades(upgrades []Model) []string {
 	s := make([]string, len(upgrades))
 	for _, upgrade := range upgrades {
 		if upgrade.Unlocked == false {

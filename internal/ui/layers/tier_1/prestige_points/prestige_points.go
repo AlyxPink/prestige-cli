@@ -3,6 +3,7 @@ package prestige_points
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/begin"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
@@ -23,46 +24,11 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Presti
 			Ctx:  ctx,
 			Name: "Prestige Points",
 		},
-		upgrades: []upgrades.Upgrade{
-			{
-				Name:        "Begin",
-				Description: "Generate 1 Point every second.",
-				Unlocked:    true,
-				Cost:        1,
-			},
-			{
-				Name:        "Prestige Boost",
-				Description: "Prestige Points boost Point generation.",
-				Unlocked:    true,
-				Cost:        1,
-			},
-			{
-				Name:        "Self-Synergy",
-				Description: "Points boost their own generation.",
-				Unlocked:    false,
-				Cost:        5,
-			},
-			{
-				Name:        "More Prestige",
-				Description: "Prestige Point gain is increased by 80%.",
-				Unlocked:    false,
-				Cost:        20,
-			},
-			{
-				Name:        "Upgrade Power",
-				Description: "Point generation is faster based on your Prestige Upgrades bought.",
-				Unlocked:    false,
-				Cost:        75,
-			},
-			{
-				Name:        "Reverse Prestige Boost",
-				Description: "Prestige Point gain is boosted by your Points.",
-				Unlocked:    false,
-				Cost:        5_000,
-			},
-		},
 	}
 
+	pp.upgrades = []upgrades.Upgrade{
+		begin.Fetch(points),
+	}
 	return pp
 }
 
@@ -83,6 +49,9 @@ func (pp *PrestigePoints) UpdateProgramContext(ctx *context.ProgramContext) {
 }
 
 func (pp *PrestigePoints) Tick() {
+	for _, upgrade := range pp.upgrades {
+		upgrade.Tick()
+	}
 }
 
 func (pp *PrestigePoints) Prestige() {

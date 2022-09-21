@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/styles"
-	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 	"github.com/charmbracelet/lipgloss"
 )
 
@@ -82,7 +81,7 @@ func (pp *PrestigePoints) listUpgrades() string {
 		lipgloss.Top,
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			upgrades.ListUpgrades(pp.upgrades)...,
+			//upgrades.ListUpgrades(pp.upgrades)...,
 		),
 	)
 
