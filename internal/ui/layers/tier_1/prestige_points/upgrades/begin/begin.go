@@ -34,9 +34,6 @@ func (b *Begin) Buy() {
 }
 
 func (b *Begin) Tick() {
-	if !b.Upgrade.Enabled {
-		return
-	}
 	b.Points.Amount = b.Points.Amount + 0.01
 }
 
