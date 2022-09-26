@@ -5,6 +5,7 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/begin"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/prestige_boost"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/self_synergy"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
@@ -30,6 +31,7 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Presti
 	pp.upgrades = []upgrades.Upgrade{
 		begin.Fetch(pp.layer, points),
 		prestige_boost.Fetch(pp.layer, points),
+		self_synergy.Fetch(pp.layer, points),
 	}
 	return pp
 }
@@ -52,7 +54,9 @@ func (pp *PrestigePoints) UpdateProgramContext(ctx *context.ProgramContext) {
 
 func (pp *PrestigePoints) Tick() {
 	for _, upgrade := range pp.upgrades {
-		upgrade.Tick()
+		if upgrade.GetModel().Enabled {
+			upgrade.Tick()
+		}
 	}
 }
 

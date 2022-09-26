@@ -36,9 +36,6 @@ func (pb *PrestigeBoost) Buy() {
 }
 
 func (pb *PrestigeBoost) Tick() {
-	if !pb.Upgrade.Enabled {
-		return
-	}
 	pb.Points.Amount = pb.Points.Amount + (math.Pow(pb.PrestigePoints.Amount+2, 0.5) / 100)
 }
 
