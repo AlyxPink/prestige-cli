@@ -47,7 +47,7 @@ func (g *Generators) Tick() {
 func (g *Generators) Prestige() {
 }
 
-func (g *Generators) NextPrestigeAt() float64 {
+func (g *Generators) PrestigeAmount() float64 {
 	return 10
 }
 

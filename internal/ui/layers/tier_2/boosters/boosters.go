@@ -47,7 +47,7 @@ func (b *Boosters) Tick() {
 func (b *Boosters) Prestige() {
 }
 
-func (b *Boosters) NextPrestigeAt() float64 {
+func (b *Boosters) PrestigeAmount() float64 {
 	return 10
 }
 

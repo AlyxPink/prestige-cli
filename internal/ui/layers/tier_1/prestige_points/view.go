@@ -28,7 +28,7 @@ func (pp *PrestigePoints) View() string {
 func (pp *PrestigePoints) viewStats() string {
 	s1 := strings.Builder{}
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("You have:")))
-	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render(fmt.Sprintf("%.2f prestige points", pp.layer.Amount))))
+	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render(fmt.Sprintf("%.0f prestige points", pp.layer.Amount))))
 	s2 := strings.Builder{}
 	s2.WriteString(fmt.Sprintln())
 	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render("Your best prestige points is 767")))
@@ -45,11 +45,19 @@ func (pp *PrestigePoints) viewPrestige() string {
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Prestige")))
 
 	button := strings.Builder{}
-	button.WriteString(fmt.Sprintln(styles.BoxStyleAvailable.Copy().Render(
-		fmt.Sprint(
-			fmt.Sprintln("Reset for +1 prestige points"),
-		),
-	)))
+	if pp.PrestigeAmount() >= 1 {
+		button.WriteString(fmt.Sprintln(styles.BoxStyleAvailable.Copy().Render(
+			fmt.Sprint(
+				fmt.Sprintf("Reset for +%.0f prestige points", pp.PrestigeAmount()),
+			),
+		)))
+	} else {
+		button.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Render(
+			fmt.Sprint(
+				fmt.Sprintf("Reset for +%.0f prestige points", pp.PrestigeAmount()),
+			),
+		)))
+	}
 
 	return lipgloss.NewStyle().
 		Width((pp.layer.GetDimensions().Width / 12) * 4).

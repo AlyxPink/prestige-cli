@@ -9,6 +9,7 @@ var (
 	highlight    = lipgloss.AdaptiveColor{Light: "#874BFD", Dark: "#7D56F4"}
 	special      = lipgloss.AdaptiveColor{Light: "#43BF6D", Dark: "#73F59F"}
 	warning      = lipgloss.AdaptiveColor{Light: "#F25D94", Dark: "#F57DA9"}
+	disabled     = lipgloss.AdaptiveColor{Light: "#888888", Dark: "#82847c"}
 
 	statusCircle        = lipgloss.NewStyle().PaddingRight(1)
 	PrestigeAvailable   = statusCircle.Copy().Foreground(special)
@@ -43,7 +44,8 @@ var (
 				BorderForeground(highlight)
 
 	BoxStyleUnAvailable = boxStyle.Copy().
-				BorderForeground(warning)
+				BorderForeground(disabled).
+				Foreground(textDisabled)
 
 	BoxStyleEnabled = boxStyle.Copy().
 			BorderForeground(special).
