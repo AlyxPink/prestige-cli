@@ -1,6 +1,8 @@
 package prestige_points
 
 import (
+	"math"
+
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/begin"
@@ -61,14 +63,34 @@ func (pp *PrestigePoints) Tick() {
 }
 
 func (pp *PrestigePoints) Prestige() {
-	if pp.Points.Amount >= 10 {
-		pp.Points.Amount = 0
-		pp.layer.Amount++
+	if pp.PrestigeAmount() < 1 {
+		return
 	}
+	pp.layer.Amount = pp.layer.Amount + pp.PrestigeAmount()
+	pp.Points.Amount = 0
 }
 
-func (pp *PrestigePoints) NextPrestigeAt() float64 {
+func (pp *PrestigePoints) PrestigeAmount() float64 {
+	if pp.Points.Amount < pp.PrestigeRequirement() {
+		return 0
+	}
+	gain := pp.Points.Amount / pp.PrestigeRequirement()
+	gain = math.Pow(gain, 0.5)
+	gain = gain * pp.GainMult()
+	gain = math.Pow(gain, pp.GainExp())
+	return gain
+}
+
+func (pp *PrestigePoints) PrestigeRequirement() float64 {
 	return 10
+}
+
+func (pp *PrestigePoints) GainMult() float64 {
+	return 1
+}
+
+func (pp *PrestigePoints) GainExp() float64 {
+	return 1
 }
 
 func (pp *PrestigePoints) Upgrades() []upgrades.Upgrade {

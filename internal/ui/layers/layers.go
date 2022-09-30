@@ -30,7 +30,7 @@ type Layer interface {
 
 type prestigable interface {
 	Prestige()
-	NextPrestigeAt() float64
+	PrestigeAmount() float64
 }
 
 type LayerMsg interface {
