@@ -89,7 +89,7 @@ func (pp *PrestigePoints) PrestigeRequirement() float64 {
 
 func (pp *PrestigePoints) GainMult() float64 {
 	mult := 1.0
-	if pp.Upgrades()[3].GetModel().Unlocked { // If "more_prestige" upgrade unlocked
+	if pp.Upgrades()[3].GetModel().Enabled { // If "more_prestige" upgrade enabled
 		mult = mult * 1.8
 	}
 	return mult
