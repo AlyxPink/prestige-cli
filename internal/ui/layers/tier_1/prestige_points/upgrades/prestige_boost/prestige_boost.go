@@ -29,13 +29,7 @@ func NewModel(pp *layers.Model, points *points.Points) PrestigeBoost {
 }
 
 func (pb *PrestigeBoost) Buy() {
-	if pb.Upgrade.Enabled == true {
-		return
-	}
-	if pb.PrestigePoints.Amount >= pb.Upgrade.Cost {
-		pb.Upgrade.Enabled = true
-		pb.PrestigePoints.Amount = pb.PrestigePoints.Amount - pb.Upgrade.Cost
-	}
+	pb.PrestigePoints.Amount = pb.Upgrade.Buy(pb.PrestigePoints.Amount)
 }
 
 func (pb *PrestigeBoost) Tick() {
