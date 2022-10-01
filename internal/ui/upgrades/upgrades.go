@@ -16,7 +16,7 @@ type Upgrade interface {
 }
 
 func (m *Model) Buy(currency float64) float64 {
-	if m.Enabled == false && currency >= m.Cost {
+	if !m.Enabled && currency >= m.Cost {
 		m.Enabled = true
 		return currency - m.Cost
 	}

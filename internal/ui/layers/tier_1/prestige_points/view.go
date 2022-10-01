@@ -47,15 +47,11 @@ func (pp *PrestigePoints) viewPrestige() string {
 	button := strings.Builder{}
 	if pp.PrestigeAmount() >= 1 {
 		button.WriteString(fmt.Sprintln(styles.BoxStyleAvailable.Copy().Render(
-			fmt.Sprint(
-				fmt.Sprintf("Reset for +%.0f prestige points", pp.PrestigeAmount()),
-			),
+			fmt.Sprintf("Reset for +%.0f prestige points", pp.PrestigeAmount()),
 		)))
 	} else {
 		button.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Render(
-			fmt.Sprint(
-				fmt.Sprintf("Reset for +%.0f prestige points", pp.PrestigeAmount()),
-			),
+			fmt.Sprintf("Reset for +%.0f prestige points", pp.PrestigeAmount()),
 		)))
 	}
 
