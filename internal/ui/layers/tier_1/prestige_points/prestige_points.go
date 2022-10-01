@@ -6,6 +6,7 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/begin"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/more_prestige"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/prestige_boost"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/self_synergy"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
@@ -34,6 +35,7 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Presti
 		begin.Fetch(pp.layer, points),
 		prestige_boost.Fetch(pp.layer, points),
 		self_synergy.Fetch(pp.layer, points),
+		more_prestige.Fetch(pp.layer, points),
 	}
 	return pp
 }
@@ -86,7 +88,11 @@ func (pp *PrestigePoints) PrestigeRequirement() float64 {
 }
 
 func (pp *PrestigePoints) GainMult() float64 {
-	return 1
+	mult := 1.0
+	if pp.Upgrades()[3].GetModel().Unlocked { // If "more_prestige" upgrade unlocked
+		mult = mult * 1.8
+	}
+	return mult
 }
 
 func (pp *PrestigePoints) GainExp() float64 {
