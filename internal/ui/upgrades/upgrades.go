@@ -14,3 +14,11 @@ type Upgrade interface {
 	Buy()
 	GetModel() *Model
 }
+
+func (m *Model) Buy(currency float64) float64 {
+	if m.Enabled == false && currency >= m.Cost {
+		m.Enabled = true
+		return currency - m.Cost
+	}
+	return currency
+}

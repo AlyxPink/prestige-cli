@@ -29,13 +29,7 @@ func NewModel(pp *layers.Model, points *points.Points) SelfSynergy {
 }
 
 func (ss *SelfSynergy) Buy() {
-	if ss.Upgrade.Enabled == true {
-		return
-	}
-	if ss.PrestigePoints.Amount >= ss.Upgrade.Cost {
-		ss.Upgrade.Enabled = true
-		ss.PrestigePoints.Amount = ss.PrestigePoints.Amount - ss.Upgrade.Cost
-	}
+	ss.PrestigePoints.Amount = ss.Upgrade.Buy(ss.PrestigePoints.Amount)
 }
 
 func (ss *SelfSynergy) Tick() {
