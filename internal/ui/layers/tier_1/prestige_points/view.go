@@ -31,8 +31,8 @@ func (pp *PrestigePoints) viewStats() string {
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render(fmt.Sprintf("%.0f prestige points", pp.layer.Amount))))
 	s2 := strings.Builder{}
 	s2.WriteString(fmt.Sprintln())
-	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render("Your best prestige points is 767")))
-	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render("Total of 774 prestige points")))
+	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render(fmt.Sprintf("Your best prestige points is %.0f", pp.layer.AmountBest))))
+	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render(fmt.Sprintf("Total of %.0f prestige points", pp.layer.AmountTotal))))
 	return lipgloss.JoinHorizontal(
 		lipgloss.Top,
 		styles.MainText.Copy().Width((pp.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s1.String()),
