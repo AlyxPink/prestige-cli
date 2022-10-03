@@ -69,6 +69,11 @@ func (pp *PrestigePoints) Prestige() {
 		return
 	}
 	pp.layer.Amount = pp.layer.Amount + pp.PrestigeAmount()
+	pp.layer.AmountTotal = pp.layer.AmountTotal + pp.PrestigeAmount()
+	// Save best score
+	if pp.layer.Amount > pp.layer.AmountBest {
+		pp.layer.AmountBest = pp.layer.Amount
+	}
 	pp.Points.Amount = 0
 }
 

@@ -8,12 +8,14 @@ import (
 )
 
 type Model struct {
-	Id         int
-	Tier       int
-	Ctx        *context.ProgramContext
-	Name       string
-	Amount     float64
-	dimensions constants.Dimensions
+	Id          int
+	Tier        int
+	Ctx         *context.ProgramContext
+	Name        string
+	Amount      float64
+	AmountTotal float64
+	AmountBest  float64
+	dimensions  constants.Dimensions
 }
 
 type Layer interface {
