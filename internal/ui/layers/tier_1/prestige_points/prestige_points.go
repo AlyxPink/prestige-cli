@@ -108,6 +108,15 @@ func (pp *PrestigePoints) Upgrades() []upgrades.Upgrade {
 	return pp.upgrades
 }
 
+func (pp *PrestigePoints) UpgradeAvailable() bool {
+	for _, upgrade := range pp.upgrades {
+		if upgrade.GetModel().Unlocked && !upgrade.GetModel().Enabled {
+			return true
+		}
+	}
+	return false
+}
+
 func (pp PrestigePoints) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &pp, cmd

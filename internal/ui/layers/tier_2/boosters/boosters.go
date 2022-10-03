@@ -55,6 +55,15 @@ func (b *Boosters) Upgrades() []upgrades.Upgrade {
 	return b.upgrades
 }
 
+func (b *Boosters) UpgradeAvailable() bool {
+	for _, upgrade := range b.upgrades {
+		if upgrade.GetModel().Unlocked && !upgrade.GetModel().Enabled {
+			return true
+		}
+	}
+	return false
+}
+
 func (m Boosters) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &m, cmd

@@ -55,6 +55,15 @@ func (g *Generators) Upgrades() []upgrades.Upgrade {
 	return g.upgrades
 }
 
+func (g *Generators) UpgradeAvailable() bool {
+	for _, upgrade := range g.upgrades {
+		if upgrade.GetModel().Unlocked && !upgrade.GetModel().Enabled {
+			return true
+		}
+	}
+	return false
+}
+
 func (g Generators) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &g, cmd

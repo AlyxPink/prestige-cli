@@ -25,6 +25,7 @@ type Layer interface {
 	Tick()
 	prestigable
 	Upgrades() []upgrades.Upgrade
+	UpgradeAvailable() bool
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	UpdateProgramContext(ctx *context.ProgramContext)
 	View() string
