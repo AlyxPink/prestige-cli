@@ -44,6 +44,10 @@ func (g *Generators) UpdateProgramContext(ctx *context.ProgramContext) {
 func (g *Generators) Tick() {
 }
 
+func (g *Generators) TickAmount() float64 {
+	return 0.0
+}
+
 func (g *Generators) Prestige() {
 }
 

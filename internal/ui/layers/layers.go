@@ -23,6 +23,7 @@ type Layer interface {
 	Tier() int
 	Name() string
 	Tick()
+	TickAmount() float64
 	prestigable
 	Upgrades() []upgrades.Upgrade
 	UpgradeAvailable() bool

@@ -33,6 +33,10 @@ func (mp *MorePrestige) Buy() {
 func (mp *MorePrestige) Tick() {
 }
 
+func (mp *MorePrestige) TickAmount() float64 {
+	return 0
+}
+
 func (mp *MorePrestige) GetModel() *upgrades.Model {
 	return mp.Upgrade
 }

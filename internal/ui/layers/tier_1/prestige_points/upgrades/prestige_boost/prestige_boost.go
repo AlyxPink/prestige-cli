@@ -33,7 +33,11 @@ func (pb *PrestigeBoost) Buy() {
 }
 
 func (pb *PrestigeBoost) Tick() {
-	pb.Points.Amount = pb.Points.Amount + (math.Pow(pb.PrestigePoints.Amount+2, 0.5) / 100)
+	pb.Points.Amount = pb.Points.Amount + pb.TickAmount()
+}
+
+func (pb *PrestigeBoost) TickAmount() float64 {
+	return math.Pow(pb.PrestigePoints.Amount+2, 0.5) / 100
 }
 
 func (pb *PrestigeBoost) GetModel() *upgrades.Model {
