@@ -33,7 +33,11 @@ func (ss *SelfSynergy) Buy() {
 }
 
 func (ss *SelfSynergy) Tick() {
-	ss.Points.Amount = ss.Points.Amount + math.Log10(math.Pow(ss.Points.Amount+1, 0.75))/100
+	ss.Points.Amount = ss.Points.Amount + ss.TickAmount()
+}
+
+func (ss *SelfSynergy) TickAmount() float64 {
+	return math.Log10(math.Pow(ss.Points.Amount+1, 0.75)) / 100
 }
 
 func (ss *SelfSynergy) GetModel() *upgrades.Model {

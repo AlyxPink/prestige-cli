@@ -31,7 +31,11 @@ func (b *Begin) Buy() {
 }
 
 func (b *Begin) Tick() {
-	b.Points.Amount = b.Points.Amount + 0.01
+	b.Points.Amount = b.Points.Amount + b.TickAmount()
+}
+
+func (b *Begin) TickAmount() float64 {
+	return 0.01
 }
 
 func (b *Begin) GetModel() *upgrades.Model {

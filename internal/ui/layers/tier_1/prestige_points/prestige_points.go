@@ -64,6 +64,16 @@ func (pp *PrestigePoints) Tick() {
 	}
 }
 
+func (pp *PrestigePoints) TickAmount() float64 {
+	amount := 0.0
+	for _, upgrade := range pp.upgrades {
+		if upgrade.GetModel().Enabled {
+			amount = amount + upgrade.TickAmount()
+		}
+	}
+	return amount
+}
+
 func (pp *PrestigePoints) Prestige() {
 	if pp.PrestigeAmount() < 1 {
 		return

@@ -11,6 +11,7 @@ type Model struct {
 
 type Upgrade interface {
 	Tick()
+	TickAmount() float64
 	Buy()
 	GetModel() *Model
 }
