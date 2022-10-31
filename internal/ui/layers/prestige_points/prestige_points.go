@@ -5,7 +5,7 @@ import (
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrade"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/prestige_points/upgrade"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
