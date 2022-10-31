@@ -8,6 +8,7 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/begin"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/more_prestige"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/prestige_boost"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/reverse_prestige_boost"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points/upgrades/self_synergy"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
@@ -36,6 +37,7 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Presti
 		prestige_boost.Fetch(pp.layer, points),
 		self_synergy.Fetch(pp.layer, points),
 		more_prestige.Fetch(pp.layer, points),
+		reverse_prestige_boost.Fetch(pp.layer, points),
 	}
 	return pp
 }
