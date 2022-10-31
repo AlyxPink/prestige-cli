@@ -57,16 +57,16 @@ func (m *Model) setLayers(newLayers []layers.Layer) {
 
 func (m *Model) setCurrentLayer(layer layers.Layer) {
 	m.currLayer = m.getCurrLayer()
-	m.currLayerId = layer.Id()
+	m.currLayerId = layer.Model().Id
 }
 
 func (m Model) layersList() string {
 	currTier := 0
 	s := strings.Builder{}
 	for _, layer := range m.fetchLayers() {
-		if currTier != layer.Tier() {
+		if currTier != layer.Model().Tier {
 			s.WriteString(fmt.Sprintln(m.tierTitle(layer)))
-			currTier = layer.Tier()
+			currTier = layer.Model().Tier
 		}
 		s.WriteString(m.layerTitle(layer))
 	}
@@ -79,7 +79,7 @@ func (m Model) layerTitle(layer layers.Layer) string {
 	titleStyle := styles.TierDefault
 	prestigeStatus := ""
 	upgradeStatus := ""
-	if layer.Id() == m.currLayerId {
+	if layer.Model().Id == m.currLayerId {
 		titleStyle = styles.TierEnabled
 	}
 	if layer.PrestigeAmount() > 0 {
@@ -92,15 +92,15 @@ func (m Model) layerTitle(layer layers.Layer) string {
 	} else {
 		upgradeStatus = styles.UpgradeUnavailable.Render(styles.DefaultGlyphs.UpgradeStatus)
 	}
-	title := titleStyle.Copy().Render(layer.Name())
+	title := titleStyle.Copy().Render(layer.Model().Name)
 	return fmt.Sprintln(lipgloss.JoinHorizontal(lipgloss.Left, prestigeStatus, upgradeStatus, title))
 }
 
 func (m Model) tierTitle(layer layers.Layer) string {
 	tierTitleStyle := styles.TierTitle
-	tierTitleText := fmt.Sprintf("Tier %d", layer.Tier())
+	tierTitleText := fmt.Sprintf("Tier %d", layer.Model().Tier)
 	// Remove margin top for the first tier
-	if layer.Tier() == 1 {
+	if layer.Model().Tier == 1 {
 		return fmt.Sprint(tierTitleStyle.Copy().UnsetMarginTop().Render(tierTitleText))
 	}
 	return fmt.Sprint(tierTitleStyle.Render(tierTitleText))

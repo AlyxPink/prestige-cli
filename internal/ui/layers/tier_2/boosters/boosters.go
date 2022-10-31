@@ -25,16 +25,8 @@ func NewModel(id int, ctx *context.ProgramContext) Boosters {
 	return b
 }
 
-func (b *Boosters) Id() int {
-	return b.layer.Id
-}
-
-func (b *Boosters) Name() string {
-	return b.layer.Name
-}
-
-func (b *Boosters) Tier() int {
-	return b.layer.Tier
+func (b *Boosters) Model() *layers.Model {
+	return b.layer
 }
 
 func (b *Boosters) UpdateProgramContext(ctx *context.ProgramContext) {

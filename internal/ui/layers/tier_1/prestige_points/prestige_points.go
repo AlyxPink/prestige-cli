@@ -42,20 +42,12 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Presti
 	return pp
 }
 
-func (pp *PrestigePoints) Id() int {
-	return pp.layer.Id
-}
-
-func (pp *PrestigePoints) Name() string {
-	return pp.layer.Name
-}
-
-func (pp *PrestigePoints) Tier() int {
-	return pp.layer.Tier
-}
-
 func (pp *PrestigePoints) UpdateProgramContext(ctx *context.ProgramContext) {
 	pp.layer.UpdateProgramContext(ctx)
+}
+
+func (pp *PrestigePoints) Model() *layers.Model {
+	return pp.layer
 }
 
 func (pp *PrestigePoints) Tick() {
