@@ -25,16 +25,8 @@ func NewModel(id int, ctx *context.ProgramContext) Generators {
 	return g
 }
 
-func (g *Generators) Id() int {
-	return g.layer.Id
-}
-
-func (g *Generators) Name() string {
-	return g.layer.Name
-}
-
-func (g *Generators) Tier() int {
-	return g.layer.Tier
+func (g *Generators) Model() *layers.Model {
+	return g.layer
 }
 
 func (g *Generators) UpdateProgramContext(ctx *context.ProgramContext) {

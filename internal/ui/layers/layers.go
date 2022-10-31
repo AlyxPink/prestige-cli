@@ -19,9 +19,6 @@ type Model struct {
 }
 
 type Layer interface {
-	Id() int
-	Tier() int
-	Name() string
 	Tick()
 	TickAmount() float64
 	prestigable
@@ -30,6 +27,7 @@ type Layer interface {
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	UpdateProgramContext(ctx *context.ProgramContext)
 	View() string
+	Model() *Model
 }
 
 type prestigable interface {
