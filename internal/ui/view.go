@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_1/prestige_points"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_2/boosters"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/tier_2/generators"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/boosters"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/generators"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/prestige_points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/styles"
 	"github.com/charmbracelet/lipgloss"
 )
