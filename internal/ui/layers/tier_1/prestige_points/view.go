@@ -87,13 +87,13 @@ func (pp *PrestigePoints) listUpgrades() string {
 		u[i] = upgrade.GetModel()
 	}
 
-	upgrades := lipgloss.JoinVertical(
-		lipgloss.Top,
-		lipgloss.JoinHorizontal(
+	for _, chunk := range chunkUpgrades(u, 4) {
+		s.WriteString(lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			upgrades.ListUpgrades(u)...,
-		),
-	)
+			upgrades.ListUpgrades(chunk)...,
+		))
+		s.WriteRune('\n')
+	}
 
 	return lipgloss.NewStyle().
 		Width((pp.layer.GetDimensions().Width / 12) * 6).
@@ -101,7 +101,23 @@ func (pp *PrestigePoints) listUpgrades() string {
 			lipgloss.JoinVertical(
 				lipgloss.Top,
 				s.String(),
-				upgrades,
 			),
 		)
+}
+
+func chunkUpgrades(slice []*upgrades.Model, chunkSize int) [][]*upgrades.Model {
+	var chunks [][]*upgrades.Model
+	for i := 0; i < len(slice); i += chunkSize {
+		end := i + chunkSize
+
+		// necessary check to avoid slicing beyond
+		// slice capacity
+		if end > len(slice) {
+			end = len(slice)
+		}
+
+		chunks = append(chunks, slice[i:end])
+	}
+
+	return chunks
 }
