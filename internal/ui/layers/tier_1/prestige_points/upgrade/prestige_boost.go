@@ -1,4 +1,4 @@
-package prestige_boost
+package upgrade
 
 import (
 	"math"
@@ -8,16 +8,16 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 )
 
-type PrestigeBoost struct {
+type prestigeBoost struct {
 	Points         *points.Points
 	PrestigePoints *layers.Model
 	Upgrade        *upgrades.Model
 }
 
-func NewModel(pp *layers.Model, points *points.Points) PrestigeBoost {
-	b := PrestigeBoost{
+func FetchPrestigeBoost(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
+	model := prestigeBoost{
 		Points:         points,
-		PrestigePoints: pp,
+		PrestigePoints: layer,
 		Upgrade: &upgrades.Model{
 			Name:        "Prestige Boost",
 			Description: "Prestige Points boost Point generation.",
@@ -25,26 +25,21 @@ func NewModel(pp *layers.Model, points *points.Points) PrestigeBoost {
 			Cost:        1,
 		},
 	}
-	return b
+	return &model
 }
 
-func (pb *PrestigeBoost) Buy() {
+func (pb *prestigeBoost) Buy() {
 	pb.PrestigePoints.Amount = pb.Upgrade.Buy(pb.PrestigePoints.Amount)
 }
 
-func (pb *PrestigeBoost) Tick() {
+func (pb *prestigeBoost) Tick() {
 	pb.Points.Amount = pb.Points.Amount + pb.TickAmount()
 }
 
-func (pb *PrestigeBoost) TickAmount() float64 {
+func (pb *prestigeBoost) TickAmount() float64 {
 	return math.Pow(pb.PrestigePoints.Amount+2, 0.5) / 100
 }
 
-func (pb *PrestigeBoost) GetModel() *upgrades.Model {
+func (pb *prestigeBoost) GetModel() *upgrades.Model {
 	return pb.Upgrade
-}
-
-func Fetch(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
-	upgradeModel := NewModel(layer, points)
-	return &upgradeModel
 }

@@ -1,4 +1,4 @@
-package reverse_prestige_boost
+package upgrade
 
 import (
 	"math"
@@ -8,16 +8,16 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 )
 
-type ReversePrestigeBoost struct {
+type reversePrestigeBoost struct {
 	Points         *points.Points
 	PrestigePoints *layers.Model
 	Upgrade        *upgrades.Model
 }
 
-func NewModel(pp *layers.Model, points *points.Points) ReversePrestigeBoost {
-	b := ReversePrestigeBoost{
+func FetchReversePrestigeBoost(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
+	model := reversePrestigeBoost{
 		Points:         points,
-		PrestigePoints: pp,
+		PrestigePoints: layer,
 		Upgrade: &upgrades.Model{
 			Name:        "Reverse Prestige Boost",
 			Description: "Prestige Point gain is boosted by your Points.",
@@ -25,18 +25,18 @@ func NewModel(pp *layers.Model, points *points.Points) ReversePrestigeBoost {
 			Cost:        5_000,
 		},
 	}
-	return b
+	return &model
 }
 
-func (rpb *ReversePrestigeBoost) Buy() {
+func (rpb *reversePrestigeBoost) Buy() {
 	rpb.PrestigePoints.Amount = rpb.Upgrade.Buy(rpb.PrestigePoints.Amount)
 }
 
-func (rpb *ReversePrestigeBoost) Tick() {
+func (rpb *reversePrestigeBoost) Tick() {
 	rpb.Points.Amount = rpb.Points.Amount + rpb.TickAmount()
 }
 
-func (rpb *ReversePrestigeBoost) TickAmount() float64 {
+func (rpb *reversePrestigeBoost) TickAmount() float64 {
 	var amount float64
 	amount = rpb.Points.Amount + 1
 	amount = math.Log10(amount)
@@ -45,11 +45,6 @@ func (rpb *ReversePrestigeBoost) TickAmount() float64 {
 	return amount
 }
 
-func (rpb *ReversePrestigeBoost) GetModel() *upgrades.Model {
+func (rpb *reversePrestigeBoost) GetModel() *upgrades.Model {
 	return rpb.Upgrade
-}
-
-func Fetch(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
-	upgradeModel := NewModel(layer, points)
-	return &upgradeModel
 }
