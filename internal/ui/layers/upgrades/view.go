@@ -7,42 +7,57 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func (upgrade *Model) ViewUpgrade() string {
+func (m *Model) View(upgrade Upgrade) string {
+	var available_effect, enabled_effect string
+
+	if upgrade.Effect() != "" {
+		available_effect = fmt.Sprintln(
+			fmt.Sprintln(),
+			fmt.Sprintln(styles.MainText.Copy().Render(fmt.Sprint("Current: ", upgrade.Effect()))),
+		)
+		enabled_effect = fmt.Sprintln(
+			fmt.Sprintln(),
+			fmt.Sprintln(styles.SubtleMainText.Copy().Render(fmt.Sprint("Current: ", upgrade.Effect()))),
+		)
+	}
+
 	available := styles.UpgradeBoxAvailable.Copy().Align(lipgloss.Left).Render(
 		fmt.Sprintln(
-			fmt.Sprintln(styles.MainText.Copy().Bold(true).Render(upgrade.Name)),
-			fmt.Sprintln(styles.MainText.Copy().Render(upgrade.Description)),
+			fmt.Sprintln(styles.MainText.Copy().Bold(true).Render(m.Name)),
+			fmt.Sprintln(styles.MainText.Copy().Render(m.Description)),
+			available_effect,
 			fmt.Sprintln(),
-			fmt.Sprint(styles.MainText.Render(fmt.Sprintf("Cost: %.2f", upgrade.Cost))),
+			fmt.Sprint(styles.MainText.Render(fmt.Sprintf("Cost: %.2f", m.Cost))),
 		))
 
 	enabled := styles.UpgradeBoxEnabled.Copy().Align(lipgloss.Left).Render(
 		fmt.Sprintln(
-			fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render(upgrade.Name)),
-			fmt.Sprintln(styles.SubtleMainText.Copy().Render(upgrade.Description)),
+			fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render(m.Name)),
+			fmt.Sprintln(styles.SubtleMainText.Copy().Render(m.Description)),
+			enabled_effect,
 			fmt.Sprintln(),
-			fmt.Sprint(styles.SubtleMainText.Render(fmt.Sprintf("Cost: %.2f", upgrade.Cost))),
+			fmt.Sprint(styles.SubtleMainText.Render(fmt.Sprintf("Cost: %.2f", m.Cost))),
 		))
 
-	if upgrade.Enabled {
+	if m.Enabled {
 		return enabled
 	}
 	return available
 }
 
-func ListUpgrades(upgrades []Upgrade) []string {
+func List(upgrades []Upgrade) []string {
 	s := make([]string, len(upgrades))
 	for _, upgrade := range upgrades {
 		if !upgrade.Unlocked() {
 			continue
 		}
-		block := upgrade.GetModel().ViewUpgrade()
+		block := upgrade.GetModel().View(upgrade)
 		s = append(s, block)
 	}
 	return s
 }
 
-func ChunkUpgrades(slice []Upgrade, chunkSize int) [][]Upgrade {
+func Chunk(slice []Upgrade, chunkSize int) [][]Upgrade {
 	var chunks [][]Upgrade
 	for i := 0; i < len(slice); i += chunkSize {
 		end := i + chunkSize

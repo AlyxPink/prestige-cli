@@ -82,10 +82,10 @@ func (m *Model) listUpgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 
-	for _, chunk := range upgrades.ChunkUpgrades(m.layer.Upgrades, 4) {
+	for _, chunk := range upgrades.Chunk(m.layer.Upgrades, 4) {
 		s.WriteString(lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			upgrades.ListUpgrades(chunk)...,
+			upgrades.List(chunk)...,
 		))
 		s.WriteRune('\n')
 	}
