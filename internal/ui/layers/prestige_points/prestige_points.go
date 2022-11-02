@@ -32,6 +32,7 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Model 
 		upgrade.FetchPrestigeBoost(m.layer, points),
 		upgrade.FetchSelfSynergy(m.layer, points),
 		upgrade.FetchMorePrestige(m.layer, points),
+		upgrade.FetchUpgradePower(m.layer, points),
 		upgrade.FetchReversePrestigeBoost(m.layer, points),
 	}
 	return m
