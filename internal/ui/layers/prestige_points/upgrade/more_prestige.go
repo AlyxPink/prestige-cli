@@ -32,6 +32,10 @@ func (model *morePrestige) Buy() {
 func (model *morePrestige) Tick() {
 }
 
+func (model *morePrestige) Effect() string {
+	return ""
+}
+
 func (model *morePrestige) Unlocked() bool {
 	return model.PrestigePoints.Upgrades[2].GetModel().Enabled
 }

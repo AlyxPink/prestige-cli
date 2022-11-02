@@ -1,6 +1,7 @@
 package upgrade
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
@@ -35,12 +36,22 @@ func (model *selfSynergy) Tick() {
 	model.Points.Amount = model.Points.Amount + model.TickAmount()
 }
 
+func (model *selfSynergy) Effect() string {
+	return fmt.Sprintf("%.2fx", model.TickAmount()*100)
+}
+
 func (model *selfSynergy) Unlocked() bool {
 	return model.PrestigePoints.Upgrades[1].GetModel().Enabled
 }
 
 func (model *selfSynergy) TickAmount() float64 {
-	return math.Log10(math.Pow(model.Points.Amount+1, 0.75)) / 100
+	var amount float64
+	amount = model.Points.Amount + 1
+	amount = math.Log10(amount)
+	amount = math.Pow(amount, 0.75)
+	amount = amount + 1
+	amount = amount / 100
+	return amount
 }
 
 func (model *selfSynergy) GetModel() *upgrades.Model {

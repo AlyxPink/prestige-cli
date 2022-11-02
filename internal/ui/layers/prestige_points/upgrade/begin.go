@@ -33,6 +33,10 @@ func (model *begin) Tick() {
 	model.Points.Amount = model.Points.Amount + model.TickAmount()
 }
 
+func (model *begin) Effect() string {
+	return ""
+}
+
 func (model *begin) Unlocked() bool {
 	return true
 }

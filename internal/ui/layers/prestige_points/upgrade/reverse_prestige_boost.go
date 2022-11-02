@@ -1,6 +1,7 @@
 package upgrade
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
@@ -33,6 +34,10 @@ func (model *reversePrestigeBoost) Buy() {
 
 func (model *reversePrestigeBoost) Tick() {
 	model.Points.Amount = model.Points.Amount + model.TickAmount()
+}
+
+func (model *reversePrestigeBoost) Effect() string {
+	return fmt.Sprintf("%.2fx", model.TickAmount())
 }
 
 func (model *reversePrestigeBoost) Unlocked() bool {
