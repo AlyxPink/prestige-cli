@@ -6,13 +6,16 @@ type Model struct {
 	Amount      uint
 	Cost        float64
 	Enabled     bool
-	Unlocked    bool
 }
 
 type Upgrade interface {
 	Tick()
 	TickAmount() float64
+
 	Buy()
+
+	Unlocked() bool
+
 	GetModel() *Model
 }
 

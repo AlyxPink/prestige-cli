@@ -30,14 +30,31 @@ func (upgrade *Model) ViewUpgrade() string {
 	return available
 }
 
-func ListUpgrades(upgrades []*Model) []string {
+func ListUpgrades(upgrades []Upgrade) []string {
 	s := make([]string, len(upgrades))
 	for _, upgrade := range upgrades {
-		if !upgrade.Unlocked {
+		if !upgrade.Unlocked() {
 			continue
 		}
-		block := upgrade.ViewUpgrade()
+		block := upgrade.GetModel().ViewUpgrade()
 		s = append(s, block)
 	}
 	return s
+}
+
+func ChunkUpgrades(slice []Upgrade, chunkSize int) [][]Upgrade {
+	var chunks [][]Upgrade
+	for i := 0; i < len(slice); i += chunkSize {
+		end := i + chunkSize
+
+		// necessary check to avoid slicing beyond
+		// slice capacity
+		if end > len(slice) {
+			end = len(slice)
+		}
+
+		chunks = append(chunks, slice[i:end])
+	}
+
+	return chunks
 }

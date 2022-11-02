@@ -19,7 +19,6 @@ func FetchBegin(layer *layers.Model, points *points.Points) (upgrade upgrades.Up
 		Upgrade: &upgrades.Model{
 			Name:        "Begin",
 			Description: "Generate 1 Point every second.",
-			Unlocked:    true,
 			Cost:        1,
 		},
 	}
@@ -32,6 +31,10 @@ func (model *begin) Buy() {
 
 func (model *begin) Tick() {
 	model.Points.Amount = model.Points.Amount + model.TickAmount()
+}
+
+func (model *begin) Unlocked() bool {
+	return true
 }
 
 func (model *begin) TickAmount() float64 {

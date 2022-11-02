@@ -21,25 +21,28 @@ func FetchSelfSynergy(layer *layers.Model, points *points.Points) (upgrade upgra
 		Upgrade: &upgrades.Model{
 			Name:        "Self-Synergy",
 			Description: "Points boost their own generation.",
-			Unlocked:    true,
 			Cost:        5,
 		},
 	}
 	return &model
 }
 
-func (ss *selfSynergy) Buy() {
-	ss.PrestigePoints.Amount = ss.Upgrade.Buy(ss.PrestigePoints.Amount)
+func (model *selfSynergy) Buy() {
+	model.PrestigePoints.Amount = model.Upgrade.Buy(model.PrestigePoints.Amount)
 }
 
-func (ss *selfSynergy) Tick() {
-	ss.Points.Amount = ss.Points.Amount + ss.TickAmount()
+func (model *selfSynergy) Tick() {
+	model.Points.Amount = model.Points.Amount + model.TickAmount()
 }
 
-func (ss *selfSynergy) TickAmount() float64 {
-	return math.Log10(math.Pow(ss.Points.Amount+1, 0.75)) / 100
+func (model *selfSynergy) Unlocked() bool {
+	return model.PrestigePoints.Upgrades[1].GetModel().Enabled
 }
 
-func (ss *selfSynergy) GetModel() *upgrades.Model {
-	return ss.Upgrade
+func (model *selfSynergy) TickAmount() float64 {
+	return math.Log10(math.Pow(model.Points.Amount+1, 0.75)) / 100
+}
+
+func (model *selfSynergy) GetModel() *upgrades.Model {
+	return model.Upgrade
 }
