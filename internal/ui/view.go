@@ -45,7 +45,7 @@ func (m Model) View() string {
 func (m *Model) fetchLayers() []layers.Layer {
 	layers := []layers.Layer{
 		prestige_points.Fetch(0, m.Points, m.ctx),
-		boosters.Fetch(1, m.ctx),
+		boosters.Fetch(1, m.Points, m.ctx),
 		generators.Fetch(2, m.ctx),
 	}
 	return layers
