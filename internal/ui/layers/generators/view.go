@@ -8,23 +8,23 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func (g *Generators) View() string {
+func (m *Model) View() string {
 	return lipgloss.JoinVertical(
 		lipgloss.Top,
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			g.prestige(),
-			g.stats(),
+			m.prestige(),
+			m.stats(),
 		),
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			g.milestones(),
-			g.listUpgrades(),
+			m.milestones(),
+			m.listUpgrades(),
 		),
 	)
 }
 
-func (g *Generators) stats() string {
+func (m *Model) stats() string {
 	s1 := strings.Builder{}
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("You have:")))
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render("2 generators, generating 3.00 Generator Power/sec")))
@@ -36,12 +36,12 @@ func (g *Generators) stats() string {
 	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render("Total of 64 generators")))
 	return lipgloss.JoinHorizontal(
 		lipgloss.Top,
-		styles.MainText.Copy().Width((g.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s1.String()),
-		styles.MainText.Copy().Width((g.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s2.String()),
+		styles.MainText.Copy().Width((m.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s1.String()),
+		styles.MainText.Copy().Width((m.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s2.String()),
 	)
 }
 
-func (g *Generators) prestige() string {
+func (m *Model) prestige() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Prestige")))
 
@@ -54,7 +54,7 @@ func (g *Generators) prestige() string {
 	)))
 
 	return lipgloss.NewStyle().
-		Width((g.layer.GetDimensions().Width / 12) * 4).
+		Width((m.layer.GetDimensions().Width / 12) * 4).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
@@ -64,18 +64,18 @@ func (g *Generators) prestige() string {
 		)
 }
 
-func (g *Generators) milestones() string {
+func (m *Model) milestones() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Milestones")))
 
 	milestones := strings.Builder{}
-	milestones.WriteString(fmt.Sprintln(styles.BoxStyleEnabled.Copy().Width((g.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
+	milestones.WriteString(fmt.Sprintln(styles.BoxStyleEnabled.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
 		fmt.Sprint(
 			fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render("8 generators")),
 			fmt.Sprint(styles.SubtleMainText.Copy().Render("Keep prestige points on reset")),
 		),
 	)))
-	milestones.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Width((g.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
+	milestones.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
 		fmt.Sprint(
 			fmt.Sprintln(styles.MainText.Copy().Bold(true).Render("10 generators")),
 			fmt.Sprint(styles.MainText.Copy().Render("You gain 100% prestige points every second")),
@@ -83,7 +83,7 @@ func (g *Generators) milestones() string {
 	)))
 
 	return lipgloss.NewStyle().
-		Width((g.layer.GetDimensions().Width / 12) * 4).
+		Width((m.layer.GetDimensions().Width / 12) * 4).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
@@ -93,7 +93,7 @@ func (g *Generators) milestones() string {
 		)
 }
 
-func (g *Generators) listUpgrades() string {
+func (m *Model) listUpgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 
@@ -180,7 +180,7 @@ func (g *Generators) listUpgrades() string {
 	)
 
 	return lipgloss.NewStyle().
-		Width((g.layer.GetDimensions().Width / 12) * 6).
+		Width((m.layer.GetDimensions().Width / 12) * 6).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,

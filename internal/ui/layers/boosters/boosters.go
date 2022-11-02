@@ -7,13 +7,13 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-type Boosters struct {
+type Model struct {
 	layer    *layers.Model
 	upgrades []upgrades.Upgrade
 }
 
-func NewModel(id int, ctx *context.ProgramContext) Boosters {
-	b := Boosters{
+func NewModel(id int, ctx *context.ProgramContext) Model {
+	b := Model{
 		layer: &layers.Model{
 			Id:   id,
 			Tier: 2,
@@ -25,34 +25,34 @@ func NewModel(id int, ctx *context.ProgramContext) Boosters {
 	return b
 }
 
-func (b *Boosters) Model() *layers.Model {
-	return b.layer
+func (m *Model) Model() *layers.Model {
+	return m.layer
 }
 
-func (b *Boosters) UpdateProgramContext(ctx *context.ProgramContext) {
-	b.layer.UpdateProgramContext(ctx)
+func (m *Model) UpdateProgramContext(ctx *context.ProgramContext) {
+	m.layer.UpdateProgramContext(ctx)
 }
 
-func (b *Boosters) Tick() {
+func (m *Model) Tick() {
 }
 
-func (b *Boosters) TickAmount() float64 {
+func (m *Model) TickAmount() float64 {
 	return 0.0
 }
 
-func (b *Boosters) Prestige() {
+func (m *Model) Prestige() {
 }
 
-func (b *Boosters) PrestigeAmount() float64 {
+func (m *Model) PrestigeAmount() float64 {
 	return 10
 }
 
-func (b *Boosters) Upgrades() []upgrades.Upgrade {
-	return b.upgrades
+func (m *Model) Upgrades() []upgrades.Upgrade {
+	return m.upgrades
 }
 
-func (b *Boosters) UpgradeAvailable() bool {
-	for _, upgrade := range b.upgrades {
+func (m *Model) UpgradeAvailable() bool {
+	for _, upgrade := range m.upgrades {
 		if upgrade.GetModel().Unlocked && !upgrade.GetModel().Enabled {
 			return true
 		}
@@ -60,12 +60,12 @@ func (b *Boosters) UpgradeAvailable() bool {
 	return false
 }
 
-func (m Boosters) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
+func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &m, cmd
 }
 
-func (b *Boosters) View() string {
+func (m *Model) View() string {
 	return "Boosters"
 }
 

@@ -11,14 +11,14 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-type PrestigePoints struct {
+type Model struct {
 	Points   *points.Points
 	layer    *layers.Model
 	upgrades []upgrades.Upgrade
 }
 
-func NewModel(id int, points *points.Points, ctx *context.ProgramContext) PrestigePoints {
-	pp := PrestigePoints{
+func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Model {
+	m := Model{
 		Points: points,
 		layer: &layers.Model{
 			Id:   id,
@@ -28,35 +28,35 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Presti
 		},
 	}
 
-	pp.upgrades = []upgrades.Upgrade{
-		upgrade.FetchBegin(pp.layer, points),
-		upgrade.FetchPrestigeBoost(pp.layer, points),
-		upgrade.FetchSelfSynergy(pp.layer, points),
-		upgrade.FetchMorePrestige(pp.layer, points),
-		upgrade.FetchReversePrestigeBoost(pp.layer, points),
+	m.upgrades = []upgrades.Upgrade{
+		upgrade.FetchBegin(m.layer, points),
+		upgrade.FetchPrestigeBoost(m.layer, points),
+		upgrade.FetchSelfSynergy(m.layer, points),
+		upgrade.FetchMorePrestige(m.layer, points),
+		upgrade.FetchReversePrestigeBoost(m.layer, points),
 	}
-	return pp
+	return m
 }
 
-func (pp *PrestigePoints) UpdateProgramContext(ctx *context.ProgramContext) {
-	pp.layer.UpdateProgramContext(ctx)
+func (m *Model) UpdateProgramContext(ctx *context.ProgramContext) {
+	m.layer.UpdateProgramContext(ctx)
 }
 
-func (pp *PrestigePoints) Model() *layers.Model {
-	return pp.layer
+func (m *Model) Model() *layers.Model {
+	return m.layer
 }
 
-func (pp *PrestigePoints) Tick() {
-	for _, upgrade := range pp.upgrades {
+func (m *Model) Tick() {
+	for _, upgrade := range m.upgrades {
 		if upgrade.GetModel().Enabled {
 			upgrade.Tick()
 		}
 	}
 }
 
-func (pp *PrestigePoints) TickAmount() float64 {
+func (m *Model) TickAmount() float64 {
 	amount := 0.0
-	for _, upgrade := range pp.upgrades {
+	for _, upgrade := range m.upgrades {
 		if upgrade.GetModel().Enabled {
 			amount = amount + upgrade.TickAmount()
 		}
@@ -64,52 +64,52 @@ func (pp *PrestigePoints) TickAmount() float64 {
 	return amount
 }
 
-func (pp *PrestigePoints) Prestige() {
-	if pp.PrestigeAmount() < 1 {
+func (m *Model) Prestige() {
+	if m.PrestigeAmount() < 1 {
 		return
 	}
-	pp.layer.Amount = pp.layer.Amount + pp.PrestigeAmount()
-	pp.layer.AmountTotal = pp.layer.AmountTotal + pp.PrestigeAmount()
+	m.layer.Amount = m.layer.Amount + m.PrestigeAmount()
+	m.layer.AmountTotal = m.layer.AmountTotal + m.PrestigeAmount()
 	// Save best score
-	if pp.layer.Amount > pp.layer.AmountBest {
-		pp.layer.AmountBest = pp.layer.Amount
+	if m.layer.Amount > m.layer.AmountBest {
+		m.layer.AmountBest = m.layer.Amount
 	}
-	pp.Points.Amount = 0
+	m.Points.Amount = 0
 }
 
-func (pp *PrestigePoints) PrestigeAmount() float64 {
-	if pp.Points.Amount < pp.PrestigeRequirement() {
+func (m *Model) PrestigeAmount() float64 {
+	if m.Points.Amount < m.PrestigeRequirement() {
 		return 0
 	}
-	gain := pp.Points.Amount / pp.PrestigeRequirement()
+	gain := m.Points.Amount / m.PrestigeRequirement()
 	gain = math.Pow(gain, 0.5)
-	gain = gain * pp.GainMult()
-	gain = math.Pow(gain, pp.GainExp())
+	gain = gain * m.GainMult()
+	gain = math.Pow(gain, m.GainExp())
 	return gain
 }
 
-func (pp *PrestigePoints) PrestigeRequirement() float64 {
+func (m *Model) PrestigeRequirement() float64 {
 	return 10
 }
 
-func (pp *PrestigePoints) GainMult() float64 {
+func (m *Model) GainMult() float64 {
 	mult := 1.0
-	if pp.Upgrades()[3].GetModel().Enabled { // If "more_prestige" upgrade enabled
+	if m.Upgrades()[3].GetModel().Enabled { // If "more_prestige" upgrade enabled
 		mult = mult * 1.8
 	}
 	return mult
 }
 
-func (pp *PrestigePoints) GainExp() float64 {
+func (m *Model) GainExp() float64 {
 	return 1
 }
 
-func (pp *PrestigePoints) Upgrades() []upgrades.Upgrade {
-	return pp.upgrades
+func (m *Model) Upgrades() []upgrades.Upgrade {
+	return m.upgrades
 }
 
-func (pp *PrestigePoints) UpgradeAvailable() bool {
-	for _, upgrade := range pp.upgrades {
+func (m *Model) UpgradeAvailable() bool {
+	for _, upgrade := range m.upgrades {
 		if upgrade.GetModel().Unlocked && !upgrade.GetModel().Enabled {
 			return true
 		}
@@ -117,9 +117,9 @@ func (pp *PrestigePoints) UpgradeAvailable() bool {
 	return false
 }
 
-func (pp PrestigePoints) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
+func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
-	return &pp, cmd
+	return &m, cmd
 }
 
 func Fetch(id int, points *points.Points, ctx context.ProgramContext) (layer layers.Layer) {
