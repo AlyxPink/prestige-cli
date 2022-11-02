@@ -73,6 +73,16 @@ func (m *Model) ListUpgradeAvailable() bool {
 	return false
 }
 
+func (m *Model) ListUpgradeEnabled() []upgrades.Upgrade {
+	var upgrades_enabled []upgrades.Upgrade
+	for _, upgrade := range m.Upgrades {
+		if upgrade.GetModel().Enabled {
+			upgrades_enabled = append(upgrades_enabled, upgrade)
+		}
+	}
+	return upgrades_enabled
+}
+
 func (m *Model) SetDimensions(dimensions constants.Dimensions) {
 	m.dimensions = dimensions
 }
