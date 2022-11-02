@@ -21,30 +21,33 @@ func FetchReversePrestigeBoost(layer *layers.Model, points *points.Points) (upgr
 		Upgrade: &upgrades.Model{
 			Name:        "Reverse Prestige Boost",
 			Description: "Prestige Point gain is boosted by your Points.",
-			Unlocked:    true,
 			Cost:        5_000,
 		},
 	}
 	return &model
 }
 
-func (rpb *reversePrestigeBoost) Buy() {
-	rpb.PrestigePoints.Amount = rpb.Upgrade.Buy(rpb.PrestigePoints.Amount)
+func (model *reversePrestigeBoost) Buy() {
+	model.PrestigePoints.Amount = model.Upgrade.Buy(model.PrestigePoints.Amount)
 }
 
-func (rpb *reversePrestigeBoost) Tick() {
-	rpb.Points.Amount = rpb.Points.Amount + rpb.TickAmount()
+func (model *reversePrestigeBoost) Tick() {
+	model.Points.Amount = model.Points.Amount + model.TickAmount()
 }
 
-func (rpb *reversePrestigeBoost) TickAmount() float64 {
+func (model *reversePrestigeBoost) Unlocked() bool {
+	return model.PrestigePoints.Upgrades[2].GetModel().Enabled
+}
+
+func (model *reversePrestigeBoost) TickAmount() float64 {
 	var amount float64
-	amount = rpb.Points.Amount + 1
+	amount = model.Points.Amount + 1
 	amount = math.Log10(amount)
 	amount = math.Cbrt(amount)
 	amount = amount + 1
 	return amount
 }
 
-func (rpb *reversePrestigeBoost) GetModel() *upgrades.Model {
-	return rpb.Upgrade
+func (model *reversePrestigeBoost) GetModel() *upgrades.Model {
+	return model.Upgrade
 }

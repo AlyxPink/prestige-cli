@@ -66,7 +66,7 @@ func (m *Model) ListUpgrades() []upgrades.Upgrade {
 
 func (m *Model) ListUpgradeAvailable() bool {
 	for _, upgrade := range m.Upgrades {
-		if upgrade.GetModel().Unlocked && !upgrade.GetModel().Enabled {
+		if upgrade.Unlocked() && !upgrade.GetModel().Enabled {
 			return true
 		}
 	}

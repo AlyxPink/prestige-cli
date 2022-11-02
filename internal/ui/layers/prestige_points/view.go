@@ -82,12 +82,7 @@ func (m *Model) listUpgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 
-	u := make([]*upgrades.Model, len(m.layer.Upgrades))
-	for i, upgrade := range m.layer.Upgrades {
-		u[i] = upgrade.GetModel()
-	}
-
-	for _, chunk := range chunkUpgrades(u, 4) {
+	for _, chunk := range upgrades.ChunkUpgrades(m.layer.Upgrades, 4) {
 		s.WriteString(lipgloss.JoinHorizontal(
 			lipgloss.Top,
 			upgrades.ListUpgrades(chunk)...,
@@ -103,21 +98,4 @@ func (m *Model) listUpgrades() string {
 				s.String(),
 			),
 		)
-}
-
-func chunkUpgrades(slice []*upgrades.Model, chunkSize int) [][]*upgrades.Model {
-	var chunks [][]*upgrades.Model
-	for i := 0; i < len(slice); i += chunkSize {
-		end := i + chunkSize
-
-		// necessary check to avoid slicing beyond
-		// slice capacity
-		if end > len(slice) {
-			end = len(slice)
-		}
-
-		chunks = append(chunks, slice[i:end])
-	}
-
-	return chunks
 }

@@ -19,7 +19,6 @@ func FetchMorePrestige(layer *layers.Model, points *points.Points) (upgrade upgr
 		Upgrade: &upgrades.Model{
 			Name:        "More Prestige",
 			Description: "Prestige Point gain is increased by 80%.",
-			Unlocked:    true,
 			Cost:        20,
 		},
 	}
@@ -31,6 +30,10 @@ func (model *morePrestige) Buy() {
 }
 
 func (model *morePrestige) Tick() {
+}
+
+func (model *morePrestige) Unlocked() bool {
+	return model.PrestigePoints.Upgrades[2].GetModel().Enabled
 }
 
 func (model *morePrestige) TickAmount() float64 {

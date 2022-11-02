@@ -21,28 +21,31 @@ func FetchUpgradePower(layer *layers.Model, points *points.Points) (upgrade upgr
 		Upgrade: &upgrades.Model{
 			Name:        "Upgrade Power",
 			Description: "Point generation is faster based on your Prestige Upgrades bought.",
-			Unlocked:    true,
 			Cost:        75,
 		},
 	}
 	return &model
 }
 
-func (up *upgradePower) Buy() {
-	up.PrestigePoints.Amount = up.Upgrade.Buy(up.PrestigePoints.Amount)
+func (model *upgradePower) Buy() {
+	model.PrestigePoints.Amount = model.Upgrade.Buy(model.PrestigePoints.Amount)
 }
 
-func (up *upgradePower) Tick() {
-	up.Points.Amount = up.Points.Amount + up.TickAmount()
+func (model *upgradePower) Tick() {
+	model.Points.Amount = model.Points.Amount + model.TickAmount()
 }
 
-func (up *upgradePower) TickAmount() float64 {
+func (model *upgradePower) Unlocked() bool {
+	return model.PrestigePoints.Upgrades[2].GetModel().Enabled
+}
+
+func (model *upgradePower) TickAmount() float64 {
 	var amount float64
-	upgrades_enabled_count := len(up.PrestigePoints.ListUpgradeEnabled())
+	upgrades_enabled_count := len(model.PrestigePoints.ListUpgradeEnabled())
 	amount = math.Pow(1.4, float64(upgrades_enabled_count))
 	return amount
 }
 
-func (up *upgradePower) GetModel() *upgrades.Model {
-	return up.Upgrade
+func (model *upgradePower) GetModel() *upgrades.Model {
+	return model.Upgrade
 }
