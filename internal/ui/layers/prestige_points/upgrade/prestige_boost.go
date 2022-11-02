@@ -4,8 +4,8 @@ import (
 	"math"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/upgrades"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
-	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 )
 
 type prestigeBoost struct {
