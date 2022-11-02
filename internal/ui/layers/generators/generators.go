@@ -47,19 +47,6 @@ func (m *Model) PrestigeAmount() float64 {
 	return 10
 }
 
-func (m *Model) Upgrades() []upgrades.Upgrade {
-	return m.upgrades
-}
-
-func (m *Model) UpgradeAvailable() bool {
-	for _, upgrade := range m.upgrades {
-		if upgrade.GetModel().Unlocked && !upgrade.GetModel().Enabled {
-			return true
-		}
-	}
-	return false
-}
-
 func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &m, cmd

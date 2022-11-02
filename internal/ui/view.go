@@ -87,7 +87,7 @@ func (m Model) layerTitle(layer layers.Layer) string {
 	} else {
 		prestigeStatus = styles.PrestigeUnavailable.Render(styles.DefaultGlyphs.PrestigeStatus)
 	}
-	if layer.UpgradeAvailable() {
+	if layer.Model().ListUpgradeAvailable() {
 		upgradeStatus = styles.UpgradeAvailable.Render(styles.DefaultGlyphs.UpgradeStatus)
 	} else {
 		upgradeStatus = styles.UpgradeUnavailable.Render(styles.DefaultGlyphs.UpgradeStatus)
