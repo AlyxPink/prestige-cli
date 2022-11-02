@@ -9,54 +9,54 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func (pp *PrestigePoints) View() string {
+func (m *Model) View() string {
 	return lipgloss.JoinVertical(
 		lipgloss.Top,
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			pp.viewPrestige(),
-			pp.viewStats(),
+			m.viewPrestige(),
+			m.viewStats(),
 		),
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			pp.listMilestones(),
-			pp.listUpgrades(),
+			m.listMilestones(),
+			m.listUpgrades(),
 		),
 	)
 }
 
-func (pp *PrestigePoints) viewStats() string {
+func (m *Model) viewStats() string {
 	s1 := strings.Builder{}
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("You have:")))
-	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render(fmt.Sprintf("%.0f prestige points", pp.layer.Amount))))
+	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render(fmt.Sprintf("%.0f prestige points", m.layer.Amount))))
 	s2 := strings.Builder{}
 	s2.WriteString(fmt.Sprintln())
-	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render(fmt.Sprintf("Your best prestige points is %.0f", pp.layer.AmountBest))))
-	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render(fmt.Sprintf("Total of %.0f prestige points", pp.layer.AmountTotal))))
+	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render(fmt.Sprintf("Your best prestige points is %.0f", m.layer.AmountBest))))
+	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render(fmt.Sprintf("Total of %.0f prestige points", m.layer.AmountTotal))))
 	return lipgloss.JoinHorizontal(
 		lipgloss.Top,
-		styles.MainText.Copy().Width((pp.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s1.String()),
-		styles.MainText.Copy().Width((pp.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s2.String()),
+		styles.MainText.Copy().Width((m.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s1.String()),
+		styles.MainText.Copy().Width((m.layer.GetDimensions().Width/12)*4).Align(lipgloss.Left).Render(s2.String()),
 	)
 }
 
-func (pp *PrestigePoints) viewPrestige() string {
+func (m *Model) viewPrestige() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Prestige")))
 
 	button := strings.Builder{}
-	if pp.PrestigeAmount() >= 1 {
+	if m.PrestigeAmount() >= 1 {
 		button.WriteString(fmt.Sprintln(styles.BoxStyleAvailable.Copy().Render(
-			fmt.Sprintf("Reset for +%.0f prestige points", pp.PrestigeAmount()),
+			fmt.Sprintf("Reset for +%.0f prestige points", m.PrestigeAmount()),
 		)))
 	} else {
 		button.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Render(
-			fmt.Sprintf("Reset for +%.0f prestige points", pp.PrestigeAmount()),
+			fmt.Sprintf("Reset for +%.0f prestige points", m.PrestigeAmount()),
 		)))
 	}
 
 	return lipgloss.NewStyle().
-		Width((pp.layer.GetDimensions().Width / 12) * 4).
+		Width((m.layer.GetDimensions().Width / 12) * 4).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
@@ -66,9 +66,9 @@ func (pp *PrestigePoints) viewPrestige() string {
 		)
 }
 
-func (pp *PrestigePoints) listMilestones() string {
+func (m *Model) listMilestones() string {
 	return lipgloss.NewStyle().
-		Width((pp.layer.GetDimensions().Width / 12) * 4).
+		Width((m.layer.GetDimensions().Width / 12) * 4).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
@@ -78,12 +78,12 @@ func (pp *PrestigePoints) listMilestones() string {
 		)
 }
 
-func (pp *PrestigePoints) listUpgrades() string {
+func (m *Model) listUpgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 
-	u := make([]*upgrades.Model, len(pp.upgrades))
-	for i, upgrade := range pp.upgrades {
+	u := make([]*upgrades.Model, len(m.upgrades))
+	for i, upgrade := range m.upgrades {
 		u[i] = upgrade.GetModel()
 	}
 
@@ -96,7 +96,7 @@ func (pp *PrestigePoints) listUpgrades() string {
 	}
 
 	return lipgloss.NewStyle().
-		Width((pp.layer.GetDimensions().Width / 12) * 6).
+		Width((m.layer.GetDimensions().Width / 12) * 6).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
