@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/upgrades"
 	"github.com/VictorBersy/prestige-cli/internal/ui/styles"
-	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
 	"github.com/charmbracelet/lipgloss"
 )
 

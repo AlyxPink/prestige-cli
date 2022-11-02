@@ -3,7 +3,7 @@ package generators
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-	"github.com/VictorBersy/prestige-cli/internal/ui/upgrades"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
