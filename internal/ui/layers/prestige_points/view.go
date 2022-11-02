@@ -82,8 +82,8 @@ func (m *Model) listUpgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 
-	u := make([]*upgrades.Model, len(m.upgrades))
-	for i, upgrade := range m.upgrades {
+	u := make([]*upgrades.Model, len(m.layer.Upgrades))
+	for i, upgrade := range m.layer.Upgrades {
 		u[i] = upgrade.GetModel()
 	}
 

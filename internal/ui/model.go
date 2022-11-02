@@ -56,8 +56,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		)):
 			keyDigit, _ := strconv.Atoi(msg.String()[1:])
 			upgradeId := keyDigit - 1
-			if len(m.getCurrLayer().Upgrades()) > upgradeId {
-				m.getCurrLayer().Upgrades()[upgradeId].Buy()
+			if len(m.getCurrLayer().Model().ListUpgrades()) > upgradeId {
+				m.getCurrLayer().Model().ListUpgrades()[upgradeId].Buy()
 			}
 
 		case key.Matches(msg, m.keys.Prestige):

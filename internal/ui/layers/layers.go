@@ -8,26 +8,30 @@ import (
 )
 
 type Model struct {
-	Id          int
-	Tier        int
-	Ctx         *context.ProgramContext
-	Name        string
+	Name string
+	Id   int
+	Tier int
+
 	Amount      float64
 	AmountTotal float64
 	AmountBest  float64
-	dimensions  constants.Dimensions
+
+	Upgrades []upgrades.Upgrade
+
+	Ctx        *context.ProgramContext
+	dimensions constants.Dimensions
 }
 
 type Layer interface {
 	Tick()
 	TickAmount() float64
+
 	prestigable
-	Upgrades() []upgrades.Upgrade
-	UpgradeAvailable() bool
+
 	Update(msg tea.Msg) (Layer, tea.Cmd)
-	UpdateProgramContext(ctx *context.ProgramContext)
 	View() string
 	Model() *Model
+	UpdateProgramContext(ctx *context.ProgramContext)
 }
 
 type prestigable interface {
@@ -54,6 +58,19 @@ func (m *Model) GetDimensions() constants.Dimensions {
 		Width:  m.Ctx.Width,
 		Height: m.Ctx.Height,
 	}
+}
+
+func (m *Model) ListUpgrades() []upgrades.Upgrade {
+	return m.Upgrades
+}
+
+func (m *Model) ListUpgradeAvailable() bool {
+	for _, upgrade := range m.Upgrades {
+		if upgrade.GetModel().Unlocked && !upgrade.GetModel().Enabled {
+			return true
+		}
+	}
+	return false
 }
 
 func (m *Model) SetDimensions(dimensions constants.Dimensions) {

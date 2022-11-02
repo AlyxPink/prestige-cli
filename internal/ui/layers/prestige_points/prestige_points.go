@@ -12,9 +12,8 @@ import (
 )
 
 type Model struct {
-	Points   *points.Points
-	layer    *layers.Model
-	upgrades []upgrades.Upgrade
+	Points *points.Points
+	layer  *layers.Model
 }
 
 func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Model {
@@ -28,7 +27,7 @@ func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Model 
 		},
 	}
 
-	m.upgrades = []upgrades.Upgrade{
+	m.layer.Upgrades = []upgrades.Upgrade{
 		upgrade.FetchBegin(m.layer, points),
 		upgrade.FetchPrestigeBoost(m.layer, points),
 		upgrade.FetchSelfSynergy(m.layer, points),
@@ -47,7 +46,7 @@ func (m *Model) Model() *layers.Model {
 }
 
 func (m *Model) Tick() {
-	for _, upgrade := range m.upgrades {
+	for _, upgrade := range m.layer.Upgrades {
 		if upgrade.GetModel().Enabled {
 			upgrade.Tick()
 		}
@@ -56,7 +55,7 @@ func (m *Model) Tick() {
 
 func (m *Model) TickAmount() float64 {
 	amount := 0.0
-	for _, upgrade := range m.upgrades {
+	for _, upgrade := range m.layer.Upgrades {
 		if upgrade.GetModel().Enabled {
 			amount = amount + upgrade.TickAmount()
 		}
@@ -94,7 +93,7 @@ func (m *Model) PrestigeRequirement() float64 {
 
 func (m *Model) GainMult() float64 {
 	mult := 1.0
-	if m.Upgrades()[3].GetModel().Enabled { // If "more_prestige" upgrade enabled
+	if m.layer.Upgrades[3].GetModel().Enabled { // If "more_prestige" upgrade enabled
 		mult = mult * 1.8
 	}
 	return mult
@@ -102,19 +101,6 @@ func (m *Model) GainMult() float64 {
 
 func (m *Model) GainExp() float64 {
 	return 1
-}
-
-func (m *Model) Upgrades() []upgrades.Upgrade {
-	return m.upgrades
-}
-
-func (m *Model) UpgradeAvailable() bool {
-	for _, upgrade := range m.upgrades {
-		if upgrade.GetModel().Unlocked && !upgrade.GetModel().Enabled {
-			return true
-		}
-	}
-	return false
 }
 
 func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
