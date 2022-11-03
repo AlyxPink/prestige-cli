@@ -33,11 +33,11 @@ func (model *selfSynergy) Buy() {
 }
 
 func (model *selfSynergy) Tick() {
-	model.Points.Amount = model.Points.Amount + model.TickAmount()
+	model.Points.Amount = model.Points.Amount + model.TickAmount()/100
 }
 
 func (model *selfSynergy) Effect() string {
-	return fmt.Sprintf("%.2fx", model.TickAmount()*100)
+	return fmt.Sprintf("%.2fx", model.TickAmount())
 }
 
 func (model *selfSynergy) Unlocked() bool {
@@ -50,7 +50,6 @@ func (model *selfSynergy) TickAmount() float64 {
 	amount = math.Log10(amount)
 	amount = math.Pow(amount, 0.75)
 	amount = amount + 1
-	amount = amount / 100
 	return amount
 }
 

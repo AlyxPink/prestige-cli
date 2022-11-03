@@ -33,11 +33,11 @@ func (model *prestigeBoost) Buy() {
 }
 
 func (model *prestigeBoost) Tick() {
-	model.Points.Amount = model.Points.Amount + model.TickAmount()
+	model.Points.Amount = model.Points.Amount + model.TickAmount()/100
 }
 
 func (model *prestigeBoost) Effect() string {
-	return fmt.Sprintf("%.2fx", model.TickAmount()*100)
+	return fmt.Sprintf("%.2fx", model.TickAmount())
 }
 
 func (model *prestigeBoost) Unlocked() bool {
@@ -45,7 +45,7 @@ func (model *prestigeBoost) Unlocked() bool {
 }
 
 func (model *prestigeBoost) TickAmount() float64 {
-	return math.Pow(model.PrestigePoints.Amount+2, 0.5) / 100
+	return math.Pow(model.PrestigePoints.Amount+2, 0.5)
 }
 
 func (model *prestigeBoost) GetModel() *upgrades.Model {

@@ -30,7 +30,7 @@ func (model *begin) Buy() {
 }
 
 func (model *begin) Tick() {
-	model.Points.Amount = model.Points.Amount + model.TickAmount()
+	model.Points.Amount = model.Points.Amount + model.TickAmount()/100
 }
 
 func (model *begin) Effect() string {
@@ -42,7 +42,7 @@ func (model *begin) Unlocked() bool {
 }
 
 func (model *begin) TickAmount() float64 {
-	return 0.01
+	return 1
 }
 
 func (model *begin) GetModel() *upgrades.Model {

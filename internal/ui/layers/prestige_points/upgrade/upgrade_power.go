@@ -33,7 +33,7 @@ func (model *upgradePower) Buy() {
 }
 
 func (model *upgradePower) Tick() {
-	model.Points.Amount = model.Points.Amount + model.TickAmount()
+	model.Points.Amount = model.Points.Amount + model.TickAmount()/100
 }
 
 func (model *upgradePower) Effect() string {
