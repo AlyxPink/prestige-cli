@@ -118,12 +118,12 @@ func (m *Model) syncProgramContext() {
 	}
 }
 
-func (m *Model) TickAmount() float64 {
+func (m *Model) TickPerSecond() float64 {
 	amount := 0.0
 	for _, layer := range m.getLayers() {
 		amount = amount + layer.TickAmount()
 	}
-	return amount * 100
+	return amount
 }
 
 func (m *Model) tickAllLayers() {
