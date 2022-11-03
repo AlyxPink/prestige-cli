@@ -33,7 +33,7 @@ func (model *reversePrestigeBoost) Buy() {
 }
 
 func (model *reversePrestigeBoost) Tick() {
-	model.Points.Amount = model.Points.Amount + model.TickAmount()
+	model.Points.Amount = model.Points.Amount + model.TickAmount()/100
 }
 
 func (model *reversePrestigeBoost) Effect() string {
