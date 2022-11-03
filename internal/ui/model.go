@@ -16,7 +16,7 @@ import (
 type (
 	tickMsg time.Time
 	Model   struct {
-		Points      *points.Points
+		Points      *points.Model
 		keys        utils.KeyMap
 		err         error
 		currLayerId int
@@ -28,7 +28,7 @@ type (
 
 func NewModel() Model {
 	return Model{
-		Points: &points.Points{Amount: 10},
+		Points: &points.Model{Amount: 10},
 		keys:   utils.Keys,
 		ctx:    context.ProgramContext{Config: &config.Config{}},
 	}

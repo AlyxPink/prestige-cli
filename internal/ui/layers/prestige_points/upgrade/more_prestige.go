@@ -7,12 +7,12 @@ import (
 )
 
 type morePrestige struct {
-	Points         *points.Points
+	Points         *points.Model
 	PrestigePoints *layers.Model
 	Upgrade        *upgrades.Model
 }
 
-func FetchMorePrestige(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
+func FetchMorePrestige(layer *layers.Model, points *points.Model) (upgrade upgrades.Upgrade) {
 	model := morePrestige{
 		Points:         points,
 		PrestigePoints: layer,

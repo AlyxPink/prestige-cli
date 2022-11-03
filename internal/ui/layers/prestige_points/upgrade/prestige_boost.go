@@ -10,12 +10,12 @@ import (
 )
 
 type prestigeBoost struct {
-	Points         *points.Points
+	Points         *points.Model
 	PrestigePoints *layers.Model
 	Upgrade        *upgrades.Model
 }
 
-func FetchPrestigeBoost(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
+func FetchPrestigeBoost(layer *layers.Model, points *points.Model) (upgrade upgrades.Upgrade) {
 	model := prestigeBoost{
 		Points:         points,
 		PrestigePoints: layer,

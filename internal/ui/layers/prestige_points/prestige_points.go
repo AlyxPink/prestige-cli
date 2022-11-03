@@ -12,11 +12,11 @@ import (
 )
 
 type Model struct {
-	Points *points.Points
+	Points *points.Model
 	layer  *layers.Model
 }
 
-func NewModel(id int, points *points.Points, ctx *context.ProgramContext) Model {
+func NewModel(id int, points *points.Model, ctx *context.ProgramContext) Model {
 	m := Model{
 		Points: points,
 		layer: &layers.Model{
@@ -109,7 +109,7 @@ func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
 	return &m, cmd
 }
 
-func Fetch(id int, points *points.Points, ctx context.ProgramContext) (layer layers.Layer) {
+func Fetch(id int, points *points.Model, ctx context.ProgramContext) (layer layers.Layer) {
 	layerModel := NewModel(id, points, &ctx)
 	return &layerModel
 }

@@ -10,12 +10,12 @@ import (
 )
 
 type upgradePower struct {
-	Points         *points.Points
+	Points         *points.Model
 	PrestigePoints *layers.Model
 	Upgrade        *upgrades.Model
 }
 
-func FetchUpgradePower(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
+func FetchUpgradePower(layer *layers.Model, points *points.Model) (upgrade upgrades.Upgrade) {
 	model := upgradePower{
 		Points:         points,
 		PrestigePoints: layer,
