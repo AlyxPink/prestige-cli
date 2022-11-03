@@ -96,7 +96,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func tickCmd(m Model) tea.Cmd {
-	return tea.Tick(m.Tick.Duration, func(t time.Time) tea.Msg {
+	return tea.Every(m.Tick.Duration, func(t time.Time) tea.Msg {
 		return tickMsg(t)
 	})
 }
