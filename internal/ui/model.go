@@ -76,7 +76,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		cmd = tea.Batch(tickCmd(m))
 
 	case initMsg:
-		m.syncMainContentWidth()
 		m.setLayers(m.fetchLayers())
 		m.setCurrentLayer(m.layers[0])
 		cmd = tea.Batch(tickCmd(m))
@@ -140,8 +139,4 @@ func (m *Model) updateCurrentLayer(msg layers.LayerMsg) (cmd tea.Cmd) {
 	m.layers[msg.GetLayerId()] = updatedLayer
 
 	return cmd
-}
-
-func (m *Model) syncMainContentWidth() {
-	m.ctx.Width = m.ctx.ScreenWidth
 }
