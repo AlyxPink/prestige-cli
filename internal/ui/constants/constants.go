@@ -1,6 +1,8 @@
 package constants
 
 import (
+	"time"
+
 	"github.com/charmbracelet/bubbles/key"
 )
 
@@ -11,6 +13,10 @@ type KeyMap struct {
 	PrevView key.Binding
 	Help     key.Binding
 	Quit     key.Binding
+}
+
+type Tick struct {
+	Duration time.Duration
 }
 
 type Dimensions struct {

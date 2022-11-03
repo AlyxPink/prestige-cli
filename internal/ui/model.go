@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
@@ -16,6 +17,7 @@ type (
 	tickMsg time.Time
 	Model   struct {
 		Points      *points.Model
+		Tick        constants.Tick
 		keys        utils.KeyMap
 		err         error
 		currLayerId int
@@ -30,6 +32,9 @@ func NewModel() Model {
 		Points: points.Fetch(),
 		keys:   utils.Keys,
 		ctx:    context.ProgramContext{},
+		Tick: constants.Tick{
+			Duration: time.Millisecond * 10,
+		},
 	}
 }
 
@@ -68,13 +73,13 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case tickMsg:
 		m.tickAllLayers()
-		cmd = tea.Batch(tickCmd())
+		cmd = tea.Batch(tickCmd(m))
 
 	case initMsg:
 		m.syncMainContentWidth()
 		m.setLayers(m.fetchLayers())
 		m.setCurrentLayer(m.layers[0])
-		cmd = tea.Batch(tickCmd())
+		cmd = tea.Batch(tickCmd(m))
 
 	case layers.LayerMsg:
 		cmd = m.updateCurrentLayer(msg)
@@ -91,8 +96,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, tea.Batch(cmds...)
 }
 
-func tickCmd() tea.Cmd {
-	return tea.Tick(time.Millisecond*10, func(t time.Time) tea.Msg {
+func tickCmd(m Model) tea.Cmd {
+	return tea.Tick(m.Tick.Duration, func(t time.Time) tea.Msg {
 		return tickMsg(t)
 	})
 }
