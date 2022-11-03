@@ -1,21 +1,18 @@
 package ui
 
 import (
-	"github.com/VictorBersy/prestige-cli/internal/config"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 func initScreen() tea.Msg {
-	return initMsg{Config: config.GetDefaultConfig()}
+	return initMsg{}
 }
 
 func (m Model) Init() tea.Cmd {
 	return tea.Batch(initScreen, tea.EnterAltScreen)
 }
 
-type initMsg struct {
-	Config config.Config
-}
+type initMsg struct{}
 
 type errMsg struct {
 	error

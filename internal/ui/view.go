@@ -17,10 +17,6 @@ func (m Model) View() string {
 		return m.err.Error()
 	}
 
-	if m.ctx.Config == nil {
-		return fmt.Sprintln("Reading configuration...")
-	}
-
 	s := strings.Builder{}
 	mainContent := ""
 

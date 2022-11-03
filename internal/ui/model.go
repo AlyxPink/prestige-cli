@@ -4,7 +4,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/VictorBersy/prestige-cli/internal/config"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
@@ -30,7 +29,7 @@ func NewModel() Model {
 	return Model{
 		Points: &points.Model{Amount: 10},
 		keys:   utils.Keys,
-		ctx:    context.ProgramContext{Config: &config.Config{}},
+		ctx:    context.ProgramContext{},
 	}
 }
 
@@ -72,8 +71,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		cmd = tea.Batch(tickCmd())
 
 	case initMsg:
-		m.ctx.Config = &msg.Config
-		m.ctx.Layer = m.ctx.Config.Defaults.Layer
 		m.syncMainContentWidth()
 		m.setLayers(m.fetchLayers())
 		m.setCurrentLayer(m.layers[0])
