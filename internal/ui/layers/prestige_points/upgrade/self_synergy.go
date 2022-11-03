@@ -10,12 +10,12 @@ import (
 )
 
 type selfSynergy struct {
-	Points         *points.Points
+	Points         *points.Model
 	PrestigePoints *layers.Model
 	Upgrade        *upgrades.Model
 }
 
-func FetchSelfSynergy(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
+func FetchSelfSynergy(layer *layers.Model, points *points.Model) (upgrade upgrades.Upgrade) {
 	model := selfSynergy{
 		Points:         points,
 		PrestigePoints: layer,

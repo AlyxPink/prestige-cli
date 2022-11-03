@@ -10,12 +10,12 @@ import (
 )
 
 type reversePrestigeBoost struct {
-	Points         *points.Points
+	Points         *points.Model
 	PrestigePoints *layers.Model
 	Upgrade        *upgrades.Model
 }
 
-func FetchReversePrestigeBoost(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
+func FetchReversePrestigeBoost(layer *layers.Model, points *points.Model) (upgrade upgrades.Upgrade) {
 	model := reversePrestigeBoost{
 		Points:         points,
 		PrestigePoints: layer,

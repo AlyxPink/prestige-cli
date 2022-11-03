@@ -1,6 +1,6 @@
 package points
 
-type Points struct {
+type Model struct {
 	Amount float64
 	countable
 }
@@ -9,6 +9,6 @@ type countable interface {
 	Count() float64
 }
 
-func (p *Points) Count() float64 {
-	return p.Amount
+func (m *Model) Count() float64 {
+	return m.Amount
 }

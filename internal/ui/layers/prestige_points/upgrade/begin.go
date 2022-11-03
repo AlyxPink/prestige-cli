@@ -7,12 +7,12 @@ import (
 )
 
 type begin struct {
-	Points         *points.Points
+	Points         *points.Model
 	PrestigePoints *layers.Model
 	Upgrade        *upgrades.Model
 }
 
-func FetchBegin(layer *layers.Model, points *points.Points) (upgrade upgrades.Upgrade) {
+func FetchBegin(layer *layers.Model, points *points.Model) (upgrade upgrades.Upgrade) {
 	model := begin{
 		Points:         points,
 		PrestigePoints: layer,
