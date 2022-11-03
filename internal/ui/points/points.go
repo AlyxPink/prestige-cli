@@ -9,6 +9,17 @@ type countable interface {
 	Count() float64
 }
 
+func NewModel() Model {
+	return Model{
+		Amount: 10,
+	}
+}
+
 func (m *Model) Count() float64 {
 	return m.Amount
+}
+
+func Fetch() *Model {
+	model := NewModel()
+	return &model
 }
