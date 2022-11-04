@@ -8,7 +8,6 @@ var (
 	textDisabled = lipgloss.AdaptiveColor{Light: "#888888", Dark: "#82847c"}
 	highlight    = lipgloss.AdaptiveColor{Light: "#874BFD", Dark: "#7D56F4"}
 	special      = lipgloss.AdaptiveColor{Light: "#43BF6D", Dark: "#73F59F"}
-	warning      = lipgloss.AdaptiveColor{Light: "#F25D94", Dark: "#F57DA9"}
 	disabled     = lipgloss.AdaptiveColor{Light: "#888888", Dark: "#82847c"}
 
 	statusCircle        = lipgloss.NewStyle().PaddingRight(1)
