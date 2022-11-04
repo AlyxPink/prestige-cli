@@ -3,13 +3,11 @@ package generators
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 type Model struct {
-	layer    *layers.Model
-	upgrades []upgrades.Upgrade
+	layer *layers.Model
 }
 
 func NewModel(id int, ctx *context.ProgramContext) Model {
