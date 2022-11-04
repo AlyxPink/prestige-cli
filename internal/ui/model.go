@@ -7,6 +7,9 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/boosters"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/generators"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layers/prestige_points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/utils"
 	"github.com/charmbracelet/bubbles/key"
@@ -28,7 +31,7 @@ type (
 )
 
 func NewModel() Model {
-	return Model{
+	m := Model{
 		Points: points.Fetch(),
 		keys:   utils.Keys,
 		ctx:    context.ProgramContext{},
@@ -36,6 +39,16 @@ func NewModel() Model {
 			Duration: time.Millisecond * 10,
 		},
 	}
+
+	m.layers = []layers.Layer{
+		prestige_points.Fetch(0, m.Points, m.ctx),
+		boosters.Fetch(1, m.Points, m.ctx),
+		generators.Fetch(2, m.ctx),
+	}
+	m.currLayer = m.layers[0]
+	m.currLayerId = 0
+
+	return m
 }
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -60,8 +73,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		)):
 			keyDigit, _ := strconv.Atoi(msg.String()[1:])
 			upgradeId := keyDigit - 1
-			if len(m.getCurrLayer().Model().ListUpgrades()) > upgradeId {
-				m.getCurrLayer().Model().ListUpgrades()[upgradeId].Buy()
+			if len(m.currLayer.Model().ListUpgrades()) > upgradeId {
+				m.currLayer.Model().ListUpgrades()[upgradeId].Buy()
 			}
 
 		case key.Matches(msg, m.keys.Prestige):
@@ -76,8 +89,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		cmd = tea.Batch(tickCmd(m))
 
 	case initMsg:
-		m.setLayers(m.fetchLayers())
-		m.setCurrentLayer(m.layers[0])
 		cmd = tea.Batch(tickCmd(m))
 
 	case layers.LayerMsg:
@@ -101,8 +112,9 @@ func tickCmd(m Model) tea.Cmd {
 	})
 }
 
-func (m *Model) getLayers() []layers.Layer {
-	return m.layers
+func (m *Model) setCurrentLayer(layer layers.Layer) {
+	m.currLayer = layer
+	m.currLayerId = layer.Model().Id
 }
 
 func (m *Model) onWindowSizeChanged(msg tea.WindowSizeMsg) {
@@ -113,21 +125,21 @@ func (m *Model) onWindowSizeChanged(msg tea.WindowSizeMsg) {
 }
 
 func (m *Model) syncProgramContext() {
-	for _, layer := range m.getLayers() {
+	for _, layer := range m.layers {
 		layer.UpdateProgramContext(&m.ctx)
 	}
 }
 
 func (m *Model) TickPerSecond() float64 {
 	amount := 0.0
-	for _, layer := range m.getLayers() {
+	for _, layer := range m.layers {
 		amount = amount + layer.TickAmount()
 	}
 	return amount
 }
 
 func (m *Model) tickAllLayers() {
-	for _, layer := range m.getLayers() {
+	for _, layer := range m.layers {
 		layer.Tick()
 	}
 }
