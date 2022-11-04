@@ -5,9 +5,6 @@ import (
 	"strings"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/boosters"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/generators"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/prestige_points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/styles"
 	"github.com/charmbracelet/lipgloss"
 )
@@ -27,7 +24,7 @@ func (m Model) View() string {
 			lipgloss.JoinVertical(
 				lipgloss.Top,
 				m.gameGoal(),
-				m.getCurrLayer().View(),
+				m.currLayer.View(),
 			),
 		)
 	} else {
@@ -38,28 +35,10 @@ func (m Model) View() string {
 	return s.String()
 }
 
-func (m *Model) fetchLayers() []layers.Layer {
-	layers := []layers.Layer{
-		prestige_points.Fetch(0, m.Points, m.ctx),
-		boosters.Fetch(1, m.Points, m.ctx),
-		generators.Fetch(2, m.ctx),
-	}
-	return layers
-}
-
-func (m *Model) setLayers(newLayers []layers.Layer) {
-	m.layers = newLayers
-}
-
-func (m *Model) setCurrentLayer(layer layers.Layer) {
-	m.currLayer = m.getCurrLayer()
-	m.currLayerId = layer.Model().Id
-}
-
 func (m Model) layersList() string {
 	currTier := 0
 	s := strings.Builder{}
-	for _, layer := range m.fetchLayers() {
+	for _, layer := range m.layers {
 		if currTier != layer.Model().Tier {
 			s.WriteString(fmt.Sprintln(m.tierTitle(layer)))
 			currTier = layer.Model().Tier
