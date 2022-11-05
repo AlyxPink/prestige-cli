@@ -71,10 +71,7 @@ func (m *Model) Prestige() {
 	}
 	m.layer.Amount = m.layer.Amount + m.PrestigeAmount()
 	m.layer.AmountTotal = m.layer.AmountTotal + m.PrestigeAmount()
-	// Save best score
-	if m.layer.Amount > m.layer.AmountBest {
-		m.layer.AmountBest = m.layer.Amount
-	}
+	m.layer.SaveBestAmount()
 	m.layer.Layers.Points.Amount = 0
 }
 

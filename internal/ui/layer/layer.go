@@ -67,6 +67,12 @@ func (m *Model) GetDimensions() constants.Dimensions {
 	}
 }
 
+func (m *Model) SaveBestAmount() {
+	if m.Amount > m.AmountBest {
+		m.AmountBest = m.Amount
+	}
+}
+
 func (m *Model) ListUpgrades() []Upgrade {
 	return m.Upgrades
 }
