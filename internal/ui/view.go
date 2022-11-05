@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
 	"github.com/VictorBersy/prestige-cli/internal/ui/styles"
 	"github.com/charmbracelet/lipgloss"
 )
@@ -50,7 +50,7 @@ func (m Model) layersList() string {
 		Render(s.String())
 }
 
-func (m Model) layerTitle(layer layers.Layer) string {
+func (m Model) layerTitle(layer layer.Layer) string {
 	titleStyle := styles.TierDefault
 	prestigeStatus := ""
 	upgradeStatus := ""
@@ -71,7 +71,7 @@ func (m Model) layerTitle(layer layers.Layer) string {
 	return fmt.Sprintln(lipgloss.JoinHorizontal(lipgloss.Left, prestigeStatus, upgradeStatus, title))
 }
 
-func (m Model) tierTitle(layer layers.Layer) string {
+func (m Model) tierTitle(layer layer.Layer) string {
 	tierTitleStyle := styles.TierTitle
 	tierTitleText := fmt.Sprintf("Tier %d", layer.Model().Tier)
 	// Remove margin top for the first tier

@@ -1,9 +1,9 @@
-package layers
+package layer
 
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/upgrades"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
 )
 

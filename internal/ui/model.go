@@ -6,10 +6,10 @@ import (
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/boosters"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/generators"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/prestige_points"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/boosters"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/generators"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/prestige_points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/utils"
 	"github.com/charmbracelet/bubbles/key"
@@ -24,8 +24,8 @@ type (
 		keys        utils.KeyMap
 		err         error
 		currLayerId int
-		currLayer   layers.Layer
-		layers      []layers.Layer
+		currLayer   layer.Layer
+		layers      []layer.Layer
 		ctx         context.ProgramContext
 	}
 )
@@ -40,7 +40,7 @@ func NewModel() Model {
 		},
 	}
 
-	m.layers = []layers.Layer{
+	m.layers = []layer.Layer{
 		prestige_points.Fetch(0, m.Points, m.ctx),
 		boosters.Fetch(1, m.Points, m.ctx),
 		generators.Fetch(2, m.ctx),
@@ -91,7 +91,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case initMsg:
 		cmd = tea.Batch(tickCmd(m))
 
-	case layers.LayerMsg:
+	case layer.LayerMsg:
 		cmd = m.updateCurrentLayer(msg)
 
 	case tea.WindowSizeMsg:
@@ -112,7 +112,7 @@ func tickCmd(m Model) tea.Cmd {
 	})
 }
 
-func (m *Model) setCurrentLayer(layer layers.Layer) {
+func (m *Model) setCurrentLayer(layer layer.Layer) {
 	m.currLayer = layer
 	m.currLayerId = layer.Model().Id
 }
@@ -144,8 +144,8 @@ func (m *Model) tickAllLayers() {
 	}
 }
 
-func (m *Model) updateCurrentLayer(msg layers.LayerMsg) (cmd tea.Cmd) {
-	var updatedLayer layers.Layer
+func (m *Model) updateCurrentLayer(msg layer.LayerMsg) (cmd tea.Cmd) {
+	var updatedLayer layer.Layer
 
 	updatedLayer, cmd = m.layers[msg.GetLayerId()].Update(msg)
 	m.layers[msg.GetLayerId()] = updatedLayer
