@@ -40,6 +40,7 @@ func (m *Model) Tick() {
 			upgrade.Tick()
 		}
 	}
+	m.layer.Layers.Points.Amount = m.layer.Layers.Points.Amount + m.TickAmount()/100
 }
 
 func (m *Model) TickAmount() float64 {
@@ -49,6 +50,7 @@ func (m *Model) TickAmount() float64 {
 			amount = amount + upgrade.TickAmount()
 		}
 	}
+	amount = amount + (m.layer.Amount * 10)
 	return amount
 }
 
