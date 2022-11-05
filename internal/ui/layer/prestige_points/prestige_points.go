@@ -56,10 +56,11 @@ func (m *Model) Tick() {
 }
 
 func (m *Model) TickAmount() float64 {
-	amount := 1.0
+	amount := 0.0
 	for _, upgrade := range m.layer.Upgrades {
 		if upgrade.Model().Enabled {
 			amount = amount * upgrade.TickAmount()
+			amount = math.Max(amount, 1)
 		}
 	}
 	return amount
