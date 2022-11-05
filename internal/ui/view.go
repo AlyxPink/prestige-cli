@@ -58,14 +58,14 @@ func (m Model) layerTitle(layer layer.Layer) string {
 		titleStyle = styles.TierEnabled
 	}
 	if layer.PrestigeAmount() > 0 {
-		prestigeStatus = styles.PrestigeAvailable.Render(styles.DefaultGlyphs.PrestigeStatus)
+		prestigeStatus = styles.PrestigeAvailable.Render(styles.DefaultGlyphs.PrestigeStatusAvailable)
 	} else {
-		prestigeStatus = styles.PrestigeUnavailable.Render(styles.DefaultGlyphs.PrestigeStatus)
+		prestigeStatus = styles.PrestigeUnavailable.Render(styles.DefaultGlyphs.PrestigeStatusUnavailable)
 	}
 	if layer.Model().ListUpgradeAvailable() {
-		upgradeStatus = styles.UpgradeAvailable.Render(styles.DefaultGlyphs.UpgradeStatus)
+		upgradeStatus = styles.UpgradeAvailable.Render(styles.DefaultGlyphs.UpgradeStatusAvailable)
 	} else {
-		upgradeStatus = styles.UpgradeUnavailable.Render(styles.DefaultGlyphs.UpgradeStatus)
+		upgradeStatus = styles.UpgradeUnavailable.Render(styles.DefaultGlyphs.UpgradeStatusUnavailable)
 	}
 	title := titleStyle.Copy().Render(layer.Model().Name)
 	return fmt.Sprintln(lipgloss.JoinHorizontal(lipgloss.Left, prestigeStatus, upgradeStatus, title))
