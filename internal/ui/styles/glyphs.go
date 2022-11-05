@@ -1,11 +1,17 @@
 package styles
 
 type Glyphs struct {
-	PrestigeStatus string
-	UpgradeStatus  string
+	PrestigeStatusUnavailable string
+	PrestigeStatusAvailable   string
+
+	UpgradeStatusUnavailable string
+	UpgradeStatusAvailable   string
 }
 
 var DefaultGlyphs = Glyphs{
-	PrestigeStatus: "●",
-	UpgradeStatus:  "▲",
+	PrestigeStatusUnavailable: "○",
+	PrestigeStatusAvailable:   "●",
+
+	UpgradeStatusUnavailable: "△",
+	UpgradeStatusAvailable:   "▲",
 }
