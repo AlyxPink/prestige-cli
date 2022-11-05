@@ -4,18 +4,18 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/upgrades"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 )
 
 type selfSynergy struct {
 	Points         *points.Model
-	PrestigePoints *layers.Model
+	PrestigePoints *layer.Model
 	Upgrade        *upgrades.Model
 }
 
-func FetchSelfSynergy(layer *layers.Model, points *points.Model) (upgrade upgrades.Upgrade) {
+func FetchSelfSynergy(layer *layer.Model, points *points.Model) (upgrade upgrades.Upgrade) {
 	model := selfSynergy{
 		Points:         points,
 		PrestigePoints: layer,

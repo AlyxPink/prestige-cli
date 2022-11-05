@@ -2,17 +2,17 @@ package generators
 
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 type Model struct {
-	layer *layers.Model
+	layer *layer.Model
 }
 
 func NewModel(id int, ctx *context.ProgramContext) Model {
 	g := Model{
-		layer: &layers.Model{
+		layer: &layer.Model{
 			Id:   id,
 			Tier: 2,
 			Ctx:  ctx,
@@ -23,7 +23,7 @@ func NewModel(id int, ctx *context.ProgramContext) Model {
 	return g
 }
 
-func (m *Model) Model() *layers.Model {
+func (m *Model) Model() *layer.Model {
 	return m.layer
 }
 
@@ -45,12 +45,12 @@ func (m *Model) PrestigeAmount() float64 {
 	return 10
 }
 
-func (m Model) Update(msg tea.Msg) (layers.Layer, tea.Cmd) {
+func (m Model) Update(msg tea.Msg) (layer.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &m, cmd
 }
 
-func Fetch(id int, ctx context.ProgramContext) (layer layers.Layer) {
+func Fetch(id int, ctx context.ProgramContext) (layer layer.Layer) {
 	layerModel := NewModel(id, &ctx)
 	return &layerModel
 }

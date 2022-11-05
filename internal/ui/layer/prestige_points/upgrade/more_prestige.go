@@ -1,18 +1,18 @@
 package upgrade
 
 import (
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers/upgrades"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
 	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 )
 
 type morePrestige struct {
 	Points         *points.Model
-	PrestigePoints *layers.Model
+	PrestigePoints *layer.Model
 	Upgrade        *upgrades.Model
 }
 
-func FetchMorePrestige(layer *layers.Model, points *points.Model) (upgrade upgrades.Upgrade) {
+func FetchMorePrestige(layer *layer.Model, points *points.Model) (upgrade upgrades.Upgrade) {
 	model := morePrestige{
 		Points:         points,
 		PrestigePoints: layer,

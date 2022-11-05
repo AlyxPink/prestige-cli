@@ -1,10 +1,8 @@
 package ui
 
-import (
-	"github.com/VictorBersy/prestige-cli/internal/ui/layers"
-)
+import "github.com/VictorBersy/prestige-cli/internal/ui/layer"
 
-func (m *Model) getLayerAt(id int) layers.Layer {
+func (m *Model) getLayerAt(id int) layer.Layer {
 	layers := m.layers
 	if len(layers) <= id {
 		return nil
