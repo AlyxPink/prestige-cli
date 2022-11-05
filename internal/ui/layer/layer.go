@@ -51,9 +51,7 @@ type LayerMsg interface {
 }
 
 type LayerTickMsg struct {
-	LayerId         int
-	InternalTickMsg tea.Msg
-	Name            string
+	LayerId int
 }
 
 func (msg LayerTickMsg) GetLayerId() int {
