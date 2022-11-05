@@ -3,7 +3,7 @@ package layer
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
+	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -12,14 +12,25 @@ type Model struct {
 	Id   int
 	Tier int
 
+	Layers *Layers
+
 	Amount      float64
 	AmountTotal float64
 	AmountBest  float64
 
-	Upgrades []upgrades.Upgrade
+	Upgrades []Upgrade
 
 	Ctx        *context.ProgramContext
 	dimensions constants.Dimensions
+}
+
+type Layers struct {
+	Points *points.Model
+
+	PrestigePoints Layer
+
+	Boosters   Layer
+	Generators Layer
 }
 
 type Layer interface {
@@ -60,7 +71,7 @@ func (m *Model) GetDimensions() constants.Dimensions {
 	}
 }
 
-func (m *Model) ListUpgrades() []upgrades.Upgrade {
+func (m *Model) ListUpgrades() []Upgrade {
 	return m.Upgrades
 }
 
@@ -73,8 +84,8 @@ func (m *Model) ListUpgradeAvailable() bool {
 	return false
 }
 
-func (m *Model) ListUpgradeEnabled() []upgrades.Upgrade {
-	var upgrades_enabled []upgrades.Upgrade
+func (m *Model) ListUpgradeEnabled() []Upgrade {
+	var upgrades_enabled []Upgrade
 	for _, upgrade := range m.Upgrades {
 		if upgrade.GetModel().Enabled {
 			upgrades_enabled = append(upgrades_enabled, upgrade)

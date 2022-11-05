@@ -5,52 +5,47 @@ import (
 	"math"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
-	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 )
 
 type upgradePower struct {
-	Points         *points.Model
-	PrestigePoints *layer.Model
-	Upgrade        *upgrades.Model
+	Upgrade *layer.ModelUpgrade
 }
 
-func FetchUpgradePower(layer *layer.Model, points *points.Model) (upgrade upgrades.Upgrade) {
+func FetchUpgradePower(layers *layer.Layers) (upgrade layer.Upgrade) {
 	model := upgradePower{
-		Points:         points,
-		PrestigePoints: layer,
-		Upgrade: &upgrades.Model{
+		Upgrade: &layer.ModelUpgrade{
 			Name:        "Upgrade Power",
 			Description: "Point generation is faster based on your Prestige Upgrades bought.",
+			Layers:      layers,
 			Cost:        75,
 		},
 	}
 	return &model
 }
 
-func (model *upgradePower) Buy() {
-	model.PrestigePoints.Amount = model.Upgrade.Buy(model.PrestigePoints.Amount)
+func (m *upgradePower) Buy() {
+	m.Upgrade.Layers.PrestigePoints.Model().Amount = m.Upgrade.Buy(m.Upgrade.Layers.PrestigePoints.Model().Amount)
 }
 
-func (model *upgradePower) Tick() {
-	model.Points.Amount = model.Points.Amount + model.TickAmount()/100
+func (m *upgradePower) Tick() {
+	m.Upgrade.Layers.Points.Amount = m.Upgrade.Layers.Points.Amount + m.TickAmount()/100
 }
 
-func (model *upgradePower) Effect() string {
-	return fmt.Sprintf("%.2fx", model.TickAmount())
+func (m *upgradePower) Effect() string {
+	return fmt.Sprintf("%.2fx", m.TickAmount())
 }
 
-func (model *upgradePower) Unlocked() bool {
-	return model.PrestigePoints.Upgrades[2].GetModel().Enabled
+func (m *upgradePower) Unlocked() bool {
+	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[2].GetModel().Enabled
 }
 
-func (model *upgradePower) TickAmount() float64 {
+func (m *upgradePower) TickAmount() float64 {
 	var amount float64
-	upgrades_enabled_count := len(model.PrestigePoints.ListUpgradeEnabled())
+	upgrades_enabled_count := len(m.Upgrade.Layers.PrestigePoints.Model().ListUpgradeEnabled())
 	amount = math.Pow(1.4, float64(upgrades_enabled_count))
 	return amount
 }
 
-func (model *upgradePower) GetModel() *upgrades.Model {
-	return model.Upgrade
+func (m *upgradePower) GetModel() *layer.ModelUpgrade {
+	return m.Upgrade
 }

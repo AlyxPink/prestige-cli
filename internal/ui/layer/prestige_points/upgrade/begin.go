@@ -2,49 +2,44 @@ package upgrade
 
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
-	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 )
 
 type begin struct {
-	Points         *points.Model
-	PrestigePoints *layer.Model
-	Upgrade        *upgrades.Model
+	Upgrade *layer.ModelUpgrade
 }
 
-func FetchBegin(layer *layer.Model, points *points.Model) (upgrade upgrades.Upgrade) {
+func FetchBegin(layers *layer.Layers) (upgrade layer.Upgrade) {
 	model := begin{
-		Points:         points,
-		PrestigePoints: layer,
-		Upgrade: &upgrades.Model{
+		Upgrade: &layer.ModelUpgrade{
 			Name:        "Begin",
 			Description: "Generate 1 Point every second.",
+			Layers:      layers,
 			Cost:        1,
 		},
 	}
 	return &model
 }
 
-func (model *begin) Buy() {
-	model.PrestigePoints.Amount = model.Upgrade.Buy(model.PrestigePoints.Amount)
+func (m *begin) Buy() {
+	m.Upgrade.Layers.PrestigePoints.Model().Amount = m.Upgrade.Buy(m.Upgrade.Layers.PrestigePoints.Model().Amount)
 }
 
-func (model *begin) Tick() {
-	model.Points.Amount = model.Points.Amount + model.TickAmount()/100
+func (m *begin) Tick() {
+	m.Upgrade.Layers.Points.Amount = m.Upgrade.Layers.Points.Amount + m.TickAmount()/100
 }
 
-func (model *begin) Effect() string {
+func (m *begin) Effect() string {
 	return ""
 }
 
-func (model *begin) Unlocked() bool {
+func (m *begin) Unlocked() bool {
 	return true
 }
 
-func (model *begin) TickAmount() float64 {
+func (m *begin) TickAmount() float64 {
 	return 1
 }
 
-func (model *begin) GetModel() *upgrades.Model {
-	return model.Upgrade
+func (m *begin) GetModel() *layer.ModelUpgrade {
+	return m.Upgrade
 }

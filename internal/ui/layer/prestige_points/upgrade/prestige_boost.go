@@ -5,49 +5,44 @@ import (
 	"math"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
-	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 )
 
 type prestigeBoost struct {
-	Points         *points.Model
-	PrestigePoints *layer.Model
-	Upgrade        *upgrades.Model
+	Upgrade *layer.ModelUpgrade
 }
 
-func FetchPrestigeBoost(layer *layer.Model, points *points.Model) (upgrade upgrades.Upgrade) {
+func FetchPrestigeBoost(layers *layer.Layers) (upgrade layer.Upgrade) {
 	model := prestigeBoost{
-		Points:         points,
-		PrestigePoints: layer,
-		Upgrade: &upgrades.Model{
+		Upgrade: &layer.ModelUpgrade{
 			Name:        "Prestige Boost",
 			Description: "Prestige Points boost Point generation.",
+			Layers:      layers,
 			Cost:        1,
 		},
 	}
 	return &model
 }
 
-func (model *prestigeBoost) Buy() {
-	model.PrestigePoints.Amount = model.Upgrade.Buy(model.PrestigePoints.Amount)
+func (m *prestigeBoost) Buy() {
+	m.Upgrade.Layers.PrestigePoints.Model().Amount = m.Upgrade.Buy(m.Upgrade.Layers.PrestigePoints.Model().Amount)
 }
 
-func (model *prestigeBoost) Tick() {
-	model.Points.Amount = model.Points.Amount + model.TickAmount()/100
+func (m *prestigeBoost) Tick() {
+	m.Upgrade.Layers.Points.Amount = m.Upgrade.Layers.Points.Amount + m.TickAmount()/100
 }
 
-func (model *prestigeBoost) Effect() string {
-	return fmt.Sprintf("%.2fx", model.TickAmount())
+func (m *prestigeBoost) Effect() string {
+	return fmt.Sprintf("%.2fx", m.TickAmount())
 }
 
-func (model *prestigeBoost) Unlocked() bool {
-	return model.PrestigePoints.Upgrades[0].GetModel().Enabled
+func (m *prestigeBoost) Unlocked() bool {
+	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[0].GetModel().Enabled
 }
 
-func (model *prestigeBoost) TickAmount() float64 {
-	return math.Pow(model.PrestigePoints.Amount+2, 0.5)
+func (m *prestigeBoost) TickAmount() float64 {
+	return math.Pow(m.Upgrade.Layers.PrestigePoints.Model().Amount+2, 0.5)
 }
 
-func (model *prestigeBoost) GetModel() *upgrades.Model {
-	return model.Upgrade
+func (m *prestigeBoost) GetModel() *layer.ModelUpgrade {
+	return m.Upgrade
 }
