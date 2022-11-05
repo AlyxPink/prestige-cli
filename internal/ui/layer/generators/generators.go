@@ -28,6 +28,10 @@ func (m *Model) Model() *layer.Model {
 	return m.layer
 }
 
+func (m *Model) Unlocked() bool {
+	return m.layer.Layers.PrestigePoints.Model().Amount >= 200
+}
+
 func (m *Model) UpdateProgramContext(ctx *context.ProgramContext) {
 	m.layer.UpdateProgramContext(ctx)
 }
