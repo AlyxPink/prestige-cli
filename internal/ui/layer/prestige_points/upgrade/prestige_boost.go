@@ -24,7 +24,7 @@ func FetchPrestigeBoost(layers *layer.Layers) (upgrade layer.Upgrade) {
 }
 
 func (m *prestigeBoost) Buy() {
-	m.Upgrade.Layers.PrestigePoints.Model().Amount = m.Upgrade.Buy(m.Upgrade.Layers.PrestigePoints.Model().Amount)
+	m.Upgrade.Buy(m.Upgrade.Layers.PrestigePoints.Model())
 }
 
 func (m *prestigeBoost) Tick() {

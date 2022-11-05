@@ -21,10 +21,9 @@ type Upgrade interface {
 	Model() *ModelUpgrade
 }
 
-func (m *ModelUpgrade) Buy(currency float64) float64 {
-	if !m.Enabled && currency >= m.Cost {
+func (m *ModelUpgrade) Buy(currency *Model) {
+	if !m.Enabled && currency.Amount >= m.Cost {
 		m.Enabled = true
-		return currency - m.Cost
+		currency.Amount = currency.Amount - m.Cost
 	}
-	return currency
 }
