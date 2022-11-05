@@ -18,7 +18,7 @@ type Upgrade interface {
 
 	Unlocked() bool
 
-	GetModel() *ModelUpgrade
+	Model() *ModelUpgrade
 }
 
 func (m *ModelUpgrade) Buy(currency float64) float64 {

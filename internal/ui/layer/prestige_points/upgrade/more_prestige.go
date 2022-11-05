@@ -32,13 +32,13 @@ func (m *morePrestige) Effect() string {
 }
 
 func (m *morePrestige) Unlocked() bool {
-	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[2].GetModel().Enabled
+	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[2].Model().Enabled
 }
 
 func (m *morePrestige) TickAmount() float64 {
 	return 0
 }
 
-func (m *morePrestige) GetModel() *layer.ModelUpgrade {
+func (m *morePrestige) Model() *layer.ModelUpgrade {
 	return m.Upgrade
 }

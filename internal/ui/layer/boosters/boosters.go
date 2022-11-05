@@ -36,7 +36,7 @@ func (m *Model) Model() *layer.Model {
 
 func (m *Model) Tick() {
 	for _, upgrade := range m.layer.Upgrades {
-		if upgrade.GetModel().Enabled {
+		if upgrade.Model().Enabled {
 			upgrade.Tick()
 		}
 	}
@@ -46,7 +46,7 @@ func (m *Model) Tick() {
 func (m *Model) TickAmount() float64 {
 	amount := 0.0
 	for _, upgrade := range m.layer.Upgrades {
-		if upgrade.GetModel().Enabled {
+		if upgrade.Model().Enabled {
 			amount = amount + upgrade.TickAmount()
 		}
 	}
