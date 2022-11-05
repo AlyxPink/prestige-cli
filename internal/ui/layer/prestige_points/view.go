@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
 	"github.com/VictorBersy/prestige-cli/internal/ui/styles"
 	"github.com/charmbracelet/lipgloss"
 )
@@ -82,10 +82,10 @@ func (m *Model) listUpgrades() string {
 	s := strings.Builder{}
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Upgrades")))
 
-	for _, chunk := range upgrades.Chunk(m.layer.Upgrades, 4) {
+	for _, chunk := range layer.Chunk(m.layer.Upgrades, 4) {
 		s.WriteString(lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			upgrades.List(chunk)...,
+			layer.List(chunk)...,
 		))
 		s.WriteRune('\n')
 	}

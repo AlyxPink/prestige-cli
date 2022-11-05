@@ -5,54 +5,49 @@ import (
 	"math"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
-	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 )
 
 type reversePrestigeBoost struct {
-	Points         *points.Model
-	PrestigePoints *layer.Model
-	Upgrade        *upgrades.Model
+	Upgrade *layer.ModelUpgrade
 }
 
-func FetchReversePrestigeBoost(layer *layer.Model, points *points.Model) (upgrade upgrades.Upgrade) {
+func FetchReversePrestigeBoost(layers *layer.Layers) (upgrade layer.Upgrade) {
 	model := reversePrestigeBoost{
-		Points:         points,
-		PrestigePoints: layer,
-		Upgrade: &upgrades.Model{
+		Upgrade: &layer.ModelUpgrade{
 			Name:        "Reverse Prestige Boost",
 			Description: "Prestige Point gain is boosted by your Points.",
+			Layers:      layers,
 			Cost:        5_000,
 		},
 	}
 	return &model
 }
 
-func (model *reversePrestigeBoost) Buy() {
-	model.PrestigePoints.Amount = model.Upgrade.Buy(model.PrestigePoints.Amount)
+func (m *reversePrestigeBoost) Buy() {
+	m.Upgrade.Layers.PrestigePoints.Model().Amount = m.Upgrade.Buy(m.Upgrade.Layers.PrestigePoints.Model().Amount)
 }
 
-func (model *reversePrestigeBoost) Tick() {
-	model.Points.Amount = model.Points.Amount + model.TickAmount()/100
+func (m *reversePrestigeBoost) Tick() {
+	m.Upgrade.Layers.Points.Amount = m.Upgrade.Layers.Points.Amount + m.TickAmount()/100
 }
 
-func (model *reversePrestigeBoost) Effect() string {
-	return fmt.Sprintf("%.2fx", model.TickAmount())
+func (m *reversePrestigeBoost) Effect() string {
+	return fmt.Sprintf("%.2fx", m.TickAmount())
 }
 
-func (model *reversePrestigeBoost) Unlocked() bool {
-	return model.PrestigePoints.Upgrades[2].GetModel().Enabled
+func (m *reversePrestigeBoost) Unlocked() bool {
+	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[2].GetModel().Enabled
 }
 
-func (model *reversePrestigeBoost) TickAmount() float64 {
+func (m *reversePrestigeBoost) TickAmount() float64 {
 	var amount float64
-	amount = model.Points.Amount + 1
+	amount = m.Upgrade.Layers.Points.Amount + 1
 	amount = math.Log10(amount)
 	amount = math.Cbrt(amount)
 	amount = amount + 1
 	return amount
 }
 
-func (model *reversePrestigeBoost) GetModel() *upgrades.Model {
-	return model.Upgrade
+func (m *reversePrestigeBoost) GetModel() *layer.ModelUpgrade {
+	return m.Upgrade
 }

@@ -6,34 +6,31 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer/prestige_points/upgrade"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
-	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 type Model struct {
-	Points *points.Model
-	layer  *layer.Model
+	layer *layer.Model
 }
 
-func NewModel(id int, points *points.Model, ctx *context.ProgramContext) Model {
+func NewModel(id int, layers *layer.Layers, ctx *context.ProgramContext) Model {
 	m := Model{
-		Points: points,
 		layer: &layer.Model{
-			Id:   id,
-			Tier: 1,
-			Ctx:  ctx,
-			Name: "Prestige Points",
+			Id:     id,
+			Tier:   1,
+			Ctx:    ctx,
+			Name:   "Prestige Points",
+			Layers: layers,
 		},
 	}
 
-	m.layer.Upgrades = []upgrades.Upgrade{
-		upgrade.FetchBegin(m.layer, points),
-		upgrade.FetchPrestigeBoost(m.layer, points),
-		upgrade.FetchSelfSynergy(m.layer, points),
-		upgrade.FetchMorePrestige(m.layer, points),
-		upgrade.FetchUpgradePower(m.layer, points),
-		upgrade.FetchReversePrestigeBoost(m.layer, points),
+	m.layer.Upgrades = []layer.Upgrade{
+		upgrade.FetchBegin(layers),
+		upgrade.FetchPrestigeBoost(layers),
+		upgrade.FetchSelfSynergy(layers),
+		upgrade.FetchMorePrestige(layers),
+		upgrade.FetchUpgradePower(layers),
+		upgrade.FetchReversePrestigeBoost(layers),
 	}
 	return m
 }
@@ -74,14 +71,14 @@ func (m *Model) Prestige() {
 	if m.layer.Amount > m.layer.AmountBest {
 		m.layer.AmountBest = m.layer.Amount
 	}
-	m.Points.Amount = 0
+	m.layer.Layers.Points.Amount = 0
 }
 
 func (m *Model) PrestigeAmount() float64 {
-	if m.Points.Amount < m.PrestigeRequirement() {
+	if m.layer.Layers.Points.Amount < m.PrestigeRequirement() {
 		return 0
 	}
-	gain := m.Points.Amount / m.PrestigeRequirement()
+	gain := m.layer.Layers.Points.Amount / m.PrestigeRequirement()
 	gain = math.Pow(gain, 0.5)
 	gain = gain * m.GainMult()
 	gain = math.Pow(gain, m.GainExp())
@@ -109,7 +106,7 @@ func (m Model) Update(msg tea.Msg) (layer.Layer, tea.Cmd) {
 	return &m, cmd
 }
 
-func Fetch(id int, points *points.Model, ctx context.ProgramContext) (layer layer.Layer) {
-	layerModel := NewModel(id, points, &ctx)
+func Fetch(id int, layers *layer.Layers, ctx context.ProgramContext) (layer layer.Layer) {
+	layerModel := NewModel(id, layers, &ctx)
 	return &layerModel
 }

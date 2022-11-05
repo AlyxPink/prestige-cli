@@ -19,7 +19,6 @@ import (
 type (
 	tickMsg time.Time
 	Model   struct {
-		Points      *points.Model
 		Tick        constants.Tick
 		keys        utils.KeyMap
 		err         error
@@ -32,18 +31,23 @@ type (
 
 func NewModel() Model {
 	m := Model{
-		Points: points.Fetch(),
-		keys:   utils.Keys,
-		ctx:    context.ProgramContext{},
+		keys: utils.Keys,
+		ctx:  context.ProgramContext{},
 		Tick: constants.Tick{
 			Duration: time.Millisecond * 10,
 		},
 	}
 
+	layers := &layer.Layers{}
+	layers.Points = points.Fetch()
+	layers.PrestigePoints = prestige_points.Fetch(0, layers, m.ctx)
+	layers.Boosters = boosters.Fetch(1, layers, m.ctx)
+	layers.Generators = generators.Fetch(2, layers, m.ctx)
+
 	m.layers = []layer.Layer{
-		prestige_points.Fetch(0, m.Points, m.ctx),
-		boosters.Fetch(1, m.Points, m.ctx),
-		generators.Fetch(2, m.ctx),
+		layers.PrestigePoints,
+		layers.Boosters,
+		layers.Generators,
 	}
 	m.currLayer = m.layers[0]
 	m.currLayerId = 0

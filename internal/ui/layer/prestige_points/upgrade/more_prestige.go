@@ -2,48 +2,43 @@ package upgrade
 
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/upgrades"
-	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 )
 
 type morePrestige struct {
-	Points         *points.Model
-	PrestigePoints *layer.Model
-	Upgrade        *upgrades.Model
+	Upgrade *layer.ModelUpgrade
 }
 
-func FetchMorePrestige(layer *layer.Model, points *points.Model) (upgrade upgrades.Upgrade) {
+func FetchMorePrestige(layers *layer.Layers) (upgrade layer.Upgrade) {
 	model := morePrestige{
-		Points:         points,
-		PrestigePoints: layer,
-		Upgrade: &upgrades.Model{
+		Upgrade: &layer.ModelUpgrade{
 			Name:        "More Prestige",
 			Description: "Prestige Point gain is increased by 80%.",
+			Layers:      layers,
 			Cost:        20,
 		},
 	}
 	return &model
 }
 
-func (model *morePrestige) Buy() {
-	model.PrestigePoints.Amount = model.Upgrade.Buy(model.PrestigePoints.Amount)
+func (m *morePrestige) Buy() {
+	m.Upgrade.Layers.PrestigePoints.Model().Amount = m.Upgrade.Buy(m.Upgrade.Layers.PrestigePoints.Model().Amount)
 }
 
-func (model *morePrestige) Tick() {
+func (m *morePrestige) Tick() {
 }
 
-func (model *morePrestige) Effect() string {
+func (m *morePrestige) Effect() string {
 	return ""
 }
 
-func (model *morePrestige) Unlocked() bool {
-	return model.PrestigePoints.Upgrades[2].GetModel().Enabled
+func (m *morePrestige) Unlocked() bool {
+	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[2].GetModel().Enabled
 }
 
-func (model *morePrestige) TickAmount() float64 {
+func (m *morePrestige) TickAmount() float64 {
 	return 0
 }
 
-func (model *morePrestige) GetModel() *upgrades.Model {
-	return model.Upgrade
+func (m *morePrestige) GetModel() *layer.ModelUpgrade {
+	return m.Upgrade
 }

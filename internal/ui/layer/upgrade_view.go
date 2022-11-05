@@ -1,4 +1,4 @@
-package upgrades
+package layer
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func (m *Model) View(upgrade Upgrade) string {
+func (m *ModelUpgrade) View(upgrade Upgrade) string {
 	var available_effect, enabled_effect string
 
 	if upgrade.Effect() != "" {

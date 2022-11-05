@@ -1,11 +1,12 @@
-package upgrades
+package layer
 
-type Model struct {
+type ModelUpgrade struct {
 	Name        string
 	Description string
 	Amount      uint
 	Cost        float64
 	Enabled     bool
+	Layers      *Layers
 }
 
 type Upgrade interface {
@@ -17,10 +18,10 @@ type Upgrade interface {
 
 	Unlocked() bool
 
-	GetModel() *Model
+	GetModel() *ModelUpgrade
 }
 
-func (m *Model) Buy(currency float64) float64 {
+func (m *ModelUpgrade) Buy(currency float64) float64 {
 	if !m.Enabled && currency >= m.Cost {
 		m.Enabled = true
 		return currency - m.Cost

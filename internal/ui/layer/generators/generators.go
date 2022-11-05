@@ -10,13 +10,14 @@ type Model struct {
 	layer *layer.Model
 }
 
-func NewModel(id int, ctx *context.ProgramContext) Model {
+func NewModel(id int, layers *layer.Layers, ctx *context.ProgramContext) Model {
 	g := Model{
 		layer: &layer.Model{
-			Id:   id,
-			Tier: 2,
-			Ctx:  ctx,
-			Name: "Generators",
+			Id:     id,
+			Tier:   2,
+			Ctx:    ctx,
+			Name:   "Generators",
+			Layers: layers,
 		},
 	}
 
@@ -50,7 +51,7 @@ func (m Model) Update(msg tea.Msg) (layer.Layer, tea.Cmd) {
 	return &m, cmd
 }
 
-func Fetch(id int, ctx context.ProgramContext) (layer layer.Layer) {
-	layerModel := NewModel(id, &ctx)
+func Fetch(id int, layers *layer.Layers, ctx context.ProgramContext) (layer layer.Layer) {
+	layerModel := NewModel(id, layers, &ctx)
 	return &layerModel
 }
