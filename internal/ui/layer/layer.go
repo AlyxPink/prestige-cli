@@ -24,20 +24,12 @@ type Model struct {
 	dimensions constants.Dimensions
 }
 
-type Layers struct {
-	Points *points.Model
-
-	PrestigePoints Layer
-
-	Boosters   Layer
-	Generators Layer
-}
-
 type Layer interface {
 	Tick()
 	TickAmount() float64
 
-	prestigable
+	Prestige()
+	PrestigeAmount() float64
 
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	View() string
@@ -45,9 +37,13 @@ type Layer interface {
 	UpdateProgramContext(ctx *context.ProgramContext)
 }
 
-type prestigable interface {
-	Prestige()
-	PrestigeAmount() float64
+type Layers struct {
+	Points *points.Model
+
+	PrestigePoints Layer
+
+	Boosters   Layer
+	Generators Layer
 }
 
 type LayerMsg interface {
