@@ -52,7 +52,16 @@ func (m *Model) TickAmount() float64 {
 			amount = amount + upgrade.TickAmount()
 		}
 	}
-	amount = amount + (m.layer.Amount * 10)
+	if m.layer.Amount > 0 {
+		amount = amount + math.Pow(m.EffectBase(), 1)
+	}
+	return amount
+}
+
+func (m *Model) EffectBase() float64 {
+	amount := 2.0
+	amount = amount + m.layer.Amount
+	amount = math.Pow(amount, 1)
 	return amount
 }
 
@@ -91,6 +100,14 @@ func (m *Model) GainMult() float64 {
 
 func (m *Model) GainExp() float64 {
 	return 1
+}
+
+func (m *Model) Exponent() float64 {
+	return 1.25
+}
+
+func (m *Model) Base() float64 {
+	return 5
 }
 
 func (m Model) Update(msg tea.Msg) (layer.Layer, tea.Cmd) {
