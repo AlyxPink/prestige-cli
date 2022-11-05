@@ -144,7 +144,9 @@ func (m *Model) TickPerSecond() float64 {
 
 func (m *Model) tickAllLayers() {
 	for _, layer := range m.layers {
-		layer.Tick()
+		if layer.Unlocked() {
+			layer.Tick()
+		}
 	}
 }
 

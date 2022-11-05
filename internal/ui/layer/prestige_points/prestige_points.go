@@ -43,6 +43,10 @@ func (m *Model) Model() *layer.Model {
 	return m.layer
 }
 
+func (m *Model) Unlocked() bool {
+	return true
+}
+
 func (m *Model) Tick() {
 	for _, upgrade := range m.layer.Upgrades {
 		if upgrade.Model().Enabled {

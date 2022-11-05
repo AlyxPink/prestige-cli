@@ -31,6 +31,8 @@ type Layer interface {
 	Prestige()
 	PrestigeAmount() float64
 
+	Unlocked() bool
+
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	View() string
 	Model() *Model
