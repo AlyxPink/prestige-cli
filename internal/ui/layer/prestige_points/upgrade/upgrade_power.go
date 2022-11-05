@@ -36,7 +36,7 @@ func (m *upgradePower) Effect() string {
 }
 
 func (m *upgradePower) Unlocked() bool {
-	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[2].GetModel().Enabled
+	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[2].Model().Enabled
 }
 
 func (m *upgradePower) TickAmount() float64 {
@@ -46,6 +46,6 @@ func (m *upgradePower) TickAmount() float64 {
 	return amount
 }
 
-func (m *upgradePower) GetModel() *layer.ModelUpgrade {
+func (m *upgradePower) Model() *layer.ModelUpgrade {
 	return m.Upgrade
 }

@@ -51,7 +51,7 @@ func List(upgrades []Upgrade) []string {
 		if !upgrade.Unlocked() {
 			continue
 		}
-		block := upgrade.GetModel().View(upgrade)
+		block := upgrade.Model().View(upgrade)
 		s = append(s, block)
 	}
 	return s

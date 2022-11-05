@@ -40,6 +40,6 @@ func (m *begin) TickAmount() float64 {
 	return 1
 }
 
-func (m *begin) GetModel() *layer.ModelUpgrade {
+func (m *begin) Model() *layer.ModelUpgrade {
 	return m.Upgrade
 }

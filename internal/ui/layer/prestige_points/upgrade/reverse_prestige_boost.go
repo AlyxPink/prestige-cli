@@ -36,7 +36,7 @@ func (m *reversePrestigeBoost) Effect() string {
 }
 
 func (m *reversePrestigeBoost) Unlocked() bool {
-	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[2].GetModel().Enabled
+	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[2].Model().Enabled
 }
 
 func (m *reversePrestigeBoost) TickAmount() float64 {
@@ -48,6 +48,6 @@ func (m *reversePrestigeBoost) TickAmount() float64 {
 	return amount
 }
 
-func (m *reversePrestigeBoost) GetModel() *layer.ModelUpgrade {
+func (m *reversePrestigeBoost) Model() *layer.ModelUpgrade {
 	return m.Upgrade
 }

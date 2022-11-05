@@ -71,7 +71,7 @@ func (m *Model) ListUpgrades() []Upgrade {
 
 func (m *Model) ListUpgradeAvailable() bool {
 	for _, upgrade := range m.Upgrades {
-		if upgrade.Unlocked() && !upgrade.GetModel().Enabled {
+		if upgrade.Unlocked() && !upgrade.Model().Enabled {
 			return true
 		}
 	}
@@ -81,7 +81,7 @@ func (m *Model) ListUpgradeAvailable() bool {
 func (m *Model) ListUpgradeEnabled() []Upgrade {
 	var upgrades_enabled []Upgrade
 	for _, upgrade := range m.Upgrades {
-		if upgrade.GetModel().Enabled {
+		if upgrade.Model().Enabled {
 			upgrades_enabled = append(upgrades_enabled, upgrade)
 		}
 	}

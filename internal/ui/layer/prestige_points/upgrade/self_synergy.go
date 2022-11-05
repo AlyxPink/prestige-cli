@@ -36,7 +36,7 @@ func (m *selfSynergy) Effect() string {
 }
 
 func (m *selfSynergy) Unlocked() bool {
-	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[1].GetModel().Enabled
+	return m.Upgrade.Layers.PrestigePoints.Model().Upgrades[1].Model().Enabled
 }
 
 func (m *selfSynergy) TickAmount() float64 {
@@ -48,6 +48,6 @@ func (m *selfSynergy) TickAmount() float64 {
 	return amount
 }
 
-func (m *selfSynergy) GetModel() *layer.ModelUpgrade {
+func (m *selfSynergy) Model() *layer.ModelUpgrade {
 	return m.Upgrade
 }
