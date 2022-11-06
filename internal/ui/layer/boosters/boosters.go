@@ -5,6 +5,7 @@ import (
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/boosters/milestone"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -21,6 +22,11 @@ func NewModel(id int, layers *layer.Layers, ctx *context.ProgramContext) Model {
 			Name:   "Boosters",
 			Layers: layers,
 		},
+	}
+
+	m.layer.Milestones = []layer.Milestone{
+		milestone.Fetch8Boosters(layers),
+		milestone.Fetch15Boosters(layers),
 	}
 
 	return m
@@ -41,6 +47,9 @@ func (m *Model) Unlocked() bool {
 func (m *Model) Tick() {
 	for _, upgrade := range m.layer.Upgrades {
 		upgrade.Tick()
+	}
+	for _, milestone := range m.layer.Milestones {
+		milestone.Tick()
 	}
 	m.layer.Layers.Points.Amount = m.layer.Layers.Points.Amount + m.TickAmount()/100
 }

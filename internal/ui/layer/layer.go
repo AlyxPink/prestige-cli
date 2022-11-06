@@ -18,7 +18,8 @@ type Model struct {
 	AmountTotal float64
 	AmountBest  float64
 
-	Upgrades []Upgrade
+	Upgrades   []Upgrade
+	Milestones []Milestone
 
 	Ctx        *context.ProgramContext
 	dimensions constants.Dimensions

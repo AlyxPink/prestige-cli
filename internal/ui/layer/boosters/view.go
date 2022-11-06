@@ -80,18 +80,23 @@ func (m *Model) milestones() string {
 	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Milestones")))
 
 	milestones := strings.Builder{}
-	milestones.WriteString(fmt.Sprintln(styles.BoxStyleEnabled.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
-		fmt.Sprint(
-			fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render("8 boosters")),
-			fmt.Sprint(styles.SubtleMainText.Copy().Render("Keep Prestige Upgrades on reset.")),
-		),
-	)))
-	milestones.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
-		fmt.Sprint(
-			fmt.Sprintln(styles.MainText.Copy().Bold(true).Render("15 boosters")),
-			fmt.Sprint(styles.MainText.Copy().Render("You can buy max Boosters.")),
-		),
-	)))
+	for _, milestone := range m.layer.Milestones {
+		if milestone.Model().Reached {
+			milestones.WriteString(fmt.Sprintln(styles.BoxStyleEnabled.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
+				fmt.Sprint(
+					fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render(milestone.Model().Name)),
+					fmt.Sprint(styles.SubtleMainText.Copy().Render(milestone.Model().Description)),
+				),
+			)))
+		} else {
+			milestones.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
+				fmt.Sprint(
+					fmt.Sprintln(styles.MainText.Copy().Bold(true).Render(milestone.Model().Name)),
+					fmt.Sprint(styles.MainText.Copy().Render(milestone.Model().Description)),
+				),
+			)))
+		}
+	}
 
 	return lipgloss.NewStyle().
 		Width((m.layer.GetDimensions().Width / 12) * 4).
