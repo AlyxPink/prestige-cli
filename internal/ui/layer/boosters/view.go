@@ -29,7 +29,7 @@ func (m *Model) stats() string {
 	s1 := strings.Builder{}
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("You have:")))
 	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(2).Render(fmt.Sprintf("%.0f boosters", m.layer.Amount))))
-	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(4).Render("boosting Point generation by 00.00x")))
+	s1.WriteString(fmt.Sprintln(styles.MainText.Copy().MarginLeft(4).Render(fmt.Sprintf("boosting Point generation by %.2fx", m.TickAmount()))))
 	s2 := strings.Builder{}
 	s2.WriteString(fmt.Sprintln())
 	s2.WriteString(fmt.Sprintln(styles.MainText.Copy().Render(fmt.Sprintf("Your best boosters is %.0f", m.layer.AmountBest))))
