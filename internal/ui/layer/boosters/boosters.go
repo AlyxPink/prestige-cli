@@ -41,7 +41,7 @@ func (m *Model) Model() *layer.Model {
 }
 
 func (m *Model) Unlocked() bool {
-	return m.layer.Layers.PrestigePoints.Model().Amount >= 200
+	return m.layer.Layers.Points.Amount >= 200
 }
 
 func (m *Model) Tick() {
