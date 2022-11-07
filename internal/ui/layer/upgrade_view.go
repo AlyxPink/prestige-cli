@@ -11,32 +11,34 @@ func (m *ModelUpgrade) View(upgrade Upgrade) string {
 	var available_effect, enabled_effect string
 
 	if upgrade.Effect() != "" {
-		available_effect = fmt.Sprintln(
+		available_effect = fmt.Sprint(
 			fmt.Sprintln(),
 			fmt.Sprintln(styles.MainText.Copy().Render(fmt.Sprint("Current: ", upgrade.Effect()))),
 		)
-		enabled_effect = fmt.Sprintln(
+		enabled_effect = fmt.Sprint(
 			fmt.Sprintln(),
 			fmt.Sprintln(styles.SubtleMainText.Copy().Render(fmt.Sprint("Current: ", upgrade.Effect()))),
 		)
 	}
 
 	available := styles.UpgradeBoxAvailable.Copy().Align(lipgloss.Left).Render(
-		fmt.Sprintln(
+		fmt.Sprint(
 			fmt.Sprintln(styles.MainText.Copy().Bold(true).Render(m.Name)),
+			fmt.Sprintln(),
 			fmt.Sprintln(styles.MainText.Copy().Render(m.Description)),
 			available_effect,
 			fmt.Sprintln(),
-			fmt.Sprint(styles.MainText.Render(fmt.Sprintf("Cost: %.2f", m.Cost))),
+			fmt.Sprintln(styles.MainText.Render(fmt.Sprintf("Cost: %.2f", m.Cost))),
 		))
 
 	enabled := styles.UpgradeBoxEnabled.Copy().Align(lipgloss.Left).Render(
-		fmt.Sprintln(
+		fmt.Sprint(
 			fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render(m.Name)),
+			fmt.Sprintln(),
 			fmt.Sprintln(styles.SubtleMainText.Copy().Render(m.Description)),
 			enabled_effect,
 			fmt.Sprintln(),
-			fmt.Sprint(styles.SubtleMainText.Render(fmt.Sprintf("Cost: %.2f", m.Cost))),
+			fmt.Sprintln(styles.SubtleMainText.Render(fmt.Sprintf("Cost: %.2f", m.Cost))),
 		))
 
 	if m.Enabled {
