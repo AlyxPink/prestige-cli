@@ -36,6 +36,9 @@ func NewModel(id int, layers *layer.Layers, ctx *context.ProgramContext) Model {
 
 	m.layer.Achievements = []layer.Achievement{
 		achievement.FetchAllProgressGone(layers),
+		achievement.FetchPointHog(layers),
+		achievement.FetchPrestigeAllTheWay(layers),
+		achievement.FetchPrestigeExp2(layers),
 	}
 
 	return m
@@ -98,6 +101,9 @@ func (m *Model) GainMult() float64 {
 	mult := 1.0
 	if m.layer.Upgrades[3].Model().Enabled { // If "more_prestige" upgrade enabled
 		mult = mult * 1.8
+	}
+	if m.layer.Achievements[2].Model().Achieved { // If "Prestige all the Way" achievement achieved
+		mult = mult * 1.1
 	}
 	return mult
 }
