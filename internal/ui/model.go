@@ -156,7 +156,7 @@ func (m *Model) tickLayers() {
 		}
 		// Tick milestones
 		for _, milestone := range layer.Model().Milestones {
-			if milestone.Model().Enabled {
+			if milestone.Unlocked() {
 				milestone.Tick()
 			}
 		}
