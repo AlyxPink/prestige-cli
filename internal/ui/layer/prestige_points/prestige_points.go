@@ -5,6 +5,7 @@ import (
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/prestige_points/achievement"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer/prestige_points/upgrade"
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -32,6 +33,11 @@ func NewModel(id int, layers *layer.Layers, ctx *context.ProgramContext) Model {
 		upgrade.FetchUpgradePower(layers),
 		upgrade.FetchReversePrestigeBoost(layers),
 	}
+
+	m.layer.Achievements = []layer.Achievement{
+		achievement.FetchAllProgressGone(layers),
+	}
+
 	return m
 }
 
@@ -47,13 +53,7 @@ func (m *Model) Unlocked() bool {
 	return true
 }
 
-func (m *Model) Tick() {
-	for _, upgrade := range m.layer.Upgrades {
-		if upgrade.Model().Enabled {
-			upgrade.Tick()
-		}
-	}
-}
+func (m *Model) Tick() {}
 
 func (m *Model) TickAmount() float64 {
 	// Return 0.0 if nothing has been generated yet
