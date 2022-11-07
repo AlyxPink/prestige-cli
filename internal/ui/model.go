@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"strconv"
 	"time"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
@@ -73,10 +72,9 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.setCurrentLayer(nextLayer)
 
 		case key.Matches(msg, key.NewBinding(
-			key.WithKeys("f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12"),
+			key.WithKeys("1", "2", "3", "4", "5", "6", "7", "8", "9"),
 		)):
-			keyDigit, _ := strconv.Atoi(msg.String()[1:])
-			upgradeId := keyDigit - 1
+			upgradeId := int(msg.Runes[0]-'0') - 1
 			if len(m.currLayer.Model().ListUpgrades()) > upgradeId {
 				m.currLayer.Model().ListUpgrades()[upgradeId].Buy()
 			}
