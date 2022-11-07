@@ -4,7 +4,6 @@ type ModelMilestone struct {
 	Name                   string
 	Description            string
 	RequirementDescription string
-	Enabled                bool
 	Reached                bool
 	Layers                 *Layers
 }
