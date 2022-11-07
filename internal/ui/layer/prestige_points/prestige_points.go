@@ -56,11 +56,14 @@ func (m *Model) Tick() {
 }
 
 func (m *Model) TickAmount() float64 {
-	amount := 0.0
+	// Return 0.0 if nothing has been generated yet
+	if m.layer.AmountTotal == 0.0 {
+		return 0.0
+	}
+	amount := 1.0
 	for _, upgrade := range m.layer.Upgrades {
 		if upgrade.Model().Enabled {
 			amount = amount * upgrade.TickAmount()
-			amount = math.Max(amount, 1)
 		}
 	}
 	return amount
