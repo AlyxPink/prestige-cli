@@ -89,7 +89,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 
 	case tickMsg:
-		m.tickAllLayers()
+		m.tickLayers()
 		cmd = tea.Batch(tickCmd(m))
 
 	case initMsg:
@@ -142,10 +142,31 @@ func (m *Model) TickPerSecond() float64 {
 	return amount
 }
 
-func (m *Model) tickAllLayers() {
+func (m *Model) tickLayers() {
 	for _, layer := range m.layers {
-		if layer.Unlocked() {
-			layer.Tick()
+		// Tick only if layer has been unlocked
+		if !layer.Unlocked() {
+			return
+		}
+		// Tick layer
+		layer.Tick()
+		// Tick upgrades
+		for _, upgrade := range layer.Model().Upgrades {
+			if upgrade.Model().Enabled {
+				upgrade.Tick()
+			}
+		}
+		// Tick milestones
+		for _, milestone := range layer.Model().Milestones {
+			if milestone.Model().Enabled {
+				milestone.Tick()
+			}
+		}
+		// Tick achievements
+		for _, achievement := range layer.Model().Achievements {
+			if !achievement.Model().Achieved {
+				achievement.Tick()
+			}
 		}
 	}
 }

@@ -45,12 +45,6 @@ func (m *Model) Unlocked() bool {
 }
 
 func (m *Model) Tick() {
-	for _, upgrade := range m.layer.Upgrades {
-		upgrade.Tick()
-	}
-	for _, milestone := range m.layer.Milestones {
-		milestone.Tick()
-	}
 	m.layer.Layers.Points.Amount = m.layer.Layers.Points.Amount + m.TickAmount()/100
 }
 
