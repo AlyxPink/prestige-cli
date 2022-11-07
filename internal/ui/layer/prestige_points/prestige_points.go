@@ -56,8 +56,8 @@ func (m *Model) Unlocked() bool {
 func (m *Model) Tick() {}
 
 func (m *Model) TickAmount() float64 {
-	// Return 0.0 if nothing has been generated yet
-	if m.layer.AmountTotal == 0.0 {
+	// Return 0.0 if nothing is being generated
+	if !m.layer.Upgrades[0].Model().Enabled {
 		return 0.0
 	}
 	amount := 1.0
