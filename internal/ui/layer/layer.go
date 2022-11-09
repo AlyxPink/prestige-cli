@@ -38,8 +38,6 @@ type Layer interface {
 	Prestige()
 	PrestigeAmount() float64
 
-	Unlocked() bool
-
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	View() string
 	Model() *Model
@@ -72,6 +70,21 @@ func (m *Model) GetDimensions() constants.Dimensions {
 		Width:  m.Ctx.Width,
 		Height: m.Ctx.Height,
 	}
+}
+
+func (m *Model) CheckUnlock() bool {
+	// If unlocked, then return the value
+	if m.Unlocked {
+		return m.Unlocked
+	}
+	// Default value to start iterating
+	unlocked := true
+	for layer, req := range m.Required {
+		unlocked = unlocked && layer.Model().Amount > req
+	}
+	// Save the value to the model
+	m.Unlocked = unlocked
+	return unlocked
 }
 
 func (m *Model) SaveBestAmount() {
