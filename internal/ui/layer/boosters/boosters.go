@@ -21,7 +21,7 @@ func NewModel(id int, layers *layer.Layers, ctx *context.ProgramContext) Model {
 			Tier:     2,
 			Unlocked: false,
 			Required: map[layer.Layer]float64{
-				layers.Points: 15,
+				layers.Points: 200,
 			},
 			Layers: layers,
 			Ctx:    ctx,
