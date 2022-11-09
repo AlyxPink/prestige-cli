@@ -28,7 +28,7 @@ func (m *reversePrestigeBoost) Buy() {
 }
 
 func (m *reversePrestigeBoost) Tick() {
-	m.Upgrade.Layers.Points.Amount = m.Upgrade.Layers.Points.Amount + m.TickAmount()/100
+	m.Upgrade.Layers.Points.Model().Amount = m.Upgrade.Layers.Points.Model().Amount + m.TickAmount()/100
 }
 
 func (m *reversePrestigeBoost) Effect() string {
@@ -41,7 +41,7 @@ func (m *reversePrestigeBoost) Unlocked() bool {
 
 func (m *reversePrestigeBoost) TickAmount() float64 {
 	var amount float64
-	amount = m.Upgrade.Layers.Points.Amount + 1
+	amount = m.Upgrade.Layers.Points.Model().Amount + 1
 	amount = math.Log10(amount)
 	amount = math.Cbrt(amount)
 	amount = amount + 1

@@ -79,14 +79,14 @@ func (m *Model) Prestige() {
 	m.layer.Amount = m.layer.Amount + m.PrestigeAmount()
 	m.layer.AmountTotal = m.layer.AmountTotal + m.PrestigeAmount()
 	m.layer.SaveBestAmount()
-	m.layer.Layers.Points.Amount = 0
+	m.layer.Layers.Points.Model().Amount = 0
 }
 
 func (m *Model) PrestigeAmount() float64 {
-	if m.layer.Layers.Points.Amount < m.PrestigeRequirement() {
+	if m.layer.Layers.Points.Model().Amount < m.PrestigeRequirement() {
 		return 0
 	}
-	gain := m.layer.Layers.Points.Amount / m.PrestigeRequirement()
+	gain := m.layer.Layers.Points.Model().Amount / m.PrestigeRequirement()
 	gain = math.Pow(gain, 0.5)
 	gain = gain * m.GainMult()
 	gain = math.Pow(gain, m.GainExp())

@@ -28,7 +28,7 @@ func (m *upgradePower) Buy() {
 }
 
 func (m *upgradePower) Tick() {
-	m.Upgrade.Layers.Points.Amount = m.Upgrade.Layers.Points.Amount + m.TickAmount()/100
+	m.Upgrade.Layers.Points.Model().Amount = m.Upgrade.Layers.Points.Model().Amount + m.TickAmount()/100
 }
 
 func (m *upgradePower) Effect() string {
