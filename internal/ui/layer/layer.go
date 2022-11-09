@@ -10,11 +10,12 @@ import (
 )
 
 type Model struct {
-	Name string
-	Id   int
-	Tier int
+	Name     string
+	Id       int
+	Tier     int
+	Unlocked bool
 
-	Required map[float64]Layer
+	Required map[Layer]float64
 
 	Layers *Layers
 
@@ -81,7 +82,7 @@ func (m *Model) SaveBestAmount() {
 
 func (m *Model) ViewLocked() string {
 	s := strings.Builder{}
-	for req, layer := range m.Required {
+	for layer, req := range m.Required {
 		s.WriteString(fmt.Sprintf("Reach %.2f %s to unlock.", req, layer.Model().Name))
 		s.WriteString("\n")
 	}

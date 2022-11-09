@@ -18,7 +18,7 @@ func (m Model) View() string {
 	mainContent := ""
 	layerContent := ""
 
-	if m.currLayer.Unlocked() {
+	if m.currLayer.Model().Unlocked {
 		layerContent = m.currLayer.View()
 	} else {
 		layerContent = m.currLayer.Model().ViewLocked()
@@ -59,7 +59,7 @@ func (m Model) layerTitle(layer layer.Layer) string {
 	prestigeStatus := ""
 	upgradeStatus := ""
 	if layer.Model().Id == m.currLayerId {
-		if layer.Unlocked() {
+		if layer.Model().Unlocked {
 			titleStyle = styles.TierEnabled
 		} else {
 			titleStyle = styles.TierLocked

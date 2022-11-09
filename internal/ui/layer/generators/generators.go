@@ -13,11 +13,12 @@ type Model struct {
 func NewModel(id int, layers *layer.Layers, ctx *context.ProgramContext) Model {
 	g := Model{
 		layer: &layer.Model{
-			Name: "Generators",
-			Id:   id,
-			Tier: 2,
-			Required: map[float64]layer.Layer{
-				200: layers.Points,
+			Name:     "Generators",
+			Id:       id,
+			Tier:     2,
+			Unlocked: false,
+			Required: map[layer.Layer]float64{
+				layers.Points: 200,
 			},
 			Layers: layers,
 			Ctx:    ctx,
@@ -33,7 +34,7 @@ func (m *Model) Model() *layer.Model {
 
 func (m *Model) Unlocked() bool {
 	unlocked := true
-	for req, layer := range m.layer.Required {
+	for layer, req := range m.layer.Required {
 		unlocked = unlocked && layer.Model().Amount > req
 	}
 	return unlocked
