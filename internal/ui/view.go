@@ -16,20 +16,24 @@ func (m Model) View() string {
 
 	s := strings.Builder{}
 	mainContent := ""
+	layerContent := ""
 
-	if m.currLayer != nil {
-		mainContent = lipgloss.JoinHorizontal(
-			lipgloss.Top,
-			m.layersList(),
-			lipgloss.JoinVertical(
-				lipgloss.Top,
-				m.gameGoal(),
-				m.currLayer.View(),
-			),
-		)
+	if m.currLayer.Unlocked() {
+		layerContent = m.currLayer.View()
 	} else {
-		mainContent = fmt.Sprintln("No layers found")
+		layerContent = m.currLayer.Model().ViewLocked()
 	}
+
+	mainContent = lipgloss.JoinHorizontal(
+		lipgloss.Top,
+		m.layersList(),
+		lipgloss.JoinVertical(
+			lipgloss.Top,
+			m.gameGoal(),
+			layerContent,
+		),
+	)
+
 	s.WriteString(mainContent)
 	s.WriteString("\n")
 	return s.String()
@@ -55,7 +59,11 @@ func (m Model) layerTitle(layer layer.Layer) string {
 	prestigeStatus := ""
 	upgradeStatus := ""
 	if layer.Model().Id == m.currLayerId {
-		titleStyle = styles.TierEnabled
+		if layer.Unlocked() {
+			titleStyle = styles.TierEnabled
+		} else {
+			titleStyle = styles.TierLocked
+		}
 	}
 	if layer.PrestigeAmount() > 0 {
 		prestigeStatus = styles.PrestigeAvailable.Render(styles.DefaultGlyphs.PrestigeStatusAvailable)
