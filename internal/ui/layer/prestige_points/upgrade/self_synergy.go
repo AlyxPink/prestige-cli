@@ -28,7 +28,7 @@ func (m *selfSynergy) Buy() {
 }
 
 func (m *selfSynergy) Tick() {
-	m.Upgrade.Layers.Points.Amount = m.Upgrade.Layers.Points.Amount + m.TickAmount()/100
+	m.Upgrade.Layers.Points.Model().Amount = m.Upgrade.Layers.Points.Model().Amount + m.TickAmount()/100
 }
 
 func (m *selfSynergy) Effect() string {
@@ -41,7 +41,7 @@ func (m *selfSynergy) Unlocked() bool {
 
 func (m *selfSynergy) TickAmount() float64 {
 	var amount float64
-	amount = m.Upgrade.Layers.Points.Amount + 1
+	amount = m.Upgrade.Layers.Points.Model().Amount + 1
 	amount = math.Log10(amount)
 	amount = math.Pow(amount, 0.75)
 	amount = amount + 1

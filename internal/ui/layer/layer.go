@@ -3,7 +3,6 @@ package layer
 import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
-	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -42,7 +41,7 @@ type Layer interface {
 }
 
 type Layers struct {
-	Points *points.Model
+	Points Layer
 
 	PrestigePoints Layer
 

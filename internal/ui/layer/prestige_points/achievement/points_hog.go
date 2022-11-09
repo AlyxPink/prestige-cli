@@ -26,7 +26,7 @@ func (m *pointHog) Tick() {
 }
 
 func (m *pointHog) Done() bool {
-	return m.Model().Layers.Points.Amount >= 25
+	return m.Model().Layers.Points.Model().Amount >= 25
 }
 
 func (m *pointHog) Effect() {}

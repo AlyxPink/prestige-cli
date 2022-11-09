@@ -8,8 +8,8 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer/boosters"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer/generators"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer/prestige_points"
-	"github.com/VictorBersy/prestige-cli/internal/ui/points"
 	"github.com/VictorBersy/prestige-cli/internal/ui/utils"
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
@@ -38,7 +38,7 @@ func NewModel() Model {
 	}
 
 	layers := &layer.Layers{}
-	layers.Points = points.Fetch()
+	layers.Points = points.Fetch(-1, m.ctx)
 	layers.PrestigePoints = prestige_points.Fetch(0, layers, m.ctx)
 	layers.Boosters = boosters.Fetch(1, layers, m.ctx)
 	layers.Generators = generators.Fetch(2, layers, m.ctx)
@@ -75,12 +75,14 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			key.WithKeys("1", "2", "3", "4", "5", "6", "7", "8", "9"),
 		)):
 			upgradeId := int(msg.Runes[0]-'0') - 1
-			if len(m.currLayer.Model().ListUpgrades()) > upgradeId {
+			if m.currLayer.Unlocked() && len(m.currLayer.Model().ListUpgrades()) > upgradeId {
 				m.currLayer.Model().ListUpgrades()[upgradeId].Buy()
 			}
 
 		case key.Matches(msg, m.keys.Prestige):
-			m.currLayer.Prestige()
+			if m.currLayer.Unlocked() {
+				m.currLayer.Prestige()
+			}
 
 		case key.Matches(msg, m.keys.Quit):
 			cmd = tea.Quit
