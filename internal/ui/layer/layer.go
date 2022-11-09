@@ -1,6 +1,9 @@
 package layer
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	tea "github.com/charmbracelet/bubbletea"
@@ -10,6 +13,8 @@ type Model struct {
 	Name string
 	Id   int
 	Tier int
+
+	Required map[float64]Layer
 
 	Layers *Layers
 
@@ -72,6 +77,15 @@ func (m *Model) SaveBestAmount() {
 	if m.Amount > m.AmountBest {
 		m.AmountBest = m.Amount
 	}
+}
+
+func (m *Model) ViewLocked() string {
+	s := strings.Builder{}
+	for req, layer := range m.Required {
+		s.WriteString(fmt.Sprintf("Reach %.2f %s to unlock.", req, layer.Model().Name))
+		s.WriteString("\n")
+	}
+	return s.String()
 }
 
 func (m *Model) ListUpgrades() []Upgrade {

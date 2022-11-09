@@ -26,6 +26,10 @@ var (
 			Bold(true).
 			Padding(0, 1).
 			Background(highlight)
+	TierLocked = MainText.Copy().
+			Bold(true).
+			Padding(0, 1).
+			Background(disabled)
 
 	TierTitle = MainText.Copy().
 			MarginTop(1).
