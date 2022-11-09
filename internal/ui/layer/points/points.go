@@ -13,10 +13,11 @@ type Model struct {
 func NewModel(id int, ctx *context.ProgramContext) Model {
 	m := Model{
 		layer: &layer.Model{
-			Amount: 10,
-			Id:     id,
-			Ctx:    ctx,
-			Name:   "Points",
+			Name:     "Points",
+			Id:       id,
+			Amount:   10,
+			Unlocked: true,
+			Ctx:      ctx,
 		},
 	}
 

@@ -17,11 +17,12 @@ type Model struct {
 func NewModel(id int, layers *layer.Layers, ctx *context.ProgramContext) Model {
 	m := Model{
 		layer: &layer.Model{
-			Id:     id,
-			Tier:   1,
-			Ctx:    ctx,
-			Name:   "Prestige Points",
-			Layers: layers,
+			Name:     "Prestige Points",
+			Id:       id,
+			Tier:     1,
+			Unlocked: true,
+			Layers:   layers,
+			Ctx:      ctx,
 		},
 	}
 
