@@ -33,10 +33,17 @@ func (m *Model) Model() *layer.Model {
 }
 
 func (m *Model) Unlocked() bool {
+	// If unlocked, then return the value
+	if m.Model().Unlocked {
+		return m.Model().Unlocked
+	}
+	// Default value to start iterating
 	unlocked := true
 	for layer, req := range m.layer.Required {
 		unlocked = unlocked && layer.Model().Amount > req
 	}
+	// Save the value to the model
+	m.Model().Unlocked = unlocked
 	return unlocked
 }
 
