@@ -6,6 +6,7 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer/boosters/milestone"
+	upgrade "github.com/VictorBersy/prestige-cli/internal/ui/layer/boosters/upgrades"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -26,6 +27,10 @@ func NewModel(id int, layers *layer.Layers, ctx *context.ProgramContext) Model {
 			Layers: layers,
 			Ctx:    ctx,
 		},
+	}
+
+	m.layer.Upgrades = []layer.Upgrade{
+		upgrade.FetchBPCombo(layers),
 	}
 
 	m.layer.Milestones = []layer.Milestone{
@@ -87,6 +92,9 @@ func (m *Model) PrestigeAmount() float64 {
 	gain = math.Pow(gain, 0.5)
 	gain = gain * m.GainMult()
 	gain = math.Pow(gain, m.GainExp())
+	if !m.layer.Milestones[1].Model().Reached {
+		gain = math.Min(gain, 1.0)
+	}
 	return gain
 }
 
