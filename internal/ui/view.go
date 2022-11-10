@@ -65,12 +65,12 @@ func (m Model) layerDetails(layer layer.Layer) string {
 			titleStyle = styles.TierLocked
 		}
 	}
-	if layer.PrestigeAmount() > 0 {
+	if layer.Model().Unlocked && layer.PrestigeAmount() > 0 {
 		prestigeStatus = styles.PrestigeAvailable.Render(styles.DefaultGlyphs.PrestigeStatusAvailable)
 	} else {
 		prestigeStatus = styles.PrestigeUnavailable.Render(styles.DefaultGlyphs.PrestigeStatusUnavailable)
 	}
-	if layer.Model().ListUpgradeAvailable() {
+	if layer.Model().Unlocked && layer.Model().ListUpgradeAvailable() {
 		upgradeStatus = styles.UpgradeAvailable.Render(styles.DefaultGlyphs.UpgradeStatusAvailable)
 	} else {
 		upgradeStatus = styles.UpgradeUnavailable.Render(styles.DefaultGlyphs.UpgradeStatusUnavailable)
