@@ -47,14 +47,14 @@ func (m Model) layersList() string {
 			s.WriteString(fmt.Sprintln(m.tierTitle(layer)))
 			currTier = layer.Model().Tier
 		}
-		s.WriteString(m.layerTitle(layer))
+		s.WriteString(m.layerDetails(layer))
 	}
 	return lipgloss.NewStyle().
 		Width((m.ctx.ScreenWidth / 12) * 2).
 		Render(s.String())
 }
 
-func (m Model) layerTitle(layer layer.Layer) string {
+func (m Model) layerDetails(layer layer.Layer) string {
 	titleStyle := styles.TierDefault
 	prestigeStatus := ""
 	upgradeStatus := ""
@@ -75,7 +75,7 @@ func (m Model) layerTitle(layer layer.Layer) string {
 	} else {
 		upgradeStatus = styles.UpgradeUnavailable.Render(styles.DefaultGlyphs.UpgradeStatusUnavailable)
 	}
-	title := titleStyle.Copy().Render(layer.Model().Name)
+	title := titleStyle.Copy().Render(fmt.Sprintf("%s (%.0f)", layer.Model().Name, layer.Model().Amount))
 	return fmt.Sprintln(lipgloss.JoinHorizontal(lipgloss.Left, prestigeStatus, upgradeStatus, title))
 }
 
