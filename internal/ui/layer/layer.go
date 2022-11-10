@@ -10,33 +10,33 @@ import (
 )
 
 type Model struct {
-	Name     string
-	Id       int
-	Tier     int
-	Unlocked bool
+	Name string // Name of the layer
+	Id   int    // Unique ID of the layer
+	Tier int    // Tier of the layer
 
-	Required map[Layer]float64
+	Unlocked bool              // Has the layer been unlocked?
+	Required map[Layer]float64 // Required layers and amount to unlock it
 
-	Layers *Layers
+	Layers *Layers // Every layers used, to easily access them
 
-	Amount      float64
-	AmountTotal float64
-	AmountBest  float64
+	Amount      float64 // Current amount
+	AmountTotal float64 // Total amount generated
+	AmountBest  float64 // Best amount reached
 
-	Achievements []Achievement
-	Milestones   []Milestone
-	Upgrades     []Upgrade
+	Achievements []Achievement // All layer achievements
+	Milestones   []Milestone   // All layer milestones
+	Upgrades     []Upgrade     // All layer upgrades
 
-	Ctx        *context.ProgramContext
-	dimensions constants.Dimensions
+	Ctx        *context.ProgramContext // Program context
+	dimensions constants.Dimensions    // Dimensions used
 }
 
 type Layer interface {
-	Tick()
-	TickAmount() float64
+	Tick()               // Run on each tick
+	TickAmount() float64 // Amount generated on each tick
 
-	Prestige()
-	PrestigeAmount() float64
+	Prestige()               // Run when player wants to prestige the layer
+	PrestigeAmount() float64 // Amount generated when prestiged
 
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	View() string
