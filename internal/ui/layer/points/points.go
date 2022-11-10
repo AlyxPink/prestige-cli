@@ -34,6 +34,10 @@ func (m *Model) PrestigeAmount() float64                          { return 0.0 }
 func (m *Model) PrestigeRequirement() float64                     { return 0.0 }
 func (m *Model) View() string                                     { return "" }
 
+func (m *Model) Reset() {
+	m.layer.Amount = 0
+}
+
 func (m Model) Update(msg tea.Msg) (layer.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &m, cmd

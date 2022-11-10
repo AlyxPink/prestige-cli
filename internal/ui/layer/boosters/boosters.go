@@ -76,6 +76,7 @@ func (m *Model) Prestige() {
 	m.layer.AmountTotal = m.layer.AmountTotal + m.PrestigeAmount()
 	m.layer.SaveBestAmount()
 	m.layer.Layers.Points.Model().Amount = 0
+	m.Reset()
 }
 
 func (m *Model) PrestigeAmount() float64 {
@@ -108,6 +109,17 @@ func (m *Model) Exponent() float64 {
 
 func (m *Model) Base() float64 {
 	return 5
+}
+
+func (m *Model) Reset() {
+	m.layer.Layers.Points.Reset()
+	m.layer.Layers.PrestigePoints.Reset()
+	for _, upgrade := range m.layer.Upgrades {
+		upgrade.Model().Enabled = false
+	}
+	for _, milestone := range m.layer.Milestones {
+		milestone.Model().Reached = false
+	}
 }
 
 func (m Model) Update(msg tea.Msg) (layer.Layer, tea.Cmd) {

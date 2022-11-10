@@ -38,6 +38,8 @@ type Layer interface {
 	Prestige()               // Run when player wants to prestige the layer
 	PrestigeAmount() float64 // Amount generated when prestiged
 
+	Reset() // Called when the layer needs to be reseted
+
 	Update(msg tea.Msg) (Layer, tea.Cmd)
 	View() string
 	Model() *Model

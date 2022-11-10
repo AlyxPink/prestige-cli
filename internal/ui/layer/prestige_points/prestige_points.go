@@ -113,6 +113,13 @@ func (m *Model) GainExp() float64 {
 	return 1
 }
 
+func (m *Model) Reset() {
+	m.layer.Amount = 0
+	for _, upgrade := range m.layer.Upgrades {
+		upgrade.Model().Enabled = false
+	}
+}
+
 func (m Model) Update(msg tea.Msg) (layer.Layer, tea.Cmd) {
 	var cmd tea.Cmd
 	return &m, cmd
