@@ -44,10 +44,22 @@ func (m *Model) TickAmount() float64 {
 }
 
 func (m *Model) Prestige() {
+	m.Reset()
 }
 
 func (m *Model) PrestigeAmount() float64 {
 	return 10
+}
+
+func (m *Model) Reset() {
+	m.layer.Layers.Points.Reset()
+	m.layer.Layers.PrestigePoints.Reset()
+	for _, upgrade := range m.layer.Upgrades {
+		upgrade.Model().Enabled = false
+	}
+	for _, milestone := range m.layer.Milestones {
+		milestone.Model().Reached = false
+	}
 }
 
 func (m Model) Update(msg tea.Msg) (layer.Layer, tea.Cmd) {
