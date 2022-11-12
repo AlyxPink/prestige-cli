@@ -16,3 +16,4 @@ prestige-cli
 
 - [bubbletea by Charm](https://github.com/charmbracelet/bubbletea)
 - [lipgloss by Charm](https://github.com/charmbracelet/lipgloss)
+- [Prestige Tree by Jacorb90](https://github.com/Jacorb90/Prestige-Tree)
