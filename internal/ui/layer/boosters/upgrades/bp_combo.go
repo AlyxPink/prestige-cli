@@ -23,7 +23,7 @@ func FetchBPCombo(layers *layer.Layers) (upgrade layer.Upgrade) {
 }
 
 func (m *bpCombo) Buy() {
-	m.Upgrade.Buy(m.Upgrade.Layers.PrestigePoints.Model())
+	m.Upgrade.Buy(m.Upgrade.Layers.Boosters.Model())
 }
 
 func (m *bpCombo) Tick() {
