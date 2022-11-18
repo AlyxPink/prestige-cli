@@ -67,7 +67,7 @@ func (m *Model) TickAmount() float64 {
 	amount := 1.0
 	for _, upgrade := range m.layer.Upgrades {
 		if upgrade.Model().Enabled {
-			amount = amount * upgrade.TickAmount()
+			amount = amount * math.Max(1, upgrade.TickAmount())
 		}
 	}
 	return amount
@@ -100,11 +100,11 @@ func (m *Model) PrestigeRequirement() float64 {
 
 func (m *Model) GainMult() float64 {
 	mult := 1.0
-	if m.layer.Upgrades[3].Model().Enabled { // If "more_prestige" upgrade enabled
-		mult = mult * 1.8
-	}
 	if m.layer.Achievements[2].Model().Achieved { // If "Prestige all the Way" achievement achieved
 		mult = mult * 1.1
+	}
+	if m.layer.Upgrades[3].Model().Enabled { // If "more_prestige" upgrade enabled
+		mult = mult * 1.8
 	}
 	return mult
 }
