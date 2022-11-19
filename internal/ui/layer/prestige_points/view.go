@@ -19,8 +19,8 @@ func (m *Model) View() string {
 		),
 		lipgloss.JoinHorizontal(
 			lipgloss.Top,
-			m.listMilestones(),
 			m.listUpgrades(),
+			m.viewAchievements(),
 		),
 	)
 }
@@ -66,14 +66,36 @@ func (m *Model) viewPrestige() string {
 		)
 }
 
-func (m *Model) listMilestones() string {
+func (m *Model) viewAchievements() string {
+	s := strings.Builder{}
+	s.WriteString(fmt.Sprintln(styles.MainText.Copy().Bold(true).Underline(true).Render("Achievements")))
+
+	achievements := strings.Builder{}
+	for _, a := range m.layer.Achievements {
+		if a.Model().Achieved {
+			achievements.WriteString(fmt.Sprintln(styles.BoxStyleEnabled.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
+				fmt.Sprint(
+					fmt.Sprintln(styles.SubtleMainText.Copy().Bold(true).Render(a.Model().Name)),
+					fmt.Sprint(styles.SubtleMainText.Copy().Render(a.Model().Description)),
+				),
+			)))
+		} else {
+			achievements.WriteString(fmt.Sprintln(styles.BoxStyleUnAvailable.Copy().Width((m.layer.GetDimensions().Width / 12) * 3).Align(lipgloss.Left).Render(
+				fmt.Sprint(
+					fmt.Sprintln(styles.MainText.Copy().Bold(true).Render(a.Model().Name)),
+					fmt.Sprint(styles.MainText.Copy().Render(a.Model().Description)),
+				),
+			)))
+		}
+	}
+
 	return lipgloss.NewStyle().
 		Width((m.layer.GetDimensions().Width / 12) * 4).
 		Render(
 			lipgloss.JoinVertical(
 				lipgloss.Top,
-				"",
-				"",
+				s.String(),
+				achievements.String(),
 			),
 		)
 }

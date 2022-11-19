@@ -12,7 +12,7 @@ func FetchPrestigeAllTheWay(layers *layer.Layers) (Achievement layer.Achievement
 	model := prestigeAllTheWay{
 		Achievement: &layer.ModelAchievement{
 			Name:        "Prestige all the Way",
-			Description: "Purchase 3 Prestige Upgrades. Reward: Gain 10% more Prestige Points.",
+			Description: "Purchase 3 Prestige Upgrades. \nReward: Gain 10% more Prestige Points.",
 			Layers:      layers,
 		},
 	}
