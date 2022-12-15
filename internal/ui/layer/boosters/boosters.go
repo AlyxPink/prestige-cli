@@ -6,7 +6,7 @@ import (
 	"github.com/VictorBersy/prestige-cli/internal/ui/context"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer/boosters/milestone"
-	upgrade "github.com/VictorBersy/prestige-cli/internal/ui/layer/boosters/upgrades"
+	"github.com/VictorBersy/prestige-cli/internal/ui/layer/boosters/upgrade"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
