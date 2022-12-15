@@ -44,8 +44,3 @@ func (m *boostTheBoost) TickAmount() float64 {
 func (m *boostTheBoost) Model() *layer.ModelUpgrade {
 	return m.Upgrade
 }
-
-// 	title: "Boost the Boost",
-// 	description() { return "<b>Prestige Boost</b> is raised to the power of 1.5." },
-// 	unlocked() { return player.g.best.gte(10) },
-// },
