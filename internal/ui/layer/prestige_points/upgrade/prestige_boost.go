@@ -40,7 +40,14 @@ func (m *prestigeBoost) Unlocked() bool {
 }
 
 func (m *prestigeBoost) TickAmount() float64 {
-	return math.Pow(m.Upgrade.Layers.PrestigePoints.Model().Amount+2, 0.5)
+	var amount float64
+	amount = m.Upgrade.Layers.PrestigePoints.Model().Amount
+	amount = amount + 2
+	amount = math.Pow(amount, 0.5)
+	if m.Upgrade.Layers.Generators.Model().Upgrades[3].Model().Enabled { // Boost the Boost
+		amount = math.Pow(amount, 1.5)
+	}
+	return amount
 }
 
 func (m *prestigeBoost) Model() *layer.ModelUpgrade {
