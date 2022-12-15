@@ -1,6 +1,7 @@
 package upgrade
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
@@ -31,7 +32,7 @@ func (m *bpCombo) Tick() {
 }
 
 func (m *bpCombo) Effect() string {
-	return ""
+	return fmt.Sprintf("%.2fx", m.TickAmount())
 }
 
 func (m *bpCombo) Unlocked() bool {
