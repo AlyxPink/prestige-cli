@@ -26,7 +26,7 @@ func (m *eight_boosters) Tick() {
 }
 
 func (m *eight_boosters) Done() bool {
-	return m.Milestone.Layers.Boosters.Model().Amount >= 8
+	return m.Milestone.Layers.Boosters.Model().AmountBest >= 8
 }
 
 func (m *eight_boosters) Unlocked() bool {
