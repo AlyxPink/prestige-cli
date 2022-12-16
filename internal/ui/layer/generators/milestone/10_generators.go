@@ -11,7 +11,7 @@ type ten_generators struct {
 func Fetch10Generators(layers *layer.Layers) (milestone layer.Milestone) {
 	model := ten_generators{
 		Milestone: &layer.ModelMilestone{
-			Name:        "8 Generators",
+			Name:        "10 Generators",
 			Description: "You gain 100% of Prestige Point gain every second.",
 			Layers:      layers,
 		},
