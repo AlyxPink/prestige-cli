@@ -11,7 +11,7 @@ type fifteen_generators struct {
 func Fetch15Generators(layers *layer.Layers) (milestone layer.Milestone) {
 	model := fifteen_generators{
 		Milestone: &layer.ModelMilestone{
-			Name:        "8 Generators",
+			Name:        "15 Generators",
 			Description: "You can buy max Generators.",
 			Layers:      layers,
 		},
