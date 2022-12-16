@@ -104,10 +104,6 @@ func (m *Model) ViewLocked() string {
 	return s.String()
 }
 
-func (m *Model) ListUpgrades() []Upgrade {
-	return m.Upgrades
-}
-
 func (m *Model) ListUpgradeAvailable() bool {
 	for _, upgrade := range m.Upgrades {
 		if upgrade.Unlocked() && !upgrade.Model().Enabled {

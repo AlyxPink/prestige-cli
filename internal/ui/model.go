@@ -75,8 +75,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			key.WithKeys("1", "2", "3", "4", "5", "6", "7", "8", "9"),
 		)):
 			upgradeId := int(msg.Runes[0]-'0') - 1
-			if m.currLayer.Model().Unlocked && len(m.currLayer.Model().ListUpgrades()) > upgradeId {
-				m.currLayer.Model().ListUpgrades()[upgradeId].Buy()
+			if m.currLayer.Model().Unlocked && len(m.currLayer.Model().Upgrades) > upgradeId {
+				m.currLayer.Model().Upgrades[upgradeId].Buy()
 			}
 
 		case key.Matches(msg, m.keys.Prestige):
