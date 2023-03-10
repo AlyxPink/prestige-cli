@@ -11,9 +11,9 @@ require (
 require (
 	github.com/containerd/console v1.0.3 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
-	github.com/muesli/ansi v0.0.0-20211031195517-c9f0611b6c70 // indirect
+	github.com/muesli/ansi v0.0.0-20230307104941-78d3738a59f2 // indirect
 	github.com/muesli/cancelreader v0.2.2 // indirect
-	golang.org/x/text v0.3.8 // indirect
+	golang.org/x/text v0.8.0 // indirect
 )
 
 require (
@@ -23,8 +23,8 @@ require (
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/muesli/reflow v0.3.0 // indirect
 	github.com/muesli/termenv v0.15.1 // indirect
-	github.com/rivo/uniseg v0.2.0 // indirect
+	github.com/rivo/uniseg v0.4.4 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.6.0 // indirect
-	golang.org/x/term v0.0.0-20220722155259-a9ba230a4035 // indirect
+	golang.org/x/term v0.6.0 // indirect
 )
