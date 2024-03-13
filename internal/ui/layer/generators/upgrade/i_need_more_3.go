@@ -3,7 +3,7 @@ package upgrade
 import (
 	"fmt"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer"
 )
 
 type iNeedMore3 struct {

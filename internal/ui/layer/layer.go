@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
-	"github.com/VictorBersy/prestige-cli/internal/ui/context"
+	"github.com/AlyxPink/prestige-cli/internal/ui/constants"
+	"github.com/AlyxPink/prestige-cli/internal/ui/context"
 	tea "github.com/charmbracelet/bubbletea"
 )
 

@@ -3,10 +3,10 @@ package generators
 import (
 	"math"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui/context"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/generators/milestone"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/generators/upgrade"
+	"github.com/AlyxPink/prestige-cli/internal/ui/context"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer/generators/milestone"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer/generators/upgrade"
 	tea "github.com/charmbracelet/bubbletea"
 )
 

@@ -1,4 +1,4 @@
-module github.com/VictorBersy/prestige-cli
+module github.com/AlyxPink/prestige-cli
 
 go 1.19
 

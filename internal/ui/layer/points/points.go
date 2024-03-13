@@ -1,8 +1,8 @@
 package points
 
 import (
-	"github.com/VictorBersy/prestige-cli/internal/ui/context"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
+	"github.com/AlyxPink/prestige-cli/internal/ui/context"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer"
 	tea "github.com/charmbracelet/bubbletea"
 )
 

@@ -3,14 +3,14 @@ package ui
 import (
 	"time"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui/constants"
-	"github.com/VictorBersy/prestige-cli/internal/ui/context"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/boosters"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/generators"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/points"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/prestige_points"
-	"github.com/VictorBersy/prestige-cli/internal/ui/utils"
+	"github.com/AlyxPink/prestige-cli/internal/ui/constants"
+	"github.com/AlyxPink/prestige-cli/internal/ui/context"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer/boosters"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer/generators"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer/points"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer/prestige_points"
+	"github.com/AlyxPink/prestige-cli/internal/ui/utils"
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
 )

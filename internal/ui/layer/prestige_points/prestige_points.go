@@ -3,10 +3,10 @@ package prestige_points
 import (
 	"math"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui/context"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/prestige_points/achievement"
-	"github.com/VictorBersy/prestige-cli/internal/ui/layer/prestige_points/upgrade"
+	"github.com/AlyxPink/prestige-cli/internal/ui/context"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer/prestige_points/achievement"
+	"github.com/AlyxPink/prestige-cli/internal/ui/layer/prestige_points/upgrade"
 	tea "github.com/charmbracelet/bubbletea"
 )
 

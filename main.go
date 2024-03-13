@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui"
+	"github.com/AlyxPink/prestige-cli/internal/ui"
 	tea "github.com/charmbracelet/bubbletea"
 )
 

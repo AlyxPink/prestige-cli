@@ -3,7 +3,7 @@ package layer
 import (
 	"fmt"
 
-	"github.com/VictorBersy/prestige-cli/internal/ui/styles"
+	"github.com/AlyxPink/prestige-cli/internal/ui/styles"
 	"github.com/charmbracelet/lipgloss"
 )
 

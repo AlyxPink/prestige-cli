@@ -14,7 +14,7 @@ I was looking for a project to learn Golang and was excited about `bubbletea`, s
 
 ### Go
 ```console
-go install github.com/VictorBersy/prestige-cli@latest
+go install github.com/AlyxPink/prestige-cli@latest
 prestige-cli
 ```
 
